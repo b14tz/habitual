@@ -53,7 +53,7 @@ export default function HabitList({}: Props) {
 
     const renderList = () => {
         return Object.keys(list).map((obj) => {
-            <li className="test-white-400" key={obj}></li>
+            <li className="test-white-400" key={obj}>Testing</li>
             console.log(obj)
         })  
     }
