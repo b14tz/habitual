@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --off-white: #ece1e1;
+    --off-black: #1f2937;
+}
+html {
+    background-color: var(--off-white);
+}
+
+html.dark {
+    background-color: var(--off-black);
+}
