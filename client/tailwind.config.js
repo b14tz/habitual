@@ -4,18 +4,19 @@ export default {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    colors: {
-      'blue': '#1fb6ff',
-      'purple': '#7e5bef',
-      'pink': '#ff49db',
-      'orange': '#ff7849',
-      'green': '#13ce66',
-      'yellow': '#ffc82c',
-      'gray-dark': '#273444',
-      'gray': '#8492a6',
-      'gray-light': '#d3dce6',
+    extend: {
+      colors: {
+        'red-1': '#FF6B6B',
+        'yellow-1': '#FFD93D',
+        'green-1': '#6BCB77',
+        'blue-1': '#4D96FF',
+        'white-1': '#ece1e1',
+        'white-2': '#f6f1f1',
+        'black-1': '#1f2937',
+        'black-2': '#353e4b',
+        'black-3': '#787e87',
+      },
     },
-    extend: {},
   },
   plugins: [],
   darkMode: "class"
