@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
+import {Routes, Route, Navigate } from 'react-router-dom'
 import Nav from './components/Nav'
-import Background from './components/Background'
+import Home from './pages/Home'
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(true)
@@ -21,12 +22,19 @@ export default function App() {
   }
 
   return (
-    <div className={`h-screen w-screen dark:text-white dark:bg-black`}>
-      <Nav
-        darkMode={darkMode} 
-        toggleDarkMode={toggleDarkMode} 
-      />
-      <Background/>
-    </div>
+    <>
+      <div className={`h-screen w-screen dark:text-white dark:bg-black`}>
+        <Nav
+          darkMode={darkMode} 
+          toggleDarkMode={toggleDarkMode} 
+        />
+
+        <Routes>
+          <Route path="/" element={<Navigate to="home"/>}/>
+          <Route path="home" element={<Home/>}/>
+        </Routes>
+
+      </div>
+    </>
   )
 }
