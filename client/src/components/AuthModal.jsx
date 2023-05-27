@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../lib/firebase"
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { useAuth } from '../contexts/authContext';
+import { auth } from "../lib/firebase"
 
 export default function AuthModal(props) {
 const [name, setName] = useState("")
@@ -9,6 +9,8 @@ const [email, setEmail] = useState("")
 const [password, setPassword] = useState("")
 const [passwordConfirmed, setPasswordConfirmed] = useState("")
 const [hasAccount, setHasAccount] = useState(false)
+
+const { currentUser, login, signup } = useAuth();
 
 const handleLogin = () => {
     console.log("put login logic here")
@@ -31,10 +33,44 @@ const handleSignUp = () => {
                 </button>
             </div>
             <form className="w-[90%] flex flex-col text-base my-6" onSubmit={handleLogin}>
-                { hasAccount ? null : <input className="mb-3 bg-transparent hover:bg-transparent border-b-2 border-black-1 dark:border-white-1 focus:outline-none" label="name" type="text" placeholder='whatever you want to go by'></input> }
-                <input className="mb-3 bg-transparent hover:bg-transparent border-b-2 border-black-1 dark:border-white-1 focus:outline-none" label="email" type="email" placeholder='email'></input>
-                <input className="mb-3 bg-transparent hover:bg-transparent border-b-2 border-black-1 dark:border-white-1 focus:outline-none" label="password" type="password" placeholder='password'></input>
-                { hasAccount ? null : <input className="mb-3 bg-transparent hover:bg-transparent border-b-2 border-black-1 dark:border-white-1 focus:outline-none" label="password-confirmed" type="password" placeholder='password confirmed'></input> }
+                { 
+                    hasAccount ? 
+                    null 
+                    : 
+                    <input 
+                        className="mb-3 bg-transparent hover:bg-transparent border-b-2 border-black-1 dark:border-white-1 focus:outline-none" 
+                        label="name" 
+                        type="text" 
+                        placeholder="Whatever you'd like to go by"
+                        onChange={(event) => setName(event.target.value)}>
+                    </input> 
+                }
+                <input 
+                    className="mb-3 bg-transparent hover:bg-transparent border-b-2 border-black-1 dark:border-white-1 focus:outline-none" 
+                    label="email" 
+                    type="email" 
+                    placeholder='Email'
+                    onChange={(event) => setEmail(event.target.value)}>
+                </input>
+                <input 
+                    className="mb-3 bg-transparent hover:bg-transparent border-b-2 border-black-1 dark:border-white-1 focus:outline-none" 
+                    label="password" 
+                    type="password" 
+                    placeholder='Password'
+                    onChange={(event) => setPassword(event.target.value)}>
+                </input>
+                { 
+                    hasAccount ? 
+                    null 
+                    : 
+                    <input 
+                        className="mb-3 bg-transparent hover:bg-transparent border-b-2 border-black-1 dark:border-white-1 focus:outline-none" 
+                        label="password-confirmed" 
+                        type="password" 
+                        placeholder='Confirmed Password'
+                        onChange={(event) => setPasswordConfirmed(event.target.value)}>
+                    </input> 
+                }
             </form>
             {
                 hasAccount ?
