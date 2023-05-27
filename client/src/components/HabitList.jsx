@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import HabitListItem from './HabitListItem';
 
 export default function HabitList(props) {
-    const [editorOpen, setEditorOpen] = useState(true)
-    const [list, setList] = useState(props.tasks);
+    const [editorOpen, setEditorOpen] = useState(false)
     const [newItem, setNewItem] = useState({
         title: "",
         status: false,
@@ -18,22 +17,21 @@ export default function HabitList(props) {
 
     const handleAddNewItem = (event) => {
         if(newItem.title !== ""){
-            let temp = list
+            let temp = props.habits
             temp.push(newItem)
-            setList(temp)
             event.target.value = ""
             setNewItem({
                 title: "",
                 status: false,
                 color: "",
             })
-            props.setTasks([...temp])
+            props.setHabits([...temp])
         }
     }
 
     function renderList() {
-        return Object.keys(list).map((obj) => (
-            <li key={obj}><HabitListItem {...list[obj]} id={obj} toggleCompletion={props.toggleCompletion}/></li>
+        return Object.keys(props.habits).map((obj) => (
+            <li key={obj}><HabitListItem {...props.habits[obj]} id={obj} toggleCompletion={props.toggleCompletion}/></li>
         ))  
     }
 

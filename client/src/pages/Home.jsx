@@ -7,7 +7,7 @@ export default function Home(props) {
         <section className="flex flex-col items-center">
             <h1 className="text-6xl mb-1">Daily Habit Tracker</h1>
             <p className="mb-4">An easy-to-use system to keep you on track</p>
-            <HabitList tasks={props.tasks} setTasks={props.setTasks} toggleCompletion={props.toggleCompletion}/>
+            <HabitList habits={props.habits} setHabits={props.setHabits} toggleCompletion={props.toggleCompletion}/>
         </section>
     </div>
   )

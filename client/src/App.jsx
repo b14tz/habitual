@@ -5,7 +5,7 @@ import Home from './pages/Home'
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(true)
-  const [tasks, setTasks] = useState([
+  const [habits, setHabits] = useState([
     {
         title:"leetcode",
         status:true,
@@ -30,7 +30,7 @@ export default function App() {
       setDarkMode(false)
       document.documentElement.classList.remove('dark')
     }
-  },[darkMode, tasks])
+  },[darkMode, habits])
 
   function toggleDarkMode() {
     setDarkMode(!darkMode)
@@ -38,26 +38,26 @@ export default function App() {
   }
 
   function toggleCompletion(id) {
-    setTasks(prevTasks => {
-      const updatedTasks = [...prevTasks]; // Create a copy of the tasks array
-      updatedTasks[id] = { ...updatedTasks[id] }; // Create a copy of the specific task object
-      updatedTasks[id].status = !updatedTasks[id].status; // Update the status of the task
-      return updatedTasks; // Return the updated tasks array
+    setHabits(prevHabits => {
+      const updatedHabits = [...prevHabits]; // Create a copy of the habits array
+      updatedHabits[id] = { ...updatedHabits[id] }; // Create a copy of the specific habit object
+      updatedHabits[id].status = !updatedHabits[id].status; // Update the status of the task
+      return updatedHabits; // Return the updated habits array
     });
   }
 
   return (
     <>
       <div className={`h-full w-full text-xl text-black-1 bg-white-1 dark:text-white-1 dark:bg-black-1`}>
+      {console.log(habits)}
         <Nav
           darkMode={darkMode} 
           toggleDarkMode={toggleDarkMode} 
-          tasks={tasks}
+          habits={habits}
         />
         
         <Routes>
-          <Route path="/" element={<Navigate to="home"/>}/>
-          <Route path="home" element={<Home tasks={tasks} setTasks={setTasks} toggleCompletion={toggleCompletion}/>}/>
+          <Route path="/" element={<Home habits={habits} setHabits={setHabits} toggleCompletion={toggleCompletion}/>}/>
         </Routes>
 
       </div>
