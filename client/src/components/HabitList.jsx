@@ -47,7 +47,7 @@ export default function HabitList(props) {
                     const input = document.getElementById('text-input');
                     const value = input.value;
                     if (input !== null && value !== undefined){
-                        input.style.width = value.length * 0.6 + 1 > 12 ? (value.length * 0.7 + 3) + 'ch' : '15ch';
+                        input.style.width = value.length * 0.6 + 1 > 12 ? (value.length * 0.75 + 3) + 'ch' : '16ch';
                     }
                 }}      
                 onChange={(event) => 

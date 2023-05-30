@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useAuth } from '../contexts/authContext';
-import { auth } from "../lib/firebase"
+import { createUser } from '../interfaces/userInterface';
+import { db } from '../lib/firebase';
+import { doc, setDoc } from "firebase/firestore";
 
 export default function AuthModal(props) {
 const [name, setName] = useState("")
@@ -9,15 +11,38 @@ const [email, setEmail] = useState("")
 const [password, setPassword] = useState("")
 const [passwordConfirmed, setPasswordConfirmed] = useState("")
 const [hasAccount, setHasAccount] = useState(false)
+const [error, setError] = useState("")
+const [loading, setLoading] = useState(false)
 
 const { currentUser, login, signup } = useAuth();
 
-const handleLogin = () => {
+const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      hasAccount ? handleLogin() : handleSignUp()
+    }
+};
+
+const handleLogin = async () => {
     console.log("put login logic here")
+    createCollection()
 }
 
-const handleSignUp = () => {
-    console.log("put signup logic here")
+const handleSignUp = async () => {
+    try {
+        setError("")
+        setLoading(true)
+        const { user } = await signup(email, password)
+        await setDoc(doc(db, "User", user.uid)), {
+            name: 'name',
+            email: 'email',
+            accountBirthday: new Date(),
+        }
+    }
+    catch (e) {
+        console.log(e)
+        setError("Failed to register")
+    }
+    //await createUser(user.uid, name, email)
 }
 
 
@@ -32,7 +57,10 @@ const handleSignUp = () => {
                     <XMarkIcon className="h-10 w-10 bg-white-1 dark:bg-black-1 rounded-full p-2 text-black dark:text-white-1" />
                 </button>
             </div>
-            <form className="w-[90%] flex flex-col text-base my-6" onSubmit={handleLogin}>
+            <div
+                className="w-[90%] flex flex-col text-base my-6" 
+                onKeyDown={handleKeyPress}
+            >
                 { 
                     hasAccount ? 
                     null 
@@ -71,7 +99,7 @@ const handleSignUp = () => {
                         onChange={(event) => setPasswordConfirmed(event.target.value)}>
                     </input> 
                 }
-            </form>
+            </div>
             {
                 hasAccount ?
                 <div className="w-[90%] flex flex-row justify-between">
