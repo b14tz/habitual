@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import HabitListItem from './HabitListItem';
+import { addHabit } from '../interfaces/userInterface';
+import { auth } from '../lib/firebase';
 
 export default function HabitList(props) {
     const [editorOpen, setEditorOpen] = useState(false)
@@ -19,6 +21,7 @@ export default function HabitList(props) {
         if(newItem.title !== ""){
             let temp = props.habits
             temp.push(newItem)
+            addHabit(auth.currentUser.uid, newItem)
             event.target.value = ""
             setNewItem({
                 title: "",
@@ -39,7 +42,7 @@ export default function HabitList(props) {
         <>
             <input 
                 id="text-input"
-                className='text-center focus:outline-none border-b-2 bg-transparent border-black-1 dark:border-white-1 placeholder:text-black-3'
+                className='text-center focus:outline-none border-b-2 bg-transparent border-black-1 dark:border-white-1 placeholder:text-black-3 mb-2'
                 type="text"
                 placeholder='enter a habit here'
                 onKeyDown={handleKeyPress}

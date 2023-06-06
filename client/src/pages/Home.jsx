@@ -1,5 +1,6 @@
 import React from 'react'
 import HabitList from '../components/HabitList'
+import HabitGrid from '../components/HabitGrid'
 
 export default function Home(props) {
   return (
@@ -8,6 +9,7 @@ export default function Home(props) {
             <h1 className="text-6xl mb-1">Daily Habit Tracker</h1>
             <p className="mb-4">An easy-to-use system to keep you on track</p>
             <HabitList habits={props.habits} setHabits={props.setHabits} toggleCompletion={props.toggleCompletion}/>
+            <HabitGrid/>
         </section>
     </div>
   )

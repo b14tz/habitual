@@ -2,26 +2,32 @@ import { useEffect, useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Nav from './components/Nav'
 import Home from './pages/Home'
+import { getUserData, getUserCurrentHabits } from './interfaces/userInterface'
+import { auth } from './lib/firebase'
+
+let data = [
+  {
+      title:"leetcode",
+      status:true,
+      color:"blue-1"
+  },
+  {
+      title:"workout",
+      status:false,
+      color:"green-1"
+  },
+  {
+      title:"read",
+      status:false,
+      color:"yellow-1"
+  }
+]
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(true)
-  const [habits, setHabits] = useState([
-    {
-        title:"leetcode",
-        status:true,
-        color:"blue-1"
-    },
-    {
-        title:"workout",
-        status:false,
-        color:"green-1"
-    },
-    {
-        title:"read",
-        status:false,
-        color:"yellow-1"
-    }
-  ])
+  const [loginStatus, setLoginStatus] = useState(false)
+  const [name, setName] = useState("")
+  const [habits, setHabits] = useState([])
   
   useEffect(() => {
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -30,7 +36,21 @@ export default function App() {
       setDarkMode(false)
       document.documentElement.classList.remove('dark')
     }
-  },[darkMode, habits])
+
+    if(auth.currentUser){
+      setLoginStatus(true)
+      getUserData(auth.currentUser.uid).then(data => {
+        setName(data.name.charAt(0).toUpperCase() + data.name.slice(1))
+      })
+
+      getUserCurrentHabits(auth.currentUser.uid).then(data => {
+        setHabits(data)
+      })
+    }
+
+
+    
+  },[darkMode])
 
   function toggleDarkMode() {
     setDarkMode(!darkMode)
@@ -49,15 +69,27 @@ export default function App() {
   return (
     <>
       <div className={`h-full w-full text-xl text-black-1 bg-white-1 dark:text-white-1 dark:bg-black-1`}>
-      {console.log(habits)}
         <Nav
           darkMode={darkMode} 
           toggleDarkMode={toggleDarkMode} 
           habits={habits}
+          loginStatus={loginStatus}
+          name={name}
+          setName={setName}
         />
         
         <Routes>
-          <Route path="/" element={<Home habits={habits} setHabits={setHabits} toggleCompletion={toggleCompletion}/>}/>
+          <Route 
+            path="/" 
+            element={
+              <Home 
+                habits={habits} 
+                setHabits={setHabits} 
+                toggleCompletion={toggleCompletion}
+                loginStatus={loginStatus}
+              />
+            }
+          />
         </Routes>
 
       </div>

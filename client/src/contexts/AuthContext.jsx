@@ -34,7 +34,12 @@ export function AuthProvider({ children }) {
 
     function logout() {
         setAuthenticated(false);
-        return signOut(auth);
+        signOut(auth).then(() => {
+            return
+          }).catch((error) => {
+            console.error(error)
+            return
+          });
     }
 
     // when auth changes, update current user
@@ -53,6 +58,7 @@ export function AuthProvider({ children }) {
         signup,
         logout,
         error,
+        setError,
         setAuthenticated,
     };
 

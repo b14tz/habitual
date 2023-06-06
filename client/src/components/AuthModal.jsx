@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useAuth } from '../contexts/authContext';
 import { createUser } from '../interfaces/userInterface';
+import { getUserData } from '../interfaces/userInterface'
+import { auth } from '../lib/firebase'
+
 
 export default function AuthModal(props) {
     const [name, setName] = useState("")
@@ -21,8 +24,14 @@ export default function AuthModal(props) {
     };
 
     const handleLogin = async () => {
-        console.log("put login logic here")
-        createCollection()
+        setError("")
+        setLoading(true)
+        await login(email, password);
+
+        setLoading(false)
+        props.setMenuOpen(false)
+        props.setTrigger(false)
+        window.location.reload()
     }
 
     const handleSignUp = async () => {
@@ -30,6 +39,11 @@ export default function AuthModal(props) {
         setLoading(true)
         const { user } = await signup(email, password)
         await createUser(user.uid, name, email)
+
+        setLoading(false)
+        props.setMenuOpen(false)
+        props.setTrigger(false)
+        window.location.reload()
     }
 
 
@@ -38,7 +52,7 @@ export default function AuthModal(props) {
         <div className="fixed top-0 left-0 flex w-full h-full justify-center items-center bg-black/[.30]">
             <div className='min-w-[500px] min-h-[250px] rounded-md bg-white-2 dark:bg-black-2 z-50 flex flex-col justify-center items-center p-4'>
                 <div className="w-[90%] flex flex-row justify-between items-center">
-                    <h2 className='text-3xl'>{ hasAccount ? "Log in" : "Sign Up" }</h2>
+                    <h2 className='text-3xl'>{ hasAccount ? "Log in" : "Sign up" }</h2>
                     <button className="drop-shadow-md rounded-full"
                         onClick={() => props.setTrigger(false)}>
                         <XMarkIcon className="h-10 w-10 bg-white-1 dark:bg-black-1 rounded-full p-2 text-black dark:text-white-1" />
@@ -105,7 +119,7 @@ export default function AuthModal(props) {
                         </button>
                         <button className="bg-white-1 dark:bg-black-1 drop-shadow-md py-2 px-4 rounded-md"
                             onClick={handleSignUp}>
-                            <h4 className="text-base">Sign Up</h4>
+                            <h4 className="text-base">Sign up</h4>
                         </button>
                     </div>
                 }
