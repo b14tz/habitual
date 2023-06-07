@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useAuth } from '../contexts/authContext';
 import { createUser } from '../interfaces/userInterface';
-import { getUserData } from '../interfaces/userInterface'
-import { auth } from '../lib/firebase'
 
 
 export default function AuthModal(props) {
@@ -105,21 +103,21 @@ export default function AuthModal(props) {
                     hasAccount ?
                     <div className="w-[90%] flex flex-row justify-between">
                         <button onClick={() => setHasAccount(false)}>
-                            <h4 className="text-base underline">Don't have an account? Sign up here.</h4>
+                            <p className="text-base underline">Don't have an account? Sign up here.</p>
                         </button>
                         <button className="bg-white-1 dark:bg-black-1 drop-shadow-md py-2 px-4 rounded-md"
                             onClick={handleLogin}>
-                            <h4 className="text-base">Log in</h4>
+                            <p className="text-base">Log in</p>
                         </button>
                     </div>
                     :
                     <div className="w-[90%] flex flex-row justify-between">
                         <button onClick={() => setHasAccount(true)}>
-                            <h4 className="text-base underline">Already have an account? Log in here.</h4>
+                            <p className="text-base underline">Already have an account? Log in here.</p>
                         </button>
                         <button className="bg-white-1 dark:bg-black-1 drop-shadow-md py-2 px-4 rounded-md"
                             onClick={handleSignUp}>
-                            <h4 className="text-base">Sign up</h4>
+                            <p className="text-base">Sign up</p>
                         </button>
                     </div>
                 }

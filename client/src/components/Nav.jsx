@@ -50,15 +50,17 @@ export default function Nav(props) {
                             menuOpen?
                             <>
                                 <div className='flex flex-row items-center'>
-                                    <h4>Howdy, {props.name}</h4>
+                                    <p>Howdy, {props.name}</p>
                                     <ChevronDownIcon className="h-6 w-6 text-black-1 dark:text-white-1" />
                                 </div>
-                                <button onClick={handleSignOut}>Sign out</button>
+                                <button onClick={handleSignOut}>
+                                    <p>Sign out</p>
+                                </button>
                             </>
                             :
                             <>
                                 <div className='flex flex-row items-center'>
-                                <h4>Howdy, {props.name}</h4>
+                                <p>Howdy, {props.name}</p>
                                 <ChevronLeftIcon className="h-6 w-6 text-black-1 dark:text-white-1" />
                                 </div>
                             </>
@@ -71,8 +73,8 @@ export default function Nav(props) {
                     </button>
 
                 }
-                <h4>{getCurrentDate()}</h4>
-                <h4>{displayTaskProgress()}</h4>
+                <p>{getCurrentDate()}</p>
+                <p>{displayTaskProgress()}</p>
                 <button
                     onClick={props.toggleDarkMode} 
                     className="self-left justify-self-end" 

@@ -2,14 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
     --off-white: #ece1e1;
     --off-black: #1f2937;
 }
+
 html {
     background-color: var(--off-white);
 }
 
 html.dark {
     background-color: var(--off-black);
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: 800;
+}
+ 
+p, ::placeholder, .input-text {
+    font-family: 'Geologica', sans-serif;
 }

@@ -42,7 +42,7 @@ export default function HabitList(props) {
         <>
             <input 
                 id="text-input"
-                className='text-center focus:outline-none border-b-2 bg-transparent border-black-1 dark:border-white-1 placeholder:text-black-3 mb-2'
+                className='input-text text-center focus:outline-none border-b-2 bg-transparent border-black-1 dark:border-white-1 placeholder:text-black-3 mb-2'
                 type="text"
                 placeholder='enter a habit here'
                 onKeyDown={handleKeyPress}
