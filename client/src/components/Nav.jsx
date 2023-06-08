@@ -1,6 +1,6 @@
 import { React, useEffect, useState} from 'react'
 import { getCurrentDate } from '../lib/date';
-import { useAuth } from '../contexts/authContext';
+import { useAuth } from '../contexts/AuthContext';
 import AuthModal from './AuthModal'
 import { UserIcon } from "@heroicons/react/24/outline";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
