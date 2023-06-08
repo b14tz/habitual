@@ -8,10 +8,6 @@ import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from 'react-router-dom';
 
-
-
-
-
 export default function Nav(props) {
     const [authModal, setAuthModal] = useState(false)
     const [menuOpen, setMenuOpen] = useState(false)
