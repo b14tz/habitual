@@ -5,7 +5,7 @@ import { useOutsideClick } from '../hooks/useOutsideClick';
 
 export default function HabitListItem(props) {
   const [completionStatus, setCompletionStatus] = useState(props.status);
-  const [options, setOptions] = useState(false)
+  const [popup, setPopup] = useState(false)
 
   const toggleCompleteTask = (event) => {
     props.toggleCompletion(props.id)
@@ -15,8 +15,10 @@ export default function HabitListItem(props) {
   }
 
   const handleClickOutside = () => {
-    setOptions(false)
-    console.log("hello")
+    console.log("is the menu open? ", popup)
+
+    // if the button or the popup wasn't hit, close it
+    setPopup(false)
   }
 
   const ref = useOutsideClick(handleClickOutside);
@@ -34,11 +36,11 @@ export default function HabitListItem(props) {
             <p className='ml-2 mr-4'>{props.title}</p> 
           </div>
 
-          <button onClick={() => setOptions(true)}>
+          <button onClick={() => setPopup(true)}>
             <EllipsisHorizontalIcon className="h-6 w-6 text-black-1 dark:text-white-1" />
           </button>
           {
-            options?
+            popup?
             <div 
               ref={ref}
               className="absolute left-[101%] px-2 bg-white-3 dark:bg-black-2 rounded-md"
