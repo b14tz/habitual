@@ -2,26 +2,32 @@ import { useEffect, useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Nav from './components/Nav'
 import Home from './pages/Home'
+import { getUserData, getUserCurrentHabits } from './interfaces/userInterface'
+import { auth } from './lib/firebase'
+
+let data = [
+  {
+      title:"leetcode",
+      status:true,
+      color:"blue-1"
+  },
+  {
+      title:"workout",
+      status:false,
+      color:"green-1"
+  },
+  {
+      title:"read",
+      status:false,
+      color:"yellow-1"
+  }
+]
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(true)
-  const [tasks, setTasks] = useState([
-    {
-        title:"leetcode",
-        status:true,
-        color:"blue-1"
-    },
-    {
-        title:"workout",
-        status:false,
-        color:"green-1"
-    },
-    {
-        title:"read",
-        status:false,
-        color:"yellow-1"
-    }
-  ])
+  const [loginStatus, setLoginStatus] = useState(false)
+  const [name, setName] = useState("")
+  const [habits, setHabits] = useState([])
   
   useEffect(() => {
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -30,7 +36,21 @@ export default function App() {
       setDarkMode(false)
       document.documentElement.classList.remove('dark')
     }
-  },[darkMode, tasks])
+
+    if(auth.currentUser){
+      setLoginStatus(true)
+      getUserData(auth.currentUser.uid).then(data => {
+        setName(data.name.charAt(0).toUpperCase() + data.name.slice(1))
+      })
+
+      getUserCurrentHabits(auth.currentUser.uid).then(data => {
+        setHabits(data)
+      })
+    }
+
+
+    
+  },[darkMode])
 
   function toggleDarkMode() {
     setDarkMode(!darkMode)
@@ -38,11 +58,11 @@ export default function App() {
   }
 
   function toggleCompletion(id) {
-    setTasks(prevTasks => {
-      const updatedTasks = [...prevTasks]; // Create a copy of the tasks array
-      updatedTasks[id] = { ...updatedTasks[id] }; // Create a copy of the specific task object
-      updatedTasks[id].status = !updatedTasks[id].status; // Update the status of the task
-      return updatedTasks; // Return the updated tasks array
+    setHabits(prevHabits => {
+      const updatedHabits = [...prevHabits]; // Create a copy of the habits array
+      updatedHabits[id] = { ...updatedHabits[id] }; // Create a copy of the specific habit object
+      updatedHabits[id].status = !updatedHabits[id].status; // Update the status of the task
+      return updatedHabits; // Return the updated habits array
     });
   }
 
@@ -52,12 +72,24 @@ export default function App() {
         <Nav
           darkMode={darkMode} 
           toggleDarkMode={toggleDarkMode} 
-          tasks={tasks}
+          habits={habits}
+          loginStatus={loginStatus}
+          name={name}
+          setName={setName}
         />
         
         <Routes>
-          <Route path="/" element={<Navigate to="home"/>}/>
-          <Route path="home" element={<Home tasks={tasks} setTasks={setTasks} toggleCompletion={toggleCompletion}/>}/>
+          <Route 
+            path="/" 
+            element={
+              <Home 
+                habits={habits} 
+                setHabits={setHabits} 
+                toggleCompletion={toggleCompletion}
+                loginStatus={loginStatus}
+              />
+            }
+          />
         </Routes>
 
       </div>

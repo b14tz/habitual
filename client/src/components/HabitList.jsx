@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import HabitListItem from './HabitListItem';
+import { addHabit } from '../interfaces/userInterface';
+import { auth } from '../lib/firebase';
 
 export default function HabitList(props) {
-    const [editorOpen, setEditorOpen] = useState(true)
-    const [list, setList] = useState(props.tasks);
+    const [editorOpen, setEditorOpen] = useState(false)
     const [newItem, setNewItem] = useState({
         title: "",
         status: false,
@@ -18,22 +19,22 @@ export default function HabitList(props) {
 
     const handleAddNewItem = (event) => {
         if(newItem.title !== ""){
-            let temp = list
+            let temp = props.habits
             temp.push(newItem)
-            setList(temp)
+            addHabit(auth.currentUser.uid, newItem)
             event.target.value = ""
             setNewItem({
                 title: "",
                 status: false,
                 color: "",
             })
-            props.setTasks([...temp])
+            props.setHabits([...temp])
         }
     }
 
     function renderList() {
-        return Object.keys(list).map((obj) => (
-            <li key={obj}><HabitListItem {...list[obj]} id={obj} toggleCompletion={props.toggleCompletion}/></li>
+        return Object.keys(props.habits).map((obj) => (
+            <li key={obj}><HabitListItem {...props.habits[obj]} id={obj} toggleCompletion={props.toggleCompletion}/></li>
         ))  
     }
 
@@ -41,7 +42,7 @@ export default function HabitList(props) {
         <>
             <input 
                 id="text-input"
-                className='text-center focus:outline-none border-b-2 bg-transparent border-black-1 dark:border-white-1 placeholder:text-black-3'
+                className='input-text text-center focus:outline-none border-b-2 bg-transparent border-black-1 dark:border-white-1 placeholder:text-black-3 mb-2'
                 type="text"
                 placeholder='enter a habit here'
                 onKeyDown={handleKeyPress}
@@ -49,7 +50,7 @@ export default function HabitList(props) {
                     const input = document.getElementById('text-input');
                     const value = input.value;
                     if (input !== null && value !== undefined){
-                        input.style.width = value.length * 0.6 + 1 > 12 ? (value.length * 0.7 + 3) + 'ch' : '15ch';
+                        input.style.width = value.length * 0.6 + 1 > 12 ? (value.length * 0.75 + 3) + 'ch' : '16ch';
                     }
                 }}      
                 onChange={(event) => 
