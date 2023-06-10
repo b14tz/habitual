@@ -13,7 +13,7 @@ export default function HabitGrid() {
 
   return (
     <>
-      <div className="mt-8 mx-10 max-w-[600px] flex flex-row flex-wrap">
+      <div className="mx-10 max-w-[600px] flex flex-row flex-wrap">
         {renderGrid()}
       </div>
     </>

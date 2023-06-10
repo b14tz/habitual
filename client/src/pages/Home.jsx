@@ -1,5 +1,4 @@
 import React from 'react'
-import HabitList from '../components/HabitList'
 import HabitGrid from '../components/HabitGrid'
 
 export default function Home(props) {
@@ -8,7 +7,12 @@ export default function Home(props) {
         <section className="flex flex-col items-center">
             <h1 className="text-6xl mb-1">Daily Habit Tracker</h1>
             <p className="mb-4">An easy-to-use system to keep you on track</p>
-            <HabitList habits={props.habits} setHabits={props.setHabits} toggleCompletion={props.toggleCompletion}/>
+            <button 
+              className="mb-4 py-1 px-4 rounded-md bg-white-2 dark:bg-black-2"
+              onClick={() => props.setAuthModal(true)}
+            >
+              <p>Log in/Sign up to Continue</p>
+            </button>
             <HabitGrid/>
         </section>
     </div>

@@ -4,7 +4,7 @@ import { addHabit } from '../interfaces/userInterface';
 import { auth } from '../lib/firebase';
 
 export default function HabitList(props) {
-    const [editorOpen, setEditorOpen] = useState(false)
+    const [habitList, setHabitList] = useState([])
     const [newItem, setNewItem] = useState({
         title: "",
         status: false,
@@ -19,22 +19,30 @@ export default function HabitList(props) {
 
     const handleAddNewItem = (event) => {
         if(newItem.title !== ""){
-            let temp = props.habits
+            let temp = habitList
             temp.push(newItem)
-            addHabit(auth.currentUser.uid, newItem)
+            setHabitList(temp)
+            //addHabit(auth.currentUser.uid, newItem)
             event.target.value = ""
             setNewItem({
                 title: "",
                 status: false,
                 color: "",
             })
-            props.setHabits([...temp])
+            //props.setHabits([...temp])
         }
     }
 
     function renderList() {
-        return Object.keys(props.habits).map((obj) => (
-            <li key={obj}><HabitListItem {...props.habits[obj]} id={obj} toggleCompletion={props.toggleCompletion}/></li>
+        // return Object.keys(props.habits).map((obj) => (
+        //     <li key={obj}><HabitListItem {...props.habits[obj]} id={obj} toggleCompletion={props.toggleCompletion}/></li>
+        // ))  
+        return Object.keys(habitList).map((obj) => (
+            <li key={obj}>
+                <p className="text-5xl font-semibold">
+                    {habitList[obj].title}
+                </p>
+            </li>
         ))  
     }
 
@@ -42,7 +50,7 @@ export default function HabitList(props) {
         <>
             <input 
                 id="text-input"
-                className='input-text text-center focus:outline-none border-b-2 bg-transparent border-black-1 dark:border-white-1 placeholder:text-black-3 mb-2'
+                className='placeholder:text-gray-1 text-5xl font-semibold input-text text-center focus:outline-none border-b-2 bg-transparent border-black-1 dark:border-white-1 placeholder:text-black-3 mb-2'
                 type="text"
                 placeholder='enter a habit here'
                 onKeyDown={handleKeyPress}
@@ -60,15 +68,9 @@ export default function HabitList(props) {
                         color: newItem.color
                     })}
             />
-            {
-                editorOpen?
-                <div className="flex items-center justify-center rounded-md bg-white-2 dark:bg-black-2 shadow-xl w-96 h-44 my-4">
-                    [Put options for habit tracking here]
-                </div>
-                :
-                null
-            }
-            <ul>{renderList()}</ul>
+            <ul className="text-center">
+                {renderList()}
+            </ul>
         </> 
     )
 }

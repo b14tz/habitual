@@ -9,7 +9,6 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from 'react-router-dom';
 
 export default function Nav(props) {
-    const [authModal, setAuthModal] = useState(false)
     const [menuOpen, setMenuOpen] = useState(false)
 
     const { logout, setError } = useAuth();
@@ -64,7 +63,7 @@ export default function Nav(props) {
                     </div>
                     :
                     <button
-                        onClick={() => setAuthModal(true)}>
+                        onClick={() => props.setAuthModal(true)}>
                         <UserIcon className="h- w-6 text-black-1 dark:text-white-1"/>
                     </button>
 
@@ -83,7 +82,7 @@ export default function Nav(props) {
                     }
                 </button>
             </nav>
-            <AuthModal trigger={authModal} setTrigger={setAuthModal} setName={props.setName} setMenuOpen={setMenuOpen}/>
+            <AuthModal trigger={props.authModal} setTrigger={props.setAuthModal} setName={props.setName} setMenuOpen={setMenuOpen}/>
         </>
     )
 }
