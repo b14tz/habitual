@@ -7,6 +7,7 @@ export default {
     extend: {
       colors: {
         'red-1': '#FF6B6B',
+        'red-2': '#FF4141',
         'yellow-1': '#FFD93D',
         'green-1': '#6BCB77',
         'blue-1': '#4D96FF',

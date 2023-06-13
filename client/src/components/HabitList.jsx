@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import HabitListItem from './HabitListItem';
-import { addHabit } from '../interfaces/userInterface';
-import { auth } from '../lib/firebase';
+import { BackspaceIcon } from "@heroicons/react/24/solid";
 
-export default function HabitList(props) {
+
+
+export default function HabitList() {
     const [habitList, setHabitList] = useState([])
     const [newItem, setNewItem] = useState({
         title: "",
@@ -33,24 +33,47 @@ export default function HabitList(props) {
         }
     }
 
-    function renderList() {
-        // return Object.keys(props.habits).map((obj) => (
-        //     <li key={obj}><HabitListItem {...props.habits[obj]} id={obj} toggleCompletion={props.toggleCompletion}/></li>
-        // ))  
-        return Object.keys(habitList).map((obj) => (
-            <li key={obj}>
-                <p className="text-5xl font-semibold">
-                    {habitList[obj].title}
-                </p>
-            </li>
-        ))  
+    const handleRemoveItem = (id) => {
+        let temp = habitList
+        delete temp[id]
+        setHabitList([...temp])
     }
+
+
+    // return Object.keys(props.habits).map((obj) => (
+    //     <li key={obj}><HabitListItem {...props.habits[obj]} id={obj} toggleCompletion={props.toggleCompletion}/></li>
+    // ))  
+    function renderList() {
+        return Object.keys(habitList).map((obj) => {
+          if (habitList[obj]) {
+            return (
+              <div key={obj} className="flex flex-row items-center">
+                <li>
+                  <p className="text-5xl font-semibold">
+                    {habitList[obj].title}
+                  </p>
+                </li>
+                {
+                  true ?
+                  <button key={obj} onClick={() => handleRemoveItem(obj)}>
+                    <BackspaceIcon className="ml-2 h-8 w-8 text-red-2" />
+                  </button>
+                  :
+                  null
+                }
+              </div>
+            );
+          } else {
+            return null;
+          }
+        });
+      }
 
     return (
         <>
             <input 
                 id="text-input"
-                className='placeholder:text-gray-1 text-5xl font-semibold input-text text-center focus:outline-none border-b-2 bg-transparent border-black-1 dark:border-white-1 placeholder:text-black-3 mb-2'
+                className='placeholder:text-gray-1 dark:placeholder:text-gray-500 text-5xl font-semibold input-text text-center focus:outline-none border-b-2 bg-transparent border-black-1 dark:border-white-1 placeholder:text-black-3 mb-2'
                 type="text"
                 placeholder='enter a habit here'
                 onKeyDown={handleKeyPress}
@@ -68,7 +91,7 @@ export default function HabitList(props) {
                         color: newItem.color
                     })}
             />
-            <ul className="text-center">
+            <ul className="flex flex-col items-center">
                 {renderList()}
             </ul>
         </> 

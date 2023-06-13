@@ -2,8 +2,8 @@ import { React, useEffect, useState} from 'react'
 import { getCurrentDate } from '../lib/date';
 import { useAuth } from '../contexts/AuthContext';
 import AuthModal from './AuthModal'
-import { UserIcon } from "@heroicons/react/24/outline";
-import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
+import { UserIcon } from "@heroicons/react/24/solid";
+import { SunIcon, MoonIcon } from "@heroicons/react/24/solid";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from 'react-router-dom';
