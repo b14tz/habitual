@@ -8,10 +8,10 @@ export default function Home(props) {
             <h1 className="text-6xl mb-1">Daily Habit Tracker</h1>
             <p className="mb-4">An easy-to-use system to keep you on track</p>
             <button 
-              className="mb-4 py-1 px-4 rounded-md bg-white-2 dark:bg-black-2"
+              className="mb-4 py-1 px-4 rounded-md bg-white-2 dark:bg-black-2 drop-shadow"
               onClick={() => props.setAuthModal(true)}
             >
-              <p>Log in/Sign up to Continue</p>
+              <p>Click Here To Start</p>
             </button>
             <HabitGrid/>
         </section>
