@@ -6,6 +6,7 @@ import AuthModal from './components/AuthModal'
 import { getUserData, getUserCurrentHabits } from './interfaces/userInterface'
 import { auth } from './lib/firebase'
 import HabitSelect from './pages/HabitSelect'
+import Account from './pages/Account'
 
 let data = [
   {
@@ -30,7 +31,7 @@ export default function App() {
   const [loginStatus, setLoginStatus] = useState(false)
   const [name, setName] = useState("")
   const [habits, setHabits] = useState([])
-  const [authModal, setAuthModal] = useState(false)
+  const [setUpModal, setSetUpModal] = useState(false)
   
   useEffect(() => {
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -51,9 +52,7 @@ export default function App() {
       })
     }
 
-
-    
-  },[darkMode])
+  }, [darkMode])
 
   function toggleDarkMode() {
     setDarkMode(!darkMode)
@@ -79,8 +78,8 @@ export default function App() {
           loginStatus={loginStatus}
           name={name}
           setName={setName}
-          authModal={authModal}
-          setAuthModal={setAuthModal}
+          setUpModal={setUpModal}
+          setSetUpModal={setSetUpModal}
         />
         
         <Routes>
@@ -89,18 +88,14 @@ export default function App() {
             element={
               <Home 
                 loginStatus={loginStatus}
-                setAuthModal={setAuthModal}
+                setSetUpModal={setSetUpModal}
               />
             }
           />
           <Route
-            path="/setup"
+            path="/account"
             element={
-              <HabitSelect
-                habits={habits} 
-                setHabits={setHabits} 
-                toggleCompletion={toggleCompletion}
-              />
+              <Account/>
             }
           />
         </Routes>
