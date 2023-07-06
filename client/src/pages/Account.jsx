@@ -3,17 +3,20 @@ import HabitGrid from '../components/HabitGrid'
 
 export default function Account() {
   return (
-    <div className="flex flex-col m-auto w-[80%] h-full justify-center items-center min-h-[100vh]">
+    <div className="flex flex-col m-auto w-[80%] h-full justify-center items-center mt-[100px]">
         <div className="flex flex-row w-full min-h-[50px]">
             <div className="mr-3 px-6 py-4 w-[50%] min-w-[300px] rounded drop-shadow bg-white-2 dark:bg-black-2">
                 <div className="mb-4 flex flex-row items-center">
                     <p>Habit History</p>
-                    <select className='px-2 py-1 ml-8 rounded bg-white-1 dark:bg-black-1'>
+                    <select className='px-2 py-1 ml-8 rounded-lg bg-white-1 dark:bg-black-1'>
                         <option>
-                            <p>Option 1</p>
+                            Workout
                         </option>
                         <option>
-                            <p>Option 2</p>
+                            Read
+                        </option>
+                        <option>
+                            Stretch
                         </option>
                     </select>
                 </div>
@@ -33,7 +36,7 @@ export default function Account() {
         </div>
 
         <div className="px-6 py-4 mt-6 w-full rounded drop-shadow bg-white-2 dark:bg-black-2">
-            <p>Chart</p>
+            <p className="ml-1 mb-2">Workout Chart</p>
             <HabitGrid/>
         </div>
     </div>

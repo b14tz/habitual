@@ -3,7 +3,7 @@ import { BackspaceIcon } from "@heroicons/react/24/solid";
 
 
 
-export default function HabitList() {
+export default function SetHabits() {
     const [habitList, setHabitList] = useState([])
     const [newItem, setNewItem] = useState({
         title: "",

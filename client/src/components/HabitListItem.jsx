@@ -7,6 +7,10 @@ export default function HabitListItem(props) {
   const [completionStatus, setCompletionStatus] = useState(props.status);
   const [popup, setPopup] = useState(false)
 
+  const divStyle = {
+    backgroundColor: props.color
+  }
+
   const toggleCompleteTask = (event) => {
     props.toggleCompletion(props.id)
     setCompletionStatus(!completionStatus)
@@ -26,11 +30,11 @@ export default function HabitListItem(props) {
   return (
     <>
 
-        <div className="flex flex-row relative justify-between min-w-[200px] dark:bg-black-2 bg-white-3 px-2 rounded-md my-1">
-          <div className="flex flex-row items-center">
+        <div className="flex flex-row relative justify-between w-full drop-shadow px-2 rounded-md my-2" style={divStyle}>
+          <div className="flex flex-row items-center py-1">
             <button
               id="button" 
-              className={'rounded-full h-4 w-4 mr-2 ' + (completionStatus ? 'bg-black-1 dark:bg-white-1 ' : 'bg-white-3 dark:bg-black-2 border-2 border-black-1 dark:border-white-1')}
+              className={'rounded-full h-4 w-4 mr-2' + (completionStatus ? 'bg-black-1 dark:bg-white-1 ' : 'bg-white-2 border-2 border-black-1 dark:border-white-1')}
               onClick={toggleCompleteTask}
             />
             <p className='ml-2 mr-4'>{props.title}</p> 
@@ -43,7 +47,7 @@ export default function HabitListItem(props) {
             popup?
             <div 
               ref={ref}
-              className="absolute left-[101%] px-2 bg-white-3 dark:bg-black-2 rounded-md"
+              className="absolute left-[101%] px-2 bg-white-2 drop-shadow dark:bg-black-2 rounded-md"
             >
               <p className="text-black-1 dark:text-white-1">Edit</p>
               <p className="text-black-1 dark:text-white-1">Delete</p>

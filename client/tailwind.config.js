@@ -6,11 +6,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        'red-1': '#FF6B6B',
+        'red-1': '#FF8989',
         'red-2': '#FF4141',
         'yellow-1': '#FFD93D',
-        'green-1': '#6BCB77',
-        'blue-1': '#4D96FF',
+        'green-1': '#8AD592',
+        'blue-1': '#71A9FE',
         'white-1': '#F7F8FA', //for backgrounds
         'white-2': '#FFFFFF', //for modals/tooltips/popups
         'white-3': '#c3bcbf',

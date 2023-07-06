@@ -27,15 +27,25 @@ export default function Nav(props) {
                     <div className="fixed top-0 left-0 right-0 flex flex-row place-content-between items-start p-10">
                         <button
                             onClick={() => {navigate("/account")}}
-                            className="ml-4"
                         >
-                            <SettingsIconSolid className="h-6 w-6 text-black-1 dark:text-white-1"/>
+                            {
+                                window.location.pathname == "/"?
+                                <SettingsIconOutline className="h-6 w-6 text-black-1 dark:text-white-1"/>
+                                :
+                                <SettingsIconSolid className="h-6 w-6 text-black-1 dark:text-white-1"/>
+                            }
+                            
                         </button>
                         <button
                             onClick={() => {navigate("/")}}
-                            className="ml-4"
                         >
-                            <HomeIconOutline className="h-6 w-6 text-black-1 dark:text-white-1"/>
+                            {
+                                window.location.pathname == "/"?
+                                <HomeIconSolid className="h-6 w-6 text-black-1 dark:text-white-1"/>
+                                :
+                                <HomeIconOutline className="h-6 w-6 text-black-1 dark:text-white-1"/>
+                            }
+                            
                         </button>
                         <button
                             onClick={props.toggleDarkMode} 
@@ -50,17 +60,19 @@ export default function Nav(props) {
                         </button>
                     </div>
                     :
-                    <button
-                        onClick={props.toggleDarkMode} 
-                        
-                    >
-                        {
-                            props.darkMode ?
-                            <MoonIcon className="h-6 w-6 text-black-1 dark:text-white-1"/>
-                            :
-                            <SunIcon className="h-6 w-6 text-black-1 dark:text-white-1"/>
-                        }
-                    </button>
+                    <div className="fixed top-0 left-0 right-0 flex flex-row flex-end p-10">
+                        <button
+                            onClick={props.toggleDarkMode} 
+                            
+                        >
+                            {
+                                props.darkMode ?
+                                <MoonIcon className="h-6 w-6 text-black-1 dark:text-white-1"/>
+                                :
+                                <SunIcon className="h-6 w-6 text-black-1 dark:text-white-1"/>
+                            }
+                        </button>
+                    </div>
                 }
 
             </nav>
