@@ -1,6 +1,7 @@
 import React from 'react'
 import HabitGrid from '../components/HabitGrid'
 import HabitListItem from '../components/HabitListItem'
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Home(props) {
   return (
@@ -12,9 +13,9 @@ export default function Home(props) {
             <div className="flex flex-col m-auto w-[80%] h-full justify-center items-center">
                 <div className="flex flex-row w-full">
                   <div className="flex flex-col mr-3 w-full">
-                    <p className='ml-2 text-3xl'>Marshall's Tasks For Today, July 5th</p>
-                    <HabitListItem title="Workout" color="#FF8989"/>
-                    <HabitListItem title="Read" color='#8AD592'/>
+                    <p className='ml-2 text-4xl whitespace-nowrap'>Marshall's Tasks For Today, July 5th</p>
+                    <HabitListItem title="Workout" color="#E8505B"/>
+                    <HabitListItem title="Read" color='#6BCB77'/>
                     <HabitListItem title="Stretch" color='#71A9FE'/>
                     <button>
                       <div className="flex justify-between w-full dark:bg-black-2 bg-white-2 drop-shadow px-2 rounded-md my-2">
@@ -24,7 +25,13 @@ export default function Home(props) {
                   </div>
 
                   <div className="ml-3 p-6 min-w-[280px] rounded drop-shadow bg-white-2 dark:bg-black-2">
-                    <div className="flex flex-col rounded-full h-full aspect-square bg-white-1 shadow-inner dark:bg-black-1 justify-center items-center">
+                    <CircularProgress variant="determinate" value={33} size={232} thickness={2}
+                    sx={{
+                      position: 'absolute',
+                      color: '#FFA800',
+                      zIndex: 1,
+                    }}/>
+                    <div className="flex flex-col rounded-full h-full aspect-square bg-white-3 shadow-inner dark:bg-black-1 justify-center items-center">
                       <p className="text-7xl">1/3</p>
                       <p>Tasks Done</p>
                     </div>
