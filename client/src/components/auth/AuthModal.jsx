@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { useAuth } from '../contexts/AuthContext';
-import { createUser } from '../interfaces/userInterface';
+import { useAuth } from '../../contexts/AuthContext';
+import { createUser } from '../../interfaces/userInterface';
 
 
 export default function AuthModal(props) {
@@ -65,7 +65,7 @@ export default function AuthModal(props) {
                         null 
                         : 
                         <input 
-                            className="mb-3 bg-transparent hover:bg-transparent border-b-2 border-black-1 dark:border-white-1 focus:outline-none" 
+                            className="placeholder:text-gray-1 dark:placeholder:text-gray-500 mb-3 bg-transparent hover:bg-transparent border-b-2 border-black-1 dark:border-white-1 focus:outline-none" 
                             label="name" 
                             type="text" 
                             placeholder="Whatever you'd like to go by"
@@ -73,14 +73,14 @@ export default function AuthModal(props) {
                         </input> 
                     }
                     <input 
-                        className="mb-3 bg-transparent hover:bg-transparent border-b-2 border-black-1 dark:border-white-1 focus:outline-none" 
+                        className="placeholder:text-gray-1 dark:placeholder:text-gray-500 mb-3 bg-transparent hover:bg-transparent border-b-2 border-black-1 dark:border-white-1 focus:outline-none" 
                         label="email" 
                         type="email" 
                         placeholder='Email'
                         onChange={(event) => setEmail(event.target.value)}>
                     </input>
                     <input 
-                        className="mb-3 bg-transparent hover:bg-transparent border-b-2 border-black-1 dark:border-white-1 focus:outline-none" 
+                        className="placeholder:text-gray-1 dark:placeholder:text-gray-500 mb-3 bg-transparent hover:bg-transparent border-b-2 border-black-1 dark:border-white-1 focus:outline-none" 
                         label="password" 
                         type="password" 
                         placeholder='Password'
@@ -91,7 +91,7 @@ export default function AuthModal(props) {
                         null 
                         : 
                         <input 
-                            className="mb-3 bg-transparent hover:bg-transparent border-b-2 border-black-1 dark:border-white-1 focus:outline-none" 
+                            className="placeholder:text-gray-1 dark:placeholder:text-gray-500 mb-3 bg-transparent hover:bg-transparent border-b-2 border-black-1 dark:border-white-1 focus:outline-none" 
                             label="password-confirmed" 
                             type="password" 
                             placeholder='Confirmed Password'

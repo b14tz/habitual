@@ -2,8 +2,11 @@ import { useEffect, useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Nav from './components/Nav'
 import Home from './pages/Home'
+import AuthModal from './components/auth/AuthModal'
 import { getUserData, getUserCurrentHabits } from './interfaces/userInterface'
 import { auth } from './lib/firebase'
+import HabitSelect from './pages/HabitSelect'
+import Account from './pages/Account'
 
 let data = [
   {
@@ -28,6 +31,7 @@ export default function App() {
   const [loginStatus, setLoginStatus] = useState(false)
   const [name, setName] = useState("")
   const [habits, setHabits] = useState([])
+  const [setUpModal, setSetUpModal] = useState(false)
   
   useEffect(() => {
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -48,9 +52,7 @@ export default function App() {
       })
     }
 
-
-    
-  },[darkMode])
+  }, [darkMode])
 
   function toggleDarkMode() {
     setDarkMode(!darkMode)
@@ -83,11 +85,15 @@ export default function App() {
             path="/" 
             element={
               <Home 
-                habits={habits} 
-                setHabits={setHabits} 
-                toggleCompletion={toggleCompletion}
                 loginStatus={loginStatus}
+                setSetUpModal={setSetUpModal}
               />
+            }
+          />
+          <Route
+            path="/account"
+            element={
+              <Account/>
             }
           />
         </Routes>
