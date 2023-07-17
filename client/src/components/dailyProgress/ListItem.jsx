@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
-import { useOutsideClick } from '../hooks/useOutsideClick';
+import { useOutsideClick } from '../../hooks/useOutsideClick';
 
 
-export default function HabitListItem(props) {
+export default function ListItem(props) {
   const [completionStatus, setCompletionStatus] = useState(props.status);
   const [popup, setPopup] = useState(false)
 

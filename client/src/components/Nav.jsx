@@ -6,17 +6,8 @@ import { HomeIcon as HomeIconSolid} from "@heroicons/react/20/solid";
 import { HomeIcon as HomeIconOutline } from "@heroicons/react/24/outline";
 import { useNavigate } from 'react-router-dom';
 
-export default function Nav(props) {
+export default function Nav({darkMode, toggleDarkMode, habits, loginStatus, name, setName}) {
     const navigate = useNavigate();
-
-    // const displayTaskProgress = () => {
-    //     let done = 0
-    //     let total = props.habits.length
-    //     for (let i = 0; i < total; i += 1){
-    //         if(props.habits[i].status) done += 1
-    //     }
-    //     return `${done}/${total} Daily Tasks Complete`
-    // }
 
     return (
         <>
@@ -48,11 +39,11 @@ export default function Nav(props) {
                             
                         </button>
                         <button
-                            onClick={props.toggleDarkMode} 
+                            onClick={toggleDarkMode} 
                             
                         >
                             {
-                                props.darkMode ?
+                                darkMode ?
                                 <MoonIcon className="h-6 w-6 text-black-1 dark:text-white-1"/>
                                 :
                                 <SunIcon className="h-6 w-6 text-black-1 dark:text-white-1"/>
@@ -62,11 +53,11 @@ export default function Nav(props) {
                     :
                     <div className="fixed top-0 left-0 right-0 flex flex-row flex-end p-10">
                         <button
-                            onClick={props.toggleDarkMode} 
+                            onClick={toggleDarkMode} 
                             
                         >
                             {
-                                props.darkMode ?
+                                darkMode ?
                                 <MoonIcon className="h-6 w-6 text-black-1 dark:text-white-1"/>
                                 :
                                 <SunIcon className="h-6 w-6 text-black-1 dark:text-white-1"/>

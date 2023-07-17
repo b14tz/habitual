@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { useAuth } from '../contexts/AuthContext';
-import { createUser } from '../interfaces/userInterface';
+import { useAuth } from '../../contexts/AuthContext';
+import { createUser } from '../../interfaces/userInterface';
 
 
 export default function AuthModal(props) {

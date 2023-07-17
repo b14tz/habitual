@@ -1,5 +1,5 @@
 import React from 'react'
-import HabitGrid from '../components/HabitGrid'
+import HabitGrid from '../components/chart/HabitGrid'
 
 export default function Account() {
   return (

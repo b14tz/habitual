@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Nav from './components/Nav'
 import Home from './pages/Home'
-import AuthModal from './components/AuthModal'
+import AuthModal from './components/auth/AuthModal'
 import { getUserData, getUserCurrentHabits } from './interfaces/userInterface'
 import { auth } from './lib/firebase'
 import HabitSelect from './pages/HabitSelect'
@@ -78,8 +78,6 @@ export default function App() {
           loginStatus={loginStatus}
           name={name}
           setName={setName}
-          setUpModal={setUpModal}
-          setSetUpModal={setSetUpModal}
         />
         
         <Routes>
