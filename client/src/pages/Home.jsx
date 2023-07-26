@@ -3,13 +3,13 @@ import HabitGrid from '../components/chart/HabitGrid'
 import CheckList from '../components/dailyProgress/CheckList';
 import ProgressCircle from '../components/dailyProgress/ProgressCircle';
 
-export default function Home({loginStatus, setSetUpModal}) {
+export default function Home({isLoggedIn, setSetUpModal}) {
   return (
     <div className="flex w-full h-full justify-center items-center mt-[100px]">
         <section className="flex flex-col items-center w-full">
           {
-            //props.loginStatus?
-            true?
+            isLoggedIn?
+            //true?
             <div className="flex flex-col m-auto w-[80%] h-full justify-center items-center">
                 <div className="flex flex-row w-full">
                   <CheckList/>

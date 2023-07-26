@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import Nav from './components/Nav'
-import Home from './pages/Home'
-import AuthModal from './components/auth/AuthModal'
-import { getUserData, getUserCurrentHabits } from './interfaces/userInterface'
+
 import { auth } from './lib/firebase'
-import HabitSelect from './pages/HabitSelect'
+import Nav from './components/Nav'
+import { getUserData, getUserCurrentHabits } from './interfaces/userInterface'
+import Home from './pages/Home'
 import Account from './pages/Account'
+import HabitSelect from './pages/HabitSelect'
+import AuthModal from './components/auth/AuthModal'
+import Protected from './components/auth/Protected'
 
 let data = [
   {
@@ -28,7 +30,7 @@ let data = [
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(true)
-  const [loginStatus, setLoginStatus] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [name, setName] = useState("")
   const [habits, setHabits] = useState([])
   const [setUpModal, setSetUpModal] = useState(false)
@@ -42,7 +44,7 @@ export default function App() {
     }
 
     if(auth.currentUser){
-      setLoginStatus(true)
+      setIsLoggedIn(true)
       getUserData(auth.currentUser.uid).then(data => {
         setName(data.name.charAt(0).toUpperCase() + data.name.slice(1))
       })
@@ -75,7 +77,7 @@ export default function App() {
           darkMode={darkMode} 
           toggleDarkMode={toggleDarkMode} 
           habits={habits}
-          loginStatus={loginStatus}
+          isLoggedIn={isLoggedIn}
           name={name}
           setName={setName}
         />
@@ -85,7 +87,7 @@ export default function App() {
             path="/" 
             element={
               <Home 
-                loginStatus={loginStatus}
+                isLoggedIn={isLoggedIn}
                 setSetUpModal={setSetUpModal}
               />
             }
@@ -93,7 +95,9 @@ export default function App() {
           <Route
             path="/account"
             element={
-              <Account/>
+              <Protected isLoggedIn={isLoggedIn}>
+                <Account/>
+              </Protected>
             }
           />
         </Routes>

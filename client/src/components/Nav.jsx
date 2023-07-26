@@ -6,15 +6,14 @@ import { HomeIcon as HomeIconSolid} from "@heroicons/react/20/solid";
 import { HomeIcon as HomeIconOutline } from "@heroicons/react/24/outline";
 import { useNavigate } from 'react-router-dom';
 
-export default function Nav({darkMode, toggleDarkMode, habits, loginStatus, name, setName}) {
+export default function Nav({darkMode, toggleDarkMode, habits, isLoggedIn, name, setName}) {
     const navigate = useNavigate();
 
     return (
         <>
             <nav>
                 {
-                    //props.loginStatus?
-                    true?
+                    isLoggedIn?
                     <div className="fixed top-0 left-0 right-0 flex flex-row place-content-between items-start p-10">
                         <button
                             onClick={() => {navigate("/account")}}
