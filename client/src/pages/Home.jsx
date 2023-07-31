@@ -5,7 +5,7 @@ import ProgressCircle from '../components/dailyProgress/ProgressCircle';
 
 export default function Home({isLoggedIn, setSetUpModal}) {
   return (
-    <div className="flex w-full h-full justify-center items-center mt-[100px]">
+    <div className="flex w-full h-screen justify-center items-center">
         <section className="flex flex-col items-center w-full">
           {
             isLoggedIn?
