@@ -3,7 +3,7 @@ import HabitGrid from '../components/chart/HabitGrid'
 
 export default function Account() {
   return (
-    <div className="flex flex-col m-auto w-[80%] h-full justify-center items-center mt-[100px]">
+    <div className="flex flex-col m-auto w-[80%] h-screen justify-center items-center">
         <div className="flex flex-row w-full min-h-[50px]">
             <div className="mr-3 px-6 py-4 w-[50%] min-w-[300px] rounded drop-shadow bg-white-2 dark:bg-black-2">
                 <div className="mb-4 flex flex-row items-center">

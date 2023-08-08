@@ -30,7 +30,7 @@ let data = [
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(true)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(true)
   const [name, setName] = useState("")
   const [habits, setHabits] = useState([])
   const [setUpModal, setSetUpModal] = useState(false)
