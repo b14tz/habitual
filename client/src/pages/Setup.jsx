@@ -3,7 +3,7 @@ import HabitList from '../components/setUp/SetHabits'
 import { ArrowLongRightIcon } from "@heroicons/react/20/solid";
 
 
-export default function HabitSelect(props) {
+export default function Setup(props) {
   return (
     <div className="flex w-full h-full justify-center items-center min-h-[100vh]">
         <section className="flex flex-col items-center">

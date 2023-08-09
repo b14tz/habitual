@@ -8,7 +8,7 @@ import Home from './pages/Home'
 import Account from './pages/Account'
 import Register from './pages/Register'
 import Login from './pages/Login'
-import HabitSelect from './pages/HabitSelect'
+import Setup from './pages/Setup'
 import Protected from './components/auth/Protected'
 
 let data = [
@@ -99,6 +99,14 @@ export default function App() {
             element={
               <Protected>
                 <Account/>
+              </Protected>
+            }
+          />
+          <Route
+            path="/setup"
+            element={
+              <Protected>
+                <Setup/>
               </Protected>
             }
           />
