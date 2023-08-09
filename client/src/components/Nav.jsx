@@ -5,15 +5,18 @@ import { SunIcon as SunIconOutline, MoonIcon as MoonIconOutline, Cog6ToothIcon a
 import { HomeIcon as HomeIconSolid} from "@heroicons/react/20/solid";
 import { HomeIcon as HomeIconOutline } from "@heroicons/react/24/outline";
 import { useNavigate } from 'react-router-dom';
+import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../lib/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-export default function Nav({darkMode, toggleDarkMode, habits, isLoggedIn, name, setName}) {
+export default function Nav({darkMode, toggleDarkMode, habits, name, setName}) {
     const navigate = useNavigate();
+    const [user, loading, error] = useAuthState(auth);
 
     return (
         <>
             <nav>
                 {
-                    isLoggedIn?
+                    (user)?
                     <div className="fixed top-0 left-0 right-0 flex flex-row place-content-between items-start p-10">
                         <button
                             onClick={() => {navigate("/account")}}
@@ -50,7 +53,7 @@ export default function Nav({darkMode, toggleDarkMode, habits, isLoggedIn, name,
                         </button>
                     </div>
                     :
-                    <div className="fixed top-0 left-0 right-0 flex flex-row flex-end p-10">
+                    <div className="fixed top-0 right-0 flex flex-row flex-end p-10">
                         <button
                             onClick={toggleDarkMode} 
                             
