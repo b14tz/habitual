@@ -6,6 +6,8 @@ import Nav from './components/Nav'
 import { getUserData, getUserCurrentHabits } from './interfaces/userInterface'
 import Home from './pages/Home'
 import Account from './pages/Account'
+import Register from './pages/Register'
+import Login from './pages/Login'
 import HabitSelect from './pages/HabitSelect'
 import AuthModal from './components/auth/AuthModal'
 import Protected from './components/auth/Protected'
@@ -30,7 +32,7 @@ let data = [
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(true)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(true)
   const [name, setName] = useState("")
   const [habits, setHabits] = useState([])
   const [setUpModal, setSetUpModal] = useState(false)
@@ -86,18 +88,31 @@ export default function App() {
           <Route 
             path="/" 
             element={
-              <Home 
-                isLoggedIn={isLoggedIn}
-                setSetUpModal={setSetUpModal}
-              />
+              <Protected>
+                <Home 
+                  setSetUpModal={setSetUpModal}
+                />
+              </Protected>
             }
           />
           <Route
             path="/account"
             element={
-              <Protected isLoggedIn={isLoggedIn}>
+              <Protected>
                 <Account/>
               </Protected>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <Login />
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <Register />
             }
           />
         </Routes>
