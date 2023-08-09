@@ -19,45 +19,53 @@ export default function Register() {
     };
     useEffect(() => {
       if (loading) return;
-      if (user) navigate("/dashboard");
+      if (user) navigate("/");
     }, [user, loading]);
     return (
-      <div className="flex justify-center items-center w-full h-screen">
-        <div className="flex flex-col">
-          <input
-            type="text"
-            className=""
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Full Name"
-          />
-          <input
-            type="text"
-            className=""
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email Address"
-          />
-          <input
-            type="password"
-            className=""
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-          />
-          <button className="bg-white-1 dark:bg-black-1 drop-shadow-md py-2 px-4 rounded-md" onClick={register}>
-            Register
-          </button>
-          <button
-            className="bg-white-1 dark:bg-black-1 drop-shadow-md py-2 px-4 rounded-md"
-            onClick={signInWithGoogle}
-          >
-            Register with Google
-          </button>
-          <div>
-            Already have an account? <Link to="/login">Login</Link> now.
-          </div>
+        <div className="flex justify-center items-center w-full h-screen">
+            <div className="flex flex-col bg-white dark:bg-black p-10 rounded-lg">
+                <h3 className="text-purple-1 m-auto text-5xl mb-6">Amplo</h3>
+                <input
+                    type="text"
+                    className="p-2 mb-4 rounded-md bg-white-1 dark:bg-black-2"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Full Name"
+                />
+                <input
+                    type="text"
+                    className="p-2 mb-4 rounded-md bg-white-1 dark:bg-black-2"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email Address"
+                />
+                <input
+                    type="password"
+                    className="p-2 mb-4 rounded-md bg-white-1 dark:bg-black-2"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Password"
+                />
+                <button className="bg-purple-1 text-white mb-2 drop-shadow-md py-2 rounded-md" onClick={register}>
+                    <p>Register</p>
+                </button>
+                <div className="flex items-center mb-2">
+                    <hr className="flex-grow border-t border-gray-400"/>
+                    <span className="px-4 text-gray-500">
+                        <p>or</p>
+                    </span>
+                    <hr className="flex-grow border-t border-gray-400"/>
+                </div>
+                <button
+                    className="bg-white-1 text-black mb-4 drop-shadow-md py-2 rounded-md"
+                    onClick={signInWithGoogle}
+                >
+                    <p>Register with Google</p>
+                </button>
+                <div>
+                    <p className="text-md">Already have an account? <Link to="/login" className="text-purple-1">Login here</Link></p>
+                </div>
+            </div>
         </div>
-      </div>
     );
 }
