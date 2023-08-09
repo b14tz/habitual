@@ -30,7 +30,7 @@ export default function Register() {
                     className="p-2 mb-4 rounded-md bg-white-1 dark:bg-black-2"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Full Name"
+                    placeholder="Display Name"
                 />
                 <input
                     type="text"
@@ -61,6 +61,7 @@ export default function Register() {
                     onClick={signInWithGoogle}
                 >
                     <p>Register with Google</p>
+                    
                 </button>
                 <div>
                     <p className="text-md">Already have an account? <Link to="/login" className="text-purple-1">Login here</Link></p>
