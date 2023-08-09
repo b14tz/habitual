@@ -6,6 +6,8 @@ import Nav from './components/Nav'
 import { getUserData, getUserCurrentHabits } from './interfaces/userInterface'
 import Home from './pages/Home'
 import Account from './pages/Account'
+import Register from './pages/Register'
+import Login from './pages/Login'
 import HabitSelect from './pages/HabitSelect'
 import AuthModal from './components/auth/AuthModal'
 import Protected from './components/auth/Protected'
@@ -98,6 +100,18 @@ export default function App() {
               <Protected isLoggedIn={isLoggedIn}>
                 <Account/>
               </Protected>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <Login />
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <Register />
             }
           />
         </Routes>
