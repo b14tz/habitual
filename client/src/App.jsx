@@ -88,16 +88,17 @@ export default function App() {
           <Route 
             path="/" 
             element={
-              <Home 
-                isLoggedIn={isLoggedIn}
-                setSetUpModal={setSetUpModal}
-              />
+              <Protected>
+                <Home 
+                  setSetUpModal={setSetUpModal}
+                />
+              </Protected>
             }
           />
           <Route
             path="/account"
             element={
-              <Protected isLoggedIn={isLoggedIn}>
+              <Protected>
                 <Account/>
               </Protected>
             }
