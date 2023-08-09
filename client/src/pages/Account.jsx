@@ -1,5 +1,6 @@
 import React from 'react'
 import HabitGrid from '../components/chart/HabitGrid'
+import { logout } from '../lib/firebase'
 
 export default function Account() {
   return (
@@ -31,6 +32,12 @@ export default function Account() {
                     <p>Main Chart Color:</p>
                     <p>Change Display Name</p>
                     <p>Delete Account History</p>
+                    <button 
+                        className="w-fit"
+                        onClick={() => {logout()}}
+                    >
+                        <p>Logout</p>
+                    </button>
                 </div>
             </div>
         </div>
