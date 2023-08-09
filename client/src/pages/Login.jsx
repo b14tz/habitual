@@ -2,6 +2,7 @@ import React, {useState, useEffect } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import GoogleText from '../components/auth/GoogleText';
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -47,7 +48,7 @@ export default function Login() {
                     <hr className="flex-grow border-t border-gray-400"/>
                 </div>
                 <button className="bg-white-1 text-black mb-2 drop-shadow-md py-2 rounded-md" onClick={signInWithGoogle}>
-                    <p>Login with Google</p>
+                    <p>Login with <GoogleText/></p>
                 </button>
                 <Link to="/reset" className="text-grey-123 text-sm self-end mb-4">
                     <p className="text-grey-123">Forgot Password</p>

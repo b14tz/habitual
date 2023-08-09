@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
 import { auth } from './lib/firebase'
 import Nav from './components/Nav'
@@ -9,7 +9,6 @@ import Account from './pages/Account'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import HabitSelect from './pages/HabitSelect'
-import AuthModal from './components/auth/AuthModal'
 import Protected from './components/auth/Protected'
 
 let data = [

@@ -6,6 +6,7 @@ import {
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from "../lib/firebase";
+import GoogleText from "../components/auth/GoogleText";
 
 export default function Register() {
     const [email, setEmail] = useState("");
@@ -30,7 +31,7 @@ export default function Register() {
                     className="p-2 mb-4 rounded-md bg-white-1 dark:bg-black-2"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Full Name"
+                    placeholder="Display Name"
                 />
                 <input
                     type="text"
@@ -60,7 +61,8 @@ export default function Register() {
                     className="bg-white-1 text-black mb-4 drop-shadow-md py-2 rounded-md"
                     onClick={signInWithGoogle}
                 >
-                    <p>Register with Google</p>
+                    <p>Register with <GoogleText/></p>
+                    
                 </button>
                 <div>
                     <p className="text-md">Already have an account? <Link to="/login" className="text-purple-1">Login here</Link></p>
