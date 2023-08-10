@@ -34,7 +34,6 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true)
   const [name, setName] = useState("")
   const [habits, setHabits] = useState([])
-  const [setUpModal, setSetUpModal] = useState(false)
   
   useEffect(() => {
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -88,9 +87,7 @@ export default function App() {
             path="/" 
             element={
               <Protected>
-                <Home 
-                  setSetUpModal={setSetUpModal}
-                />
+                <Home/>
               </Protected>
             }
           />
@@ -105,9 +102,7 @@ export default function App() {
           <Route
             path="/setup"
             element={
-              <Protected>
                 <Setup/>
-              </Protected>
             }
           />
           <Route
@@ -123,7 +118,6 @@ export default function App() {
             }
           />
         </Routes>
-
       </div>
     </>
   )

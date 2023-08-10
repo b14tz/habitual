@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function HabitGridCell(props) {
+export default function HabitGridCell({ progress }) {
     const divStyle = {
-        opacity: props.progress
+        opacity: progress
     }
     return (
         <>

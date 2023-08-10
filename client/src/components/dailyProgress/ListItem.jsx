@@ -3,16 +3,16 @@ import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 import { useOutsideClick } from '../../hooks/useOutsideClick';
 
 
-export default function ListItem(props) {
-  const [completionStatus, setCompletionStatus] = useState(props.status);
+export default function ListItem({ id, title, color, status, toggleCompletion }) {
+  const [completionStatus, setCompletionStatus] = useState(status);
   const [popup, setPopup] = useState(false)
 
   const divStyle = {
-    backgroundColor: props.color
+    backgroundColor: color
   }
 
   const toggleCompleteTask = (event) => {
-    props.toggleCompletion(props.id)
+    toggleCompletion(id)
     setCompletionStatus(!completionStatus)
     let classes = `rounded-full h-4 w-4 mr-2 `
     event.target.className = completionStatus ? classes + `bg-white-1 dark:bg-black-1 border-2 border-black-1 dark:border-white-1` : classes + `bg-black-1 dark:bg-white-1`
@@ -37,7 +37,7 @@ export default function ListItem(props) {
               className={'rounded-full h-4 w-4 mr-2' + (completionStatus ? 'bg-black-1 dark:bg-white-1 ' : 'bg-white-2 border-2 border-black-1 dark:border-white-1')}
               onClick={toggleCompleteTask}
             />
-            <p className='ml-2 mr-4'>{props.title}</p> 
+            <p className='ml-2 mr-4'>{title}</p> 
           </div>
 
           <button onClick={() => setPopup(true)}>
