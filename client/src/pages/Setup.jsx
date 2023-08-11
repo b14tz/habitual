@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { ArrowLongRightIcon, ArrowLongLeftIcon } from "@heroicons/react/20/solid";
 import SetHabits from '../components/setUp/SetHabits'
 import SetName from '../components/setUp/SetName';
+import SetSpecifics from '../components/setUp/SetSpecifics';
 
 export default function Setup() {
   const [name, setName] = useState("")
@@ -10,8 +11,8 @@ export default function Setup() {
 
   const pages = [ 
     <SetName name={name} setName={setName} pageCount={pageCount} setPageCount={setPageCount}/>,
-    <SetHabits habits={habits} setHabits={setHabits} pageCount={pageCount} setPageCount={setPageCount}/>, 
-    <div>hi</div> 
+    <SetHabits habits={habits} setHabits={setHabits}/>, 
+    <SetSpecifics habits={habits}/>
   ]
 
   return (
