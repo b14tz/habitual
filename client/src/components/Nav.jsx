@@ -1,22 +1,24 @@
-import { React } from 'react'
+import { React, useContext } from 'react'
 import { getCurrentDate } from '../lib/date';
 import { SunIcon, MoonIcon, Cog6ToothIcon as SettingsIconSolid } from "@heroicons/react/24/solid";
-import { SunIcon as SunIconOutline, MoonIcon as MoonIconOutline, Cog6ToothIcon as SettingsIconOutline } from "@heroicons/react/24/outline";
+import { Cog6ToothIcon as SettingsIconOutline } from "@heroicons/react/24/outline";
 import { HomeIcon as HomeIconSolid} from "@heroicons/react/20/solid";
 import { HomeIcon as HomeIconOutline } from "@heroicons/react/24/outline";
 import { useNavigate } from 'react-router-dom';
-import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../lib/firebase";
+import { auth } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { SetupContext } from "../contexts/SetupContext";
 
 export default function Nav({darkMode, toggleDarkMode, habits, name, setName}) {
-    const navigate = useNavigate();
-    const [user, loading, error] = useAuthState(auth);
+    const navigate = useNavigate()
+    const [user] = useAuthState(auth)
+    const setup = useContext(SetupContext)
 
     return (
         <>
             <nav>
                 {
-                    (user)?
+                    (user && !setup)?
                     <div className="fixed top-0 left-0 right-0 flex flex-row place-content-between items-start p-10">
                         <button
                             onClick={() => {navigate("/account")}}

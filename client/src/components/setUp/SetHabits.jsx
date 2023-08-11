@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { BackspaceIcon } from "@heroicons/react/24/solid";
 
-export default function SetHabits() {
-  const [habitList, setHabitList] = useState([])
+export default function SetHabits({ habits, setHabits }) {
   const [newItem, setNewItem] = useState({
       title: "",
       status: false,
@@ -17,9 +16,9 @@ export default function SetHabits() {
 
   const handleAddNewItem = (event) => {
       if(newItem.title !== ""){
-          let temp = habitList
+          let temp = habits
           temp.push(newItem)
-          setHabitList(temp)
+          setHabits(temp)
           //addHabit(auth.currentUser.uid, newItem)
           event.target.value = ""
           setNewItem({
@@ -31,19 +30,20 @@ export default function SetHabits() {
   }
 
   const handleRemoveItem = (id) => {
-      let temp = habitList
+      let temp = habits
       delete temp[id]
-      setHabitList([...temp])
+      setHabits([...temp])
   }
 
   function renderList() {
-      return Object.keys(habitList).map((obj) => {
-        if (habitList[obj]) {
+      return Object.keys(habits).map((obj) => {
+        if (habits[obj]) {
           return (
+            
             <div key={obj} className="flex flex-row items-center">
               <li>
                 <p className="text-5xl font-semibold">
-                  {habitList[obj].title}
+                  {habits[obj].title}
                 </p>
               </li>
               {
@@ -64,6 +64,7 @@ export default function SetHabits() {
 
   return (
       <>
+          <h1 className='text-6xl text-center '>What do you want to track?</h1>
           <input 
               id="text-input"
               className='placeholder:text-gray-1 dark:placeholder:text-gray-500 text-5xl font-semibold input-text text-center focus:outline-none border-b-2 bg-transparent border-black-1 dark:border-white-1 placeholder:text-black-3 mb-2'
