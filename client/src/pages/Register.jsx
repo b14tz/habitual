@@ -24,7 +24,7 @@ export default function Register() {
     return (
         <div className="flex justify-center items-center w-full h-screen">
             <div className="flex flex-col bg-white dark:bg-black p-10 rounded-lg">
-                <h3 className="text-purple-1 m-auto text-5xl mb-6">Amplo</h3>
+                <h3 className="text-purple-1 m-auto mb-6">Amplo</h3>
                 <input
                     type="text"
                     className="p-2 mb-4 rounded-md bg-white-1 dark:bg-black-2"
@@ -64,7 +64,7 @@ export default function Register() {
                     
                 </button>
                 <div>
-                    <p className="text-md">Already have an account? <Link to="/login" className="text-purple-1">Login here</Link></p>
+                    <p>Already have an account? <Link to="/login" className="text-purple-1">Login here</Link></p>
                 </div>
             </div>
         </div>

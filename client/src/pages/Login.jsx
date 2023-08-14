@@ -18,7 +18,7 @@ export default function Login() {
     return (
         <div className="flex justify-center items-center w-full h-screen">
             <div className="flex flex-col bg-white dark:bg-black p-10 rounded-lg">
-                <h3 className="text-purple-1 m-auto text-5xl mb-6">Amplo</h3>
+                <h3 className="text-purple-1 m-auto mb-6">Amplo</h3>
                 <input
                     type="text"
                     className="p-2 mb-4 rounded-md bg-white-1 dark:bg-black-2"
@@ -52,7 +52,7 @@ export default function Login() {
                 <Link to="/reset" className="text-grey-123 text-sm self-end mb-4">
                     <p className="text-grey-123">Forgot Password</p>
                 </Link>
-                <p className="text-md">Don't have an account? <Link to="/register" className="text-purple-1">Register now</Link></p>
+                <p>Don't have an account? <Link to="/register" className="text-purple-1">Register now</Link></p>
             </div>
         </div>
     );

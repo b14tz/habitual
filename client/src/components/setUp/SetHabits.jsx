@@ -6,6 +6,8 @@ export default function SetHabits({ habits, setHabits }) {
       title: "",
       status: false,
       color: "",
+      goalUnits: "",
+      goalNumber: ""
   });
 
   const handleKeyPress = (event) => {
@@ -29,65 +31,78 @@ export default function SetHabits({ habits, setHabits }) {
       }
   }
 
-  const handleRemoveItem = (id) => {
+  const handleRemoveItem = (index) => {
       let temp = habits
-      delete temp[id]
+      if(index < 0 || index >= temp.length) {
+        console.error('index is out of bounds')
+      }
+
+      for(let i = index; i < temp.length - 1; i++){
+        temp[i] = temp[i + 1]
+      }
+      
+      temp.length--
       setHabits([...temp])
   }
 
   function renderList() {
-      return Object.keys(habits).map((obj) => {
-        if (habits[obj]) {
-          return (
-            
-            <div key={obj} className="flex flex-row items-center">
-              <li>
-                <p className="text-5xl font-semibold">
-                  {habits[obj].title}
-                </p>
-              </li>
-              {
-                true ?
-                <button key={obj} onClick={() => handleRemoveItem(obj)}>
-                  <BackspaceIcon className="ml-2 h-8 w-8 text-red-2" />
-                </button>
-                :
-                null
-              }
-            </div>
-          );
-        } else {
-          return null;
-        }
-      });
+      if(habits.length >  0){
+        return Object.keys(habits).map((index) => {
+          if (habits[index]) {
+            return (
+              
+              <div key={index} className="flex flex-row items-center">
+                <h3 className="mr-2">•</h3>
+                <li>
+                  <h3 className="font-semibold">
+                    {habits[index].title}
+                  </h3>
+                </li>
+                {
+                  true ?
+                  <button key={index} onClick={() => handleRemoveItem(index)}>
+                    <BackspaceIcon className="ml-2 h-8 w-8 text-red-2" />
+                  </button>
+                  :
+                  null
+                }
+              </div>
+            );
+          } else {
+            return null;
+          }
+        });
+      }
+      else {
+        return (
+          <>
+            <h3 className="mr-2 text-gray-500">• test</h3>
+          </>
+        )
+      }
+      
     }
 
   return (
-      <>
-          <h1 className='text-6xl text-center '>What do you want to track?</h1>
+      <div className="flex flex-col">
+          <h2>Set Habits</h2>
           <input 
               id="text-input"
-              className='placeholder:text-gray-1 dark:placeholder:text-gray-500 text-5xl font-semibold input-text text-center focus:outline-none border-b-2 bg-transparent border-black-1 dark:border-white-1 placeholder:text-black-3 mb-2'
+              className='placeholder:text-gray-1 dark:placeholder:text-gray-500 font-semibold input-text focus:outline-none border-b-2 bg-transparent border-black-1 dark:border-white-1 placeholder:text-black-3 mb-2 w-[25ch]'
               type="text"
-              placeholder='enter a habit here'
-              onKeyDown={handleKeyPress}
-              onInput={() => {
-                  const input = document.getElementById('text-input');
-                  const value = input.value;
-                  if (input !== null && value !== undefined){
-                      input.style.width = value.length * 0.6 + 1 > 12 ? (value.length * 0.75 + 3) + 'ch' : '16ch';
-                  }
-              }}      
+              placeholder='Enter what you want to track here'
+              onKeyDown={handleKeyPress}     
               onChange={(event) => 
-                  setNewItem({
-                      title: event.target.value,
-                      status: false,
-                      color: newItem.color
-                  })}
+                setNewItem({
+                    title: event.target.value,
+                    status: false,
+                    color: newItem.color
+                })
+              }
           />
-          <ul className="flex flex-col items-center">
+          <ul className="flex flex-col">
               {renderList()}
           </ul>
-      </> 
+      </div> 
   )
 }

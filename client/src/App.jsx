@@ -45,13 +45,13 @@ export default function App() {
 
     if(auth.currentUser){
       setIsLoggedIn(true)
-      getUserData(auth.currentUser.uid).then(data => {
-        setName(data.name.charAt(0).toUpperCase() + data.name.slice(1))
-      })
+      // getUserData(auth.currentUser.uid).then(data => {
+      //   setName(data.name.charAt(0).toUpperCase() + data.name.slice(1))
+      // })
 
-      getUserCurrentHabits(auth.currentUser.uid).then(data => {
-        setHabits(data)
-      })
+      // getUserCurrentHabits(auth.currentUser.uid).then(data => {
+      //   setHabits(data)
+      // })
     }
 
   }, [darkMode])
@@ -72,7 +72,7 @@ export default function App() {
 
   return (
     <>
-      <div className={`h-full w-full text-xl text-black-1 bg-white-1 dark:text-white-1 dark:bg-black-1`}>
+      <div className={`h-full w-full text-black-1 bg-white-1 dark:text-white-1 dark:bg-black-1`}>
         <Nav
           darkMode={darkMode} 
           toggleDarkMode={toggleDarkMode} 
@@ -87,7 +87,7 @@ export default function App() {
             path="/" 
             element={
               <Protected>
-                <Home/>
+                <Home habits={habits} setHabits={setHabits}/>
               </Protected>
             }
           />
@@ -102,7 +102,7 @@ export default function App() {
           <Route
             path="/setup"
             element={
-                <Setup/>
+                <Setup habits={habits} setHabits={setHabits}/>
             }
           />
           <Route
