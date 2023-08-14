@@ -5,13 +5,15 @@ import SetSpecifics from '../components/setUp/SetSpecifics';
 import { SetupContext } from '../contexts/SetupContext';
 //import { ArrowRightCircleIcon, ArrowLeftCircleIcon } from "@heroicons/react/20/solid";
 import { ArrowRightCircleIcon, ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Setup() {
   const [name, setName] = useState("")
   const [habits, setHabits] = useState([])
   const [page, setPage] = useState(0)
-  let setup = useContext(SetupContext);
+  const { setup, setSetup } = useContext(SetupContext);
+  const navigate = useNavigate();
 
   const pages = [ 
     <SetName name={name} setName={setName} page={page} setPage={setPage}/>,
@@ -20,8 +22,9 @@ export default function Setup() {
   ]
 
   const handleFinishSetup = () => {
-    console.log(habits)
-    //setup = false
+    setSetup(false)
+    navigate("/")
+    console.log(setup)
   }
 
   return (

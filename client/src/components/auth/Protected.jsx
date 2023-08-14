@@ -6,7 +6,7 @@ import { SetupContext } from '../../contexts/SetupContext';
 
 export default function Protected({ children }) {
   const [ user ] = useAuthState(auth);
-  const setup = useContext(SetupContext);
+  const {setup} = useContext(SetupContext);
 
   // if the user isn't logged in, redirect them to the login page
   if(!user){

@@ -12,7 +12,7 @@ import { SetupContext } from "../contexts/SetupContext";
 export default function Nav({darkMode, toggleDarkMode, habits, name, setName}) {
     const navigate = useNavigate()
     const [user] = useAuthState(auth)
-    const setup = useContext(SetupContext)
+    const {setup} = useContext(SetupContext)
 
     return (
         <>
