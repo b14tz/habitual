@@ -11,8 +11,8 @@ export default function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
-    const [user, loading, error] = useAuthState(auth);
-    const navigate = useNavigate();
+    const [user, loading] = useAuthState(auth);
+    const navigate = useNavigate()
     const register = () => {
       if (!name) alert("Please enter name");
       registerWithEmailAndPassword(name, email, password);
@@ -24,7 +24,7 @@ export default function Register() {
     return (
         <div className="flex justify-center items-center w-full h-screen">
             <div className="flex flex-col bg-white dark:bg-black p-10 rounded-lg">
-                <h3 className="text-purple-1 m-auto mb-6">Amplo</h3>
+                <h1 className="text-purple-1 m-auto mb-6">Amplo</h1>
                 <input
                     type="text"
                     className="p-2 mb-4 rounded-md bg-white-1 dark:bg-black-2"

@@ -18,7 +18,7 @@ export default function Login() {
     return (
         <div className="flex justify-center items-center w-full h-screen">
             <div className="flex flex-col bg-white dark:bg-black p-10 rounded-lg">
-                <h3 className="text-purple-1 m-auto mb-6">Amplo</h3>
+                <h1 className="text-purple-1 m-auto mb-6">Amplo</h1>
                 <input
                     type="text"
                     className="p-2 mb-4 rounded-md bg-white-1 dark:bg-black-2"
@@ -49,8 +49,8 @@ export default function Login() {
                 <button className="bg-white-1 text-black mb-2 drop-shadow-md py-2 rounded-md" onClick={signInWithGoogle}>
                     <p>Login with Google</p>
                 </button>
-                <Link to="/reset" className="text-grey-123 text-sm self-end mb-4">
-                    <p className="text-grey-123">Forgot Password</p>
+                <Link to="/reset" className="text-grey-123 self-end mb-4">
+                    <p className="text-grey-123 text-sm">Forgot Password</p>
                 </Link>
                 <p>Don't have an account? <Link to="/register" className="text-purple-1">Register now</Link></p>
             </div>
