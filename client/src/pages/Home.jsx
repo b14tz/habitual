@@ -11,8 +11,8 @@ export default function Home() {
             <CheckList/>
             <ProgressCircle/>
           </div>
-          <div className="px-6 py-4 mt-6 w-full rounded drop-shadow bg-white-2 dark:bg-black-2">
-              <p className="ml-1 mb-2">Chart</p>
+          <div className="px-6 py-4 mt-6 w-full rounded drop-shadow bg-b-secondary dark:bg-db-secondary">
+              <h3 className="ml-1 mb-2">Chart</h3>
               <HabitGrid/>
           </div>
         </div>

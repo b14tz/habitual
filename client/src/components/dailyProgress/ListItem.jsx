@@ -15,7 +15,7 @@ export default function ListItem({ id, title, color, status, toggleCompletion })
     toggleCompletion(id)
     setCompletionStatus(!completionStatus)
     let classes = `rounded-full h-4 w-4 mr-2 `
-    event.target.className = completionStatus ? classes + `bg-white-1 dark:bg-black-1 border-2 border-black-1 dark:border-white-1` : classes + `bg-black-1 dark:bg-white-1`
+    event.target.className = completionStatus ? classes + `bg-b-primary dark:bg-db-primary border-2 border-t-primary dark:border-dt-primary` : classes + `bg-t-primary dark:bg-dt-primary`
   }
 
   const handleClickOutside = () => {
@@ -34,23 +34,23 @@ export default function ListItem({ id, title, color, status, toggleCompletion })
           <div className="flex flex-row items-center py-1">
             <button
               id="button" 
-              className={'rounded-full h-4 w-4 mr-2' + (completionStatus ? 'bg-black-1 dark:bg-white-1 ' : 'bg-white-2 border-2 border-black-1 dark:border-white-1')}
+              className={'rounded-full h-4 w-4 mr-2' + (completionStatus ? 'bg-t-primary dark:bg-dt-primary ' : 'bg-t-secondary border-2 border-t-primary dark:border-dt-primary')}
               onClick={toggleCompleteTask}
             />
-            <p className='ml-2 mr-4'>{title}</p> 
+            <p className='ml-2 mr-4 text-t-primary dark:text-dt-primary'>{title}</p> 
           </div>
 
           <button onClick={() => setPopup(true)}>
-            <EllipsisHorizontalIcon className="h-6 w-6 text-black-1 dark:text-white-1" />
+            <EllipsisHorizontalIcon className="h-6 w-6 text-t-primary dark:text-dt-primary" />
           </button>
           {
             popup?
             <div 
               ref={ref}
-              className="absolute left-[101%] px-2 bg-white-2 drop-shadow dark:bg-black-2 rounded-md"
+              className="absolute left-[101%] px-2 bg-b-secondary drop-shadow dark:bg-db-secondary rounded-md"
             >
-              <p className="text-black-1 dark:text-white-1">Edit</p>
-              <p className="text-black-1 dark:text-white-1">Delete</p>
+              <p className="text-t-primary dark:text-dt-primary">Edit</p>
+              <p className="text-t-primary dark:text-dt-primary">Delete</p>
             </div>
             :
             null

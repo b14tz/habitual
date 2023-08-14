@@ -23,25 +23,25 @@ export default function Register() {
     }, [user, loading]);
     return (
         <div className="flex justify-center items-center w-full h-screen">
-            <div className="flex flex-col bg-white dark:bg-black p-10 rounded-lg">
+            <div className="flex flex-col bg-b-secondary dark:bg-db-secondary p-10 rounded-lg">
                 <h1 className="text-purple-1 m-auto mb-6">Amplo</h1>
                 <input
                     type="text"
-                    className="p-2 mb-4 rounded-md bg-white-1 dark:bg-black-2"
+                    className="p-2 mb-4 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Display Name"
                 />
                 <input
                     type="text"
-                    className="p-2 mb-4 rounded-md bg-white-1 dark:bg-black-2"
+                    className="p-2 mb-4 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email Address"
                 />
                 <input
                     type="password"
-                    className="p-2 mb-4 rounded-md bg-white-1 dark:bg-black-2"
+                    className="p-2 mb-4 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
@@ -50,20 +50,20 @@ export default function Register() {
                     <p>Register</p>
                 </button>
                 <div className="flex items-center mb-2">
-                    <hr className="flex-grow border-t border-gray-400"/>
-                    <span className="px-4 text-gray-500">
+                    <hr className="flex-grow border-t-tertiary"/>
+                    <span className="px-4 text-t-tertiary">
                         <p>or</p>
                     </span>
-                    <hr className="flex-grow border-t border-gray-400"/>
+                    <hr className="flex-grow border-t-tertiary"/>
                 </div>
                 <button
-                    className="bg-white-1 text-black mb-4 drop-shadow-md py-2 rounded-md"
+                    className="bg-b-tertiary text-black mb-2 drop-shadow-md py-2 rounded-md"
                     onClick={signInWithGoogle}
                 >
                     <p>Register with Google</p>
                     
                 </button>
-                <div>
+                <div className="mt-4">
                     <p>Already have an account? <Link to="/login" className="text-purple-1">Login here</Link></p>
                 </div>
             </div>

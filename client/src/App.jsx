@@ -72,7 +72,7 @@ export default function App() {
 
   return (
     <>
-      <div className={`h-full w-full text-black-1 bg-white-1 dark:text-white-1 dark:bg-black-1`}>
+      <div className={`h-full w-full text-t-primary bg-b-primary dark:text-dt-primary dark:bg-db-primary`}>
         <Nav
           darkMode={darkMode} 
           toggleDarkMode={toggleDarkMode} 
