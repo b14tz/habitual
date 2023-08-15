@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
-
 import { auth } from './lib/firebase'
 import Nav from './components/Nav'
 import { getUserData, getUserCurrentHabits } from './interfaces/userInterface'
@@ -8,7 +7,6 @@ import Home from './pages/Home'
 import Account from './pages/Account'
 import Register from './pages/Register'
 import Login from './pages/Login'
-import Setup from './pages/Setup'
 import Protected from './components/auth/Protected'
 
 let data = [
@@ -97,12 +95,6 @@ export default function App() {
               <Protected>
                 <Account/>
               </Protected>
-            }
-          />
-          <Route
-            path="/setup"
-            element={
-                <Setup habits={habits} setHabits={setHabits}/>
             }
           />
           <Route

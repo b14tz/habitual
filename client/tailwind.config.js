@@ -26,12 +26,14 @@ export default {
         'db-tertiary': '#40404A', // for: input fields, hrs
         // other colors
         'red-1': '#E8505B',
-        'red-2': '#FF4141',
+        'orange-1': '#e87950',
         'yellow-1': '#F9D56E',
         'green-1': '#6BCB77',
-        'green-2': '#72d48c',
         'blue-1': '#71A9FE',
-        'purple-1':'#4942E4',
+        'purple-1': '#4942E4',
+        'pink-1': '#e850d9',
+        'brown-1': '#662f20',
+        'grey-1': '#8a8a8a',
       }
     },
   },

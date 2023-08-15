@@ -18,7 +18,7 @@ export default function Login() {
     }, [user, loading]);
     return (
         <div className="flex justify-center items-center w-full h-screen">
-            <div className="flex flex-col bg-b-secondary dark:bg-db-secondary p-10 rounded-lg">
+            <div className="flex flex-col bg-b-secondary dark:bg-db-secondary p-10 rounded-lg drop-shadow-md">
                 <h1 className="text-purple-1 m-auto mb-6">Amplo</h1>
                 <input
                     type="text"
