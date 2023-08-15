@@ -4,7 +4,7 @@ export default function SetSpecifics({ habits, setHabits, page, setPage, handleF
     const [selectedColor, setSelectedColor] = useState('#000000')
     const [goalUnit, setGoalUnit] = useState("")
     const [goalNumber, setGoalNumber] = useState(0)
-    const [colorPopup, setColorPopup] = useState(false)
+    const [colorPopup, setColorPopup] = useState(null)
 
     const handleSelectedColor = (index, event) => {
         let updatedHabits = habits
