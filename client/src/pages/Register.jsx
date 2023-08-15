@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-import SetHabits from '../components/setUp/SetHabits'
-import SetSpecifics from '../components/setUp/SetSpecifics';
+import SetHabits from '../components/set-up/SetHabits'
+import SetSpecifics from '../components/set-up/SetSpecifics';
 import {
   auth,
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from "../lib/firebase";
-import SetRegistrationDetails from "../components/setUp/SetRegistrationDetails";
+import SetRegistrationDetails from "../components/set-up/SetRegistrationDetails";
 
 export default function Register() {
     const [email, setEmail] = useState("");

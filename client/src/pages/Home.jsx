@@ -1,7 +1,7 @@
 import React from 'react'
 import HabitGrid from '../components/chart/HabitGrid'
-import CheckList from '../components/dailyProgress/CheckList';
-import ProgressCircle from '../components/dailyProgress/ProgressCircle';
+import CheckList from '../components/daily-progress/CheckList';
+import ProgressCircle from '../components/daily-progress/ProgressCircle';
 
 export default function Home() {
   return (

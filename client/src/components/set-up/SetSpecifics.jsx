@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 
 export default function SetSpecifics({ habits, setHabits, page, setPage, handleFinishSetup }) {
     const [selectedColor, setSelectedColor] = useState('#000000')
@@ -6,11 +6,27 @@ export default function SetSpecifics({ habits, setHabits, page, setPage, handleF
     const [goalNumber, setGoalNumber] = useState(0)
     const [colorPopup, setColorPopup] = useState(null)
 
+
+    // the reference and useEffect are used to handle the closing of the color picker
+    let popupRef = useRef()
+    useEffect(() => {
+        let handler = (e) => {
+            if(popupRef.current && !popupRef.current.contains(e.target)){
+                setColorPopup(null)
+            }
+        }
+        document.addEventListener('mousedown', handler)
+        return() => {
+            document.removeEventListener('mousedown', handler)
+        }
+    })
+
     const handleSelectedColor = (index, event) => {
+        console.log(event.target.classList[0])
         let updatedHabits = habits
-        updatedHabits[index].color = selectedColor
+        updatedHabits[index].color = event.target.classList[0]
         setHabits(updatedHabits)
-        event.target.value = updatedHabits[index].color
+        //event.target.value = updatedHabits[index].color
     }
 
     const handleGoalUnit = (index) => {
@@ -37,26 +53,31 @@ export default function SetSpecifics({ habits, setHabits, page, setPage, handleF
                                 className='p-2 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary w-[4ch] mr-2'
                                 type="text"
                                 placeholder='45'
-                                value={habits[index].goalNumber == '' ? '' : habits[index].goalNumber}
+                                value={habits[index].goalNumber}
                                 onChange={(event) => {
-                                    setGoalNumber(event.target.value)
+                                    let newGoalNumber = event.target.value
+                                    let updatedHabits = habits
+                                    updatedHabits[index].goalNumber = newGoalNumber
+                                    setHabits(updatedHabits)
                                 }}
-                                onBlur={() => handleGoalNumber(index)}
                             />
                             <input
                                 className='p-2 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary w-[8ch] mr-2'
                                 type="text"
                                 placeholder='minutes'
-                                value={habits[index].goalUnit == '' ? '' : habits[index].goalUnit}
+                                value={habits[index].goalUnit}
                                 onChange={(event) => {
-                                    setGoalUnit(event.target.value)
+                                    let newGoalUnit = event.target.value
+                                    let updatedHabits = habits
+                                    updatedHabits[index].goalUnit = newGoalUnit
+                                    setHabits(updatedHabits)
                                 }}
-                                onBlur={() => handleGoalUnit(index)}
+
                             />
                             <p>a day</p>
                         </div>
                         <button 
-                            className="ml-4 rounded-full border-b-tertiary dark:border-db-tertiary border-[4px] bg-red-1 h-[30px] w-[30px]"
+                            className="bg-red-1 ml-4 rounded-full border-b-tertiary dark:border-db-tertiary border-[4px] h-[30px] w-[30px]"
                             onClick={() => setColorPopup(prevState => { 
                                     if(prevState == index){
                                         return null
@@ -66,9 +87,9 @@ export default function SetSpecifics({ habits, setHabits, page, setPage, handleF
                             />
                         {
                             colorPopup == index?
-                            <div className="absolute left-[101%] px-2 bg-b-secondary drop-shadow dark:bg-db-secondary rounded-md p-2">
+                            <div ref={popupRef} className="absolute left-[101%] px-2 bg-b-secondary drop-shadow dark:bg-db-secondary rounded-md p-2">
                                 <div className="flex flex-row">
-                                    <button className="bg-red-1 m-1 rounded-full h-[20px] w-[20px]"></button>
+                                    <button className="bg-red-1 m-1 rounded-full h-[20px] w-[20px]" onClick={(event) => handleSelectedColor(index, event)}></button>
                                     <button className="bg-orange-1 m-1 rounded-full h-[20px] w-[20px]"></button>
                                     <button className="bg-yellow-1 m-1 rounded-full h-[20px] w-[20px]"></button>
                                 </div>

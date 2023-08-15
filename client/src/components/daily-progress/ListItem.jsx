@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
-import { useOutsideClick } from '../../hooks/useOutsideClick';
 
 
 export default function ListItem({ id, title, color, status, toggleCompletion }) {
