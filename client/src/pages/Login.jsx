@@ -2,6 +2,7 @@ import React, {useState, useEffect } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import googleLogo from '../assets/google.png'
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -46,7 +47,11 @@ export default function Login() {
                     </span>
                     <hr className="flex-grow border-t-tertiary"/>
                 </div>
-                <button className="bg-b-tertiary text-black mb-2 drop-shadow-md py-2 rounded-md" onClick={signInWithGoogle}>
+                <button 
+                    className="bg-b-tertiary text-black mb-2 drop-shadow-md py-2 rounded-md flex flex-row justify-center items-center" 
+                    onClick={signInWithGoogle}
+                >
+                    <img src={googleLogo} className="w-7 mr-2"/>
                     <p>Login with Google</p>
                 </button>
                 <Link to="/reset" className="self-end mb-4">

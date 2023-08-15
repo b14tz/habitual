@@ -6,6 +6,7 @@ import {
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from "../lib/firebase";
+import googleLogo from '../assets/google.png'
 
 export default function Register() {
     const [email, setEmail] = useState("");
@@ -57,11 +58,11 @@ export default function Register() {
                     <hr className="flex-grow border-t-tertiary"/>
                 </div>
                 <button
-                    className="bg-b-tertiary text-black mb-2 drop-shadow-md py-2 rounded-md"
+                    className="bg-b-tertiary text-black mb-2 drop-shadow-md py-2 rounded-md flex flex-row justify-center items-center"
                     onClick={signInWithGoogle}
                 >
+                    <img src={googleLogo} className="w-7 mr-2"/>
                     <p>Register with Google</p>
-                    
                 </button>
                 <div className="mt-4">
                     <p>Already have an account? <Link to="/login" className="text-purple-1">Login here</Link></p>
