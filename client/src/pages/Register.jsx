@@ -31,7 +31,7 @@ export default function Register() {
     }
 
     const pages = [ 
-        <SetRegistrationDetails page={page} setPage={setPage} name={name} setName={setName} setEmail={setEmail} password={password} setPassword={setPassword} signInWithGoogle={signInWithGoogle}/>,
+        <SetRegistrationDetails page={page} setPage={setPage} name={name} setName={setName} email={email} setEmail={setEmail} password={password} setPassword={setPassword} signInWithGoogle={signInWithGoogle}/>,
         <SetHabits page={page} setPage={setPage} habits={habits} setHabits={setHabits}/>, 
         <SetSpecifics page={page} setPage={setPage} habits={habits} setHabits={setHabits} handleFinishSetup={handleFinishSetup}/>
     ]
