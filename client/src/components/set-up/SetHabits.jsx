@@ -5,7 +5,7 @@ export default function SetHabits({ habits, setHabits, page, setPage }) {
   const [newItem, setNewItem] = useState({
       title: "",
       status: false,
-      color: "",
+      color: "bg-blue-1",
       goalUnits: "",
       goalNumber: ""
   });
@@ -21,12 +21,11 @@ export default function SetHabits({ habits, setHabits, page, setPage }) {
           let temp = habits
           temp.push(newItem)
           setHabits(temp)
-          //addHabit(auth.currentUser.uid, newItem)
           event.target.value = ""
           setNewItem({
               title: "",
               status: false,
-              color: "",
+              color: "bg-blue-1",
           })
       }
   }
@@ -69,9 +68,9 @@ export default function SetHabits({ habits, setHabits, page, setPage }) {
       else {
         return (
           <>
-            <p className="mr-2 text-gray-500">• Run</p>
-            <p className="mr-2 text-gray-500">• Lift</p>
-            <p className="mr-2 text-gray-500">• Read</p>
+            <p className="mr-2 text-t-secondary dark:text-dt-secondary">• Run</p>
+            <p className="mr-2 text-t-secondary dark:text-dt-secondary">• Lift</p>
+            <p className="mr-2 text-t-secondary dark:text-dt-secondary">• Read</p>
           </>
         )
       }
