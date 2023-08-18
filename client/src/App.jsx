@@ -8,6 +8,8 @@ import Account from './pages/Account'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Protected from './components/auth/Protected'
+import Setup from './pages/Setup'
+import SetupWrapper from './components/auth/SetupWrapper'
 
 let data = [
   {
@@ -84,17 +86,21 @@ export default function App() {
           <Route 
             path="/" 
             element={
-              <Protected>
-                <Home habits={habits} setHabits={setHabits}/>
-              </Protected>
+              <SetupWrapper>
+                <Protected>
+                  <Home habits={habits} setHabits={setHabits}/>
+                </Protected>
+              </SetupWrapper>
             }
           />
           <Route
             path="/account"
             element={
-              <Protected>
-                <Account/>
-              </Protected>
+              <SetupWrapper>
+                <Protected>
+                  <Account/>
+                </Protected>
+              </SetupWrapper>
             }
           />
           <Route
@@ -107,6 +113,12 @@ export default function App() {
             path="/register"
             element={
               <Register />
+            }
+          />
+          <Route
+            path="/setup"
+            element={
+              <Setup />
             }
           />
         </Routes>

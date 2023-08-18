@@ -24,8 +24,6 @@ export default function ListItem({ id, title, color, status, toggleCompletion })
     setPopup(false)
   }
 
-  const ref = useOutsideClick(handleClickOutside);
-
   return (
     <>
 
@@ -44,10 +42,7 @@ export default function ListItem({ id, title, color, status, toggleCompletion })
           </button>
           {
             popup?
-            <div 
-              ref={ref}
-              className="absolute left-[101%] px-2 bg-b-secondary drop-shadow dark:bg-db-secondary rounded-md"
-            >
+            <div className="absolute left-[101%] px-2 bg-b-secondary drop-shadow dark:bg-db-secondary rounded-md">
               <p className="text-t-primary dark:text-dt-primary">Edit</p>
               <p className="text-t-primary dark:text-dt-primary">Delete</p>
             </div>

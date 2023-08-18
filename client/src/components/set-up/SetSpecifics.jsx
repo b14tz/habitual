@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ColorPicker from '../ColorPicker'
 
-export default function SetSpecifics({ habits, setHabits, page, setPage, handleFinishSetup }) {
+export default function SetSpecifics({ habits, setHabits, specificError, setSpecificError }) {
 
     const handleColorChange = (index, event) => {
         const newColor = event.target.value
@@ -20,6 +20,7 @@ export default function SetSpecifics({ habits, setHabits, page, setPage, handleF
                     <div className="flex flex-row items-center justify-between">
                         <div className="flex flex-row items-center">
                             <input
+                                autoFocus={index == 0 ? true : false}
                                 className='p-2 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary w-[4ch] mr-2'
                                 type="text"
                                 placeholder='45'
@@ -48,6 +49,12 @@ export default function SetSpecifics({ habits, setHabits, page, setPage, handleF
                         </div>
                         <ColorPicker index={index} color={habits[index].color} handleColorChange={handleColorChange}/>
                     </div>
+                    {
+                        specificError.index == index?
+                        <p className="m-2 text-sm text-t-error">{specificError.message}</p>
+                        :
+                        null
+                    }
                     {index != habits.length - 1 ? <hr className="mt-2"/> : ""}
                 </div>
             );
@@ -63,14 +70,6 @@ export default function SetSpecifics({ habits, setHabits, page, setPage, handleF
             <h2>Set Specifics</h2>
             <div className="my-6">
                 {renderHabits()}
-            </div>
-            <div className="flex flex-row items-center justify-end">
-                <button className="mr-4" onClick={() => {setPage(page - 1)}}>
-                <p>Back</p>
-                </button>
-                <button className="bg-purple-1 text-white drop-shadow-md py-2 px-4 rounded-md" onClick={() => handleFinishSetup()}>
-                    <p>Complete Setup</p>
-                </button>
             </div>
         </div>
     )

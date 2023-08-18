@@ -40,7 +40,7 @@ h3,h4,h5,h6 {
     font-size: 1.5rem;
 }
  
-p, ::placeholder, .input-text {
+p, input, ::placeholder, .input-text {
     font-family: 'Geologica', sans-serif;
     font-weight: 400;
     font-size: 1rem;

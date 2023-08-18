@@ -21,6 +21,7 @@ export default function Login() {
             <div className="flex flex-col bg-b-secondary dark:bg-db-secondary p-10 rounded-lg drop-shadow-md">
                 <h1 className="text-purple-1 m-auto mb-6">Amplo</h1>
                 <input
+                    autoFocus
                     type="text"
                     className="p-2 mb-4 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary"
                     value={email}

@@ -51,7 +51,6 @@ export const getUserCurrentHabits = async (uid) => {
   querySnapshot.forEach(doc => {
     habits.push(doc.data())
   })
-
   return habits
 }
 
