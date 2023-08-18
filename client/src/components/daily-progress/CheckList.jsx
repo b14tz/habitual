@@ -1,12 +1,12 @@
 import React from 'react'
 import ListItem from './ListItem'
 
-export default function CheckList({ habits, name }) {
+export default function CheckList({ habits, name, toggleCompletion }) {
 
   function renderListItems() {
     return Object.keys(habits).map(i => {
       return (
-        <ListItem key={i} {...habits[i]}/>
+        <ListItem key={i} id={i} {...habits[i]} toggleCompletion={toggleCompletion}/>
       )
     })
   }

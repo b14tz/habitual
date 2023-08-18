@@ -27,7 +27,6 @@ export default function App() {
     }
 
     if(user){
-      console.log('hit')
       setIsLoggedIn(true)
       async function getHabitData() {
         let data = await getUserData(auth.currentUser.uid)
@@ -45,8 +44,8 @@ export default function App() {
   }
 
   function toggleCompletion(id) {
-    setHabits(prevHabits => {
-      const updatedHabits = [...prevHabits]; // Create a copy of the habits array
+    setHabits(prev => {
+      const updatedHabits = [...prev]; // Create a copy of the habits array
       updatedHabits[id] = { ...updatedHabits[id] }; // Create a copy of the specific habit object
       updatedHabits[id].status = !updatedHabits[id].status; // Update the status of the task
       return updatedHabits; // Return the updated habits array
@@ -70,7 +69,7 @@ export default function App() {
             path="/" 
             element={
               <AuthWrapper>
-                <Home habits={habits} setHabits={setHabits} name={name}/>
+                <Home habits={habits} name={name} toggleCompletion={toggleCompletion}/>
               </AuthWrapper>
             }
           />

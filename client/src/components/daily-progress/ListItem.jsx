@@ -13,12 +13,12 @@ export default function ListItem({ id, title, color, status, toggleCompletion })
     event.target.className = completionStatus ? classes + `bg-b-primary dark:bg-db-primary border-2 border-t-primary dark:border-dt-primary` : classes + `bg-t-primary dark:bg-dt-primary`
   }
 
-  const handleClickOutside = () => {
-    console.log("is the menu open? ", popup)
+  // const handleClickOutside = () => {
+  //   console.log("is the menu open? ", popup)
 
-    // if the button or the popup wasn't hit, close it
-    setPopup(false)
-  }
+  //   // if the button or the popup wasn't hit, close it
+  //   setPopup(false)
+  // }
 
   return (
     <>
@@ -36,7 +36,7 @@ export default function ListItem({ id, title, color, status, toggleCompletion })
           <button onClick={() => setPopup(true)}>
             <EllipsisHorizontalIcon className="h-6 w-6 text-t-primary dark:text-dt-primary" />
           </button>
-          {
+          {/* {
             popup?
             <div className="absolute left-[101%] px-2 bg-b-secondary drop-shadow dark:bg-db-secondary rounded-md">
               <p className="text-t-primary dark:text-dt-primary">Edit</p>
@@ -44,7 +44,7 @@ export default function ListItem({ id, title, color, status, toggleCompletion })
             </div>
             :
             null
-          }
+          } */}
         </div>
 
 
