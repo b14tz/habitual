@@ -49,10 +49,11 @@ export const signInWithGoogle = async () => {
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
       await setDoc(doc(db, "User", user.uid), {
-        name: user.name,
+        name: user.displayName,
         authProvider: "google",
         email: user.email,
         isSetup: false,
+        uid: user.uid
       });
     }
   } catch (err) {
@@ -81,6 +82,7 @@ export const registerWithEmailAndPassword = async (name, email, password) => {
         authProvider: "local",
         email: email,
         isSetup: false,
+        uid: user.uid
       });
     } catch (err) {
       console.error(err);

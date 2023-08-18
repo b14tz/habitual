@@ -63,7 +63,7 @@ export default function Setup() {
         }
     }, [user, loading]);
 
-    function onSubmit(e) {
+    async function onSubmit(e) {
         e.preventDefault();
     
         if (!isLastStep) {
@@ -95,7 +95,8 @@ export default function Setup() {
     
             // If there are no errors, you can proceed with submission or any other action
             // For now, I'll just log a success message
-            finishSetup(user.uid, habits)
+            await finishSetup(user.uid, habits)
+            navigate("/")
         }
     }
     
