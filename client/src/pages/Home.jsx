@@ -1,23 +1,21 @@
 import React from 'react'
 import HabitGrid from '../components/chart/HabitGrid'
-import CheckList from '../components/dailyProgress/CheckList';
-import ProgressCircle from '../components/dailyProgress/ProgressCircle';
+import CheckList from '../components/daily-progress/CheckList';
+import ProgressCircle from '../components/daily-progress/ProgressCircle';
 
-export default function Home({ setSetUpModal }) {
+export default function Home() {
   return (
-    <div className="flex w-full h-screen justify-center items-center">
-        <section className="flex flex-col items-center w-full">
-          <div className="flex flex-col m-auto w-[80%] h-full justify-center items-center">
-            <div className="flex flex-row w-full">
-              <CheckList/>
-              <ProgressCircle/>
-            </div>
-            <div className="px-6 py-4 mt-6 w-full rounded drop-shadow bg-white-2 dark:bg-black-2">
-                <p className="ml-1 mb-2">Chart</p>
-                <HabitGrid/>
-            </div>
-          </div>
-        </section>
+    <div className="flex flex-col m-auto w-[80%] items-center mt-[100px] mb-20">
+      <h1>Dashboard</h1>
+      <div className="flex flex-row w-full">
+        <CheckList/>
+        <ProgressCircle/>
+      </div>
+      <div className="px-6 py-4 mt-6 w-full rounded drop-shadow bg-b-secondary dark:bg-db-secondary">
+          <h3 className="ml-1 mb-2">Chart</h3>
+          <HabitGrid/>
+      </div>
     </div>
+
   )
 }

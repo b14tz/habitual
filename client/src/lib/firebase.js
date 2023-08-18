@@ -14,7 +14,9 @@ import {
     getDocs,
     collection,
     where,
-    addDoc 
+    addDoc,
+    doc,
+    setDoc
 } from "firebase/firestore";
 
 // Web Firebase Configuration
@@ -46,11 +48,11 @@ export const signInWithGoogle = async () => {
     const q = query(collection(db, "User"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      await addDoc(collection(db, "User"), {
-        uid: user.uid,
-        name: user.displayName,
+      await setDoc(doc(db, "User", user.uid), {
+        name: user.name,
         authProvider: "google",
         email: user.email,
+        isSetup: false,
       });
     }
   } catch (err) {
@@ -74,11 +76,11 @@ export const registerWithEmailAndPassword = async (name, email, password) => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       const user = res.user;
-      await addDoc(collection(db, "User"), {
-        uid: user.uid,
-        name,
+      await setDoc(doc(db, "User", user.uid), {
+        name: name,
         authProvider: "local",
-        email,
+        email: email,
+        isSetup: false,
       });
     } catch (err) {
       console.error(err);

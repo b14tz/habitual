@@ -4,23 +4,44 @@
 
 
 :root {
-    --off-white: #F7F8FA;
-    --off-black: #1f2937;
+    --bg-white: #F7F8F9;
+    --bg-black: #131314;
 }
 
 html {
-    background-color: var(--off-white);
+    background-color: var(--bg-white);
 }
 
 html.dark {
-    background-color: var(--off-black);
+    background-color: var(--bg-black);
 }
 
-h1,h2,h3,h4,h5,h6 {
-    font-family: 'Montserrat Alternates', sans-serif;
-    font-weight: 800;
+h1 {
+    font-family: 'Geologica', sans-serif;
+    font-weight: 600;
+    font-size: 3.375rem;
+}
+
+h2 {
+    font-family: 'Geologica', sans-serif;
+    font-weight: 600;
+    font-size: 2.25rem;
+}
+
+h3,h4,h5,h6 {
+    font-family: 'Geologica', sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+::placeholder, .input-text {
+    font-family: 'Geologica', sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
 }
  
-p, ::placeholder, .input-text {
+p, input, ::placeholder, .input-text {
     font-family: 'Geologica', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
 }

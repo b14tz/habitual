@@ -1,5 +1,5 @@
 import { db } from "../lib/firebase";
-import { doc, setDoc, getDoc, collection, query, where, getDocs, addDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, collection, query, where, getDocs, addDoc, updateDoc } from "firebase/firestore";
 
 export const createUser = async (uid, name, email) => {
   if(uid === "" || name === "" || email === "") {
@@ -51,21 +51,41 @@ export const getUserCurrentHabits = async (uid) => {
   querySnapshot.forEach(doc => {
     habits.push(doc.data())
   })
-
   return habits
 }
 
-export const addHabit = async (uid, task) => {
-  if(uid === "" || task === null){
-    console.error("uid or task is not set")
+export const addHabit = async (uid, habit) => {
+  if(uid === "" || habit === null){
+    console.error("uid or habit is not set")
     return 
   }
 
   await addDoc(collection(db, "Habit"), {
-    color: task.color,
-    title: task.title,
+    color: habit.color,
+    title: habit.title,
+    goalNumber: habit.goalNumber,
+    goalUnit: habit.goalUnit,
     active : true,
     dateCreated : new Date(),
     userId: uid
   })
+}
+
+export const finishSetup = async (uid, habits) => {
+  if(!uid || !habits){
+    console.error("uid or task is not set")
+    return
+  }
+
+  habits.forEach(async habit => {
+    await addHabit(uid, habit)
+  })
+
+  try {
+    const userDoc = doc(db, "User", uid);
+    await updateDoc(userDoc, { isSetup: true });
+    console.log("isSetup updated successfully");
+  } catch (e) {
+    console.error("Error updating isSetup: ", e);
+  }
 }

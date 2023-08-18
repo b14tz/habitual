@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
-
 import { auth } from './lib/firebase'
 import Nav from './components/Nav'
 import { getUserData, getUserCurrentHabits } from './interfaces/userInterface'
@@ -8,8 +7,9 @@ import Home from './pages/Home'
 import Account from './pages/Account'
 import Register from './pages/Register'
 import Login from './pages/Login'
-import Setup from './pages/Setup'
 import Protected from './components/auth/Protected'
+import Setup from './pages/Setup'
+import SetupWrapper from './components/auth/SetupWrapper'
 
 let data = [
   {
@@ -34,7 +34,6 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true)
   const [name, setName] = useState("")
   const [habits, setHabits] = useState([])
-  const [setUpModal, setSetUpModal] = useState(false)
   
   useEffect(() => {
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -46,13 +45,13 @@ export default function App() {
 
     if(auth.currentUser){
       setIsLoggedIn(true)
-      getUserData(auth.currentUser.uid).then(data => {
-        setName(data.name.charAt(0).toUpperCase() + data.name.slice(1))
-      })
+      // getUserData(auth.currentUser.uid).then(data => {
+      //   setName(data.name.charAt(0).toUpperCase() + data.name.slice(1))
+      // })
 
-      getUserCurrentHabits(auth.currentUser.uid).then(data => {
-        setHabits(data)
-      })
+      // getUserCurrentHabits(auth.currentUser.uid).then(data => {
+      //   setHabits(data)
+      // })
     }
 
   }, [darkMode])
@@ -73,7 +72,7 @@ export default function App() {
 
   return (
     <>
-      <div className={`h-full w-full text-xl text-black-1 bg-white-1 dark:text-white-1 dark:bg-black-1`}>
+      <div className={`h-full w-full text-t-primary bg-b-primary dark:text-dt-primary dark:bg-db-primary`}>
         <Nav
           darkMode={darkMode} 
           toggleDarkMode={toggleDarkMode} 
@@ -87,27 +86,21 @@ export default function App() {
           <Route 
             path="/" 
             element={
-              <Protected>
-                <Home 
-                  setSetUpModal={setSetUpModal}
-                />
-              </Protected>
+              <SetupWrapper>
+                <Protected>
+                  <Home habits={habits} setHabits={setHabits}/>
+                </Protected>
+              </SetupWrapper>
             }
           />
           <Route
             path="/account"
             element={
-              <Protected>
-                <Account/>
-              </Protected>
-            }
-          />
-          <Route
-            path="/setup"
-            element={
-              <Protected>
-                <Setup/>
-              </Protected>
+              <SetupWrapper>
+                <Protected>
+                  <Account/>
+                </Protected>
+              </SetupWrapper>
             }
           />
           <Route
@@ -122,8 +115,13 @@ export default function App() {
               <Register />
             }
           />
+          <Route
+            path="/setup"
+            element={
+              <Setup />
+            }
+          />
         </Routes>
-
       </div>
     </>
   )
