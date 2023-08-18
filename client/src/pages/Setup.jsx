@@ -9,7 +9,8 @@ import {
   signInWithGoogle,
 } from "../lib/firebase";
 import { useMultistepForm } from "../hooks/useMultistepForm";
-import { getUserData } from "../interfaces/userInterface";
+import { finishSetup, getUserData } from "../interfaces/userInterface";
+import CircularProgress from '@mui/material/CircularProgress';
 
 // FORM FIELDS
 // habits : []
@@ -22,6 +23,7 @@ export default function Setup() {
     const [data, setData] = useState([])
     const [user, loading] = useAuthState(auth);
     const [habits, setHabits] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
 
     const [habitError, setHabitError] = useState("")
@@ -36,15 +38,30 @@ export default function Setup() {
         <SetSpecifics {...data} habits={habits} setHabits={setHabits} specificError={specificError} setSpecificError={setSpecificError}/>
     ])
 
-    // // if a user is setup and they end up on this route, redirect to "/"
-    // useEffect(() => {
-    //   if (loading) return;
-    //   if (user) {
-    //     getUserData(user.uid).then(data => {
-    //         if (data.isSetup) navigate("/"); 
-    //     })
-    //   }
-    // }, [user, loading]);
+    // if a user is setup and they end up on this route, redirect to "/"
+    useEffect(() => {
+        if (loading) {
+            setIsLoading(true); // Start loading
+            return;
+        }
+
+        if (user) {
+            getUserData(user.uid)
+                .then(data => {
+                    if (data.isSetup) {
+                        navigate("/");
+                    } else {
+                        setIsLoading(false); // Loading complete
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching user data:", error);
+                    setIsLoading(false); // Loading complete, handle error gracefully
+                });
+        } else {
+            setIsLoading(false); // Loading complete, user not logged in
+        }
+    }, [user, loading]);
 
     function onSubmit(e) {
         e.preventDefault();
@@ -78,26 +95,31 @@ export default function Setup() {
     
             // If there are no errors, you can proceed with submission or any other action
             // For now, I'll just log a success message
-            console.log(habits);
+            finishSetup(user.uid, habits)
         }
     }
     
 
     return (
         <div className="flex justify-center items-center w-full h-screen">
-            <form className="flex flex-col bg-b-secondary dark:bg-db-secondary p-10 rounded-lg drop-shadow-md" onSubmit={onSubmit}>
-                {step}
-                <div className="flex flex-row items-center justify-end">
-                    {!isFirstStep && (
-                        <button className="mr-4" type="button" onClick={back}>
-                            <p>Back</p>
+            {
+                isLoading?
+                <CircularProgress/>
+                :
+                <form className="flex flex-col bg-b-secondary dark:bg-db-secondary p-10 rounded-lg drop-shadow-md" onSubmit={onSubmit}>
+                    {step}
+                    <div className="flex flex-row items-center justify-end">
+                        {!isFirstStep && (
+                            <button className="mr-4" type="button" onClick={back}>
+                                <p>Back</p>
+                            </button>
+                        )}
+                        <button type="submit" className="bg-purple-1 text-white drop-shadow-md py-2 px-4 rounded-md">
+                            <p>{isLastStep ? "Complete Setup" : "Set Specifics"}</p>
                         </button>
-                    )}
-                    <button type="submit" className="bg-purple-1 text-white drop-shadow-md py-2 px-4 rounded-md">
-                        <p>{isLastStep ? "Complete Setup" : "Set Specifics"}</p>
-                    </button>
-                </div>
-            </form>
+                    </div>
+                </form>
+            }
         </div>
     );
 }
