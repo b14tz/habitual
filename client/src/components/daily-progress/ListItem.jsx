@@ -6,10 +6,6 @@ export default function ListItem({ id, title, color, status, toggleCompletion })
   const [completionStatus, setCompletionStatus] = useState(status);
   const [popup, setPopup] = useState(false)
 
-  const divStyle = {
-    backgroundColor: color
-  }
-
   const toggleCompleteTask = (event) => {
     toggleCompletion(id)
     setCompletionStatus(!completionStatus)
@@ -27,7 +23,7 @@ export default function ListItem({ id, title, color, status, toggleCompletion })
   return (
     <>
 
-        <div className="flex flex-row relative justify-between w-full drop-shadow px-2 rounded-md my-2" style={divStyle}>
+        <div className={`${color} flex flex-row relative justify-between w-full drop-shadow px-2 rounded-md my-2`}>
           <div className="flex flex-row items-center py-1">
             <button
               id="button" 

@@ -9,30 +9,14 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import AuthWrapper from './components/auth/AuthWrapper'
 import Setup from './pages/Setup'
-
-let data = [
-  {
-      title:"leetcode",
-      status:true,
-      color:"blue-1"
-  },
-  {
-      title:"workout",
-      status:false,
-      color:"green-1"
-  },
-  {
-      title:"read",
-      status:false,
-      color:"yellow-1"
-  }
-]
+import { useAuthState } from 'react-firebase-hooks/auth'
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(true)
   const [isLoggedIn, setIsLoggedIn] = useState(true)
   const [name, setName] = useState("")
   const [habits, setHabits] = useState([])
+  const [user] = useAuthState(auth)
   
   useEffect(() => {
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -42,18 +26,18 @@ export default function App() {
       document.documentElement.classList.remove('dark')
     }
 
-    if(auth.currentUser){
+    if(user){
+      console.log('hit')
       setIsLoggedIn(true)
-      // getUserData(auth.currentUser.uid).then(data => {
-      //   setName(data.name.charAt(0).toUpperCase() + data.name.slice(1))
-      // })
-
-      // getUserCurrentHabits(auth.currentUser.uid).then(data => {
-      //   setHabits(data)
-      // })
+      async function getHabitData() {
+        let data = await getUserData(auth.currentUser.uid)
+        setName(data.name.charAt(0).toUpperCase() + data.name.slice(1))
+        data = await getUserCurrentHabits(auth.currentUser.uid)
+        setHabits(data)
+      }
+      getHabitData()
     }
-
-  }, [darkMode])
+  }, [darkMode, user])
 
   function toggleDarkMode() {
     setDarkMode(!darkMode)
@@ -86,7 +70,7 @@ export default function App() {
             path="/" 
             element={
               <AuthWrapper>
-                <Home habits={habits} setHabits={setHabits}/>
+                <Home habits={habits} setHabits={setHabits} name={name}/>
               </AuthWrapper>
             }
           />
