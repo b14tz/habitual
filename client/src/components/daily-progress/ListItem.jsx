@@ -27,7 +27,7 @@ export default function ListItem({ id, title, color, status, toggleCompletion })
           <div className="flex flex-row items-center py-1">
             <button
               id="button" 
-              className={'rounded-full h-4 w-4 mr-2' + (completionStatus ? 'bg-t-primary dark:bg-dt-primary ' : 'bg-t-secondary border-2 border-t-primary dark:border-dt-primary')}
+              className={'rounded-full h-4 w-4 mr-2' + (completionStatus ? ' bg-t-primary dark:bg-dt-primary ' : 'bg-t-secondary border-2 border-t-primary dark:border-dt-primary')}
               onClick={toggleCompleteTask}
             />
             <p className='ml-2 mr-4 text-t-primary dark:text-dt-primary'>{title}</p> 
