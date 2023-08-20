@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ColorPicker from '../ColorPicker'
 
-export default function SetSpecifics({ habits, setHabits, specificError, setSpecificError }) {
+export default function SetSpecifics({ habits, setHabits, specificError }) {
 
     const handleColorChange = (index, event) => {
         const newColor = event.target.value

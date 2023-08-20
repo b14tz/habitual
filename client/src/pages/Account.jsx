@@ -1,8 +1,15 @@
-import React from 'react'
+import React, {useState} from 'react'
 import HabitGrid from '../components/chart/HabitGrid'
 import { logout } from '../lib/firebase'
+import ColorPicker from '../components/ColorPicker'
 
 export default function Account() {
+    const [mainChartColor, setMainChartColor] = useState('bg-red-1')
+
+    function handleColorChange(index, event){
+        setMainChartColor(event.target.value)
+    }
+
     return (
         <div className="flex flex-col m-auto w-[80%] h-screen items-center mt-[100px]">
             <h1>Account</h1>
@@ -30,7 +37,10 @@ export default function Account() {
                 <div className="ml-3 pb-4 w-[50%] min-w-[300px] rounded drop-shadow bg-b-secondary dark:bg-db-secondary">
                     <div className='flex flex-col pt-4 px-6'>
                         <h3 className="mb-4">Settings</h3>
-                        <p>Main Chart Color:</p>
+                        <div className="flex flex-row items-center">
+                            <p>Main Chart Color:</p>
+                            <ColorPicker color={mainChartColor} handleColorChange={handleColorChange}/>
+                        </div>
                         <p>Change Display Name</p>
                         <p>Delete Account History</p>
                         <button 

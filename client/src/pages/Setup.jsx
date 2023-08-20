@@ -3,11 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import SetHabits from '../components/set-up/SetHabits'
 import SetSpecifics from '../components/set-up/SetSpecifics';
-import {
-  auth,
-  registerWithEmailAndPassword, // registerWithEmailAndPassword(name, email, password)
-  signInWithGoogle,
-} from "../lib/firebase";
+import { auth } from "../lib/firebase";
 import { useMultistepForm } from "../hooks/useMultistepForm";
 import { finishSetup, getUserData } from "../interfaces/userInterface";
 import CircularProgress from '@mui/material/CircularProgress';
@@ -35,7 +31,7 @@ export default function Setup() {
     const { step, currentStepIndex, next, back, isLastStep, isFirstStep } = 
     useMultistepForm([
         <SetHabits {...data} habits={habits} setHabits={setHabits} habitError={habitError} setHabitError={setHabitError}/>, 
-        <SetSpecifics {...data} habits={habits} setHabits={setHabits} specificError={specificError} setSpecificError={setSpecificError}/>
+        <SetSpecifics {...data} habits={habits} setHabits={setHabits} specificError={specificError}/>
     ])
 
     // if a user is setup and they end up on this route, redirect to "/"
