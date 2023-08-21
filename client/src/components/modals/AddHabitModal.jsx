@@ -4,7 +4,7 @@ import { addHabit } from '../../interfaces/userInterface';
 import { auth } from "../../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-export default function AddHabitModal({ open, setOpen }) {
+export default function AddHabitModal({ open, setOpen, setHabits }) {
     const [title, setTitle] = useState('')
     const [goalNumber, setGoalNumber] = useState('')
     const [goalUnit, setGoalUnit] = useState('')
@@ -19,6 +19,18 @@ export default function AddHabitModal({ open, setOpen }) {
         e.preventDefault()
         console.log(title, goalUnit, goalNumber, color)
         await addHabit(user.uid, title, goalUnit, goalNumber, color)
+        setHabits(prev => {
+            const updatedHabits = [...prev]
+            updatedHabits.push({
+                uid: user.uid,
+                title: title,
+                goalNumber: goalNumber,
+                goalUnit: goalUnit,
+                color: color
+            })
+            return updatedHabits
+        })
+        setOpen(false)
     }
 
     return (

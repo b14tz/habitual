@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { auth } from './lib/firebase'
 import Nav from './components/Nav'
-import { getUserData, getUserCurrentHabits } from './interfaces/userInterface'
+import { getUserData, getUserCurrentHabits, editHabit } from './interfaces/userInterface'
 import Home from './pages/Home'
 import Account from './pages/Account'
 import Register from './pages/Register'
@@ -43,13 +43,12 @@ export default function App() {
     localStorage.theme = !darkMode ? 'dark' : ''
   }
 
-  function toggleCompletion(id) {
-    setHabits(prev => {
-      const updatedHabits = [...prev]; // Create a copy of the habits array
-      updatedHabits[id] = { ...updatedHabits[id] }; // Create a copy of the specific habit object
-      updatedHabits[id].status = !updatedHabits[id].status; // Update the status of the task
-      return updatedHabits; // Return the updated habits array
-    });
+  async function toggleCompletion(i) {
+    const updatedHabits = [...habits] // Create a copy of the habits array
+    updatedHabits[i] = { ...updatedHabits[i] }; // Create a copy of the specific habit object
+    updatedHabits[i].status = !updatedHabits[i].status; // Update the status of the task
+    await editHabit(updatedHabits[i].id, updatedHabits[i])
+    setHabits(updatedHabits)
   }
 
   return (
@@ -69,7 +68,7 @@ export default function App() {
             path="/" 
             element={
               <AuthWrapper>
-                <Home habits={habits} name={name} toggleCompletion={toggleCompletion}/>
+                <Home habits={habits} setHabits={setHabits} name={name} toggleCompletion={toggleCompletion}/>
               </AuthWrapper>
             }
           />

@@ -6,7 +6,6 @@ export const createUser = async (uid, name, email) => {
     console.error("uid, name, or email is not set")
     return
   }
-
   try {
       await setDoc(doc(db, "User", uid), {
           name: name,
@@ -25,10 +24,8 @@ export const getUserData = async (uid) => {
     console.error("uid is not set")
     return
   }
-
   const userDoc = doc(db, "User", uid)
   const userDocSnap = await getDoc(userDoc)
-
   if (userDocSnap.exists()) {
     let data = userDocSnap.data();
     return data
@@ -43,7 +40,6 @@ export const getUserCurrentHabits = async (uid) => {
     console.error("uid is not set")
     return
   }
-
   const habitRef = collection(db, "Habit")
   const q = query(habitRef, where('userId', '==', uid), where('active', '==', true))
   const querySnapshot = await getDocs(q)
@@ -59,8 +55,7 @@ export const addHabit = async (uid, title, goalUnit, goalNumber, color) => {
     console.error("uid is not set")
     return 
   }
-
-  await addDoc(collection(db, "Habit"), {
+  const docRef = await addDoc(collection(db, "Habit"), {
     color: color,
     title: title,
     goalNumber: goalNumber,
@@ -69,18 +64,19 @@ export const addHabit = async (uid, title, goalUnit, goalNumber, color) => {
     dateCreated : new Date(),
     userId: uid
   })
+  await updateDoc(docRef, {
+    id: docRef.id
+  })
 }
 
 export const finishSetup = async (uid, habits) => {
   if(!uid || !habits){
-    console.error("uid or task is not set")
+    console.error("uid or habit is not set")
     return
   }
-
   habits.forEach(async habit => {
     await addHabit(uid, ...habit)
   })
-
   try {
     const userDoc = doc(db, "User", uid);
     await updateDoc(userDoc, { isSetup: true });
@@ -88,4 +84,18 @@ export const finishSetup = async (uid, habits) => {
   } catch (e) {
     console.error("Error updating isSetup: ", e);
   }
+}
+
+export const editHabit = async (habitId, habit) => {
+  if(!habitId || !habit){
+    console.error("habit id or habit is not set")
+    return
+  }
+  try {
+    const habitDoc = doc(db, "Habit", habitId)
+    await updateDoc(habitDoc, { ...habit })
+  } catch (e) {
+    console.error("Error updating habit: ", e)
+  }
+
 }

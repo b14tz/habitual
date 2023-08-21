@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 
 
-export default function ListItem({ id, title, color, status, toggleCompletion }) {
+export default function ListItem({ i, title, color, status, toggleCompletion }) {
   const [completionStatus, setCompletionStatus] = useState(status);
   const [popup, setPopup] = useState(false)
 
   const toggleCompleteTask = (event) => {
-    toggleCompletion(id)
+    toggleCompletion(i)
     setCompletionStatus(!completionStatus)
     let classes = `rounded-full h-4 w-4 mr-2 `
     event.target.className = completionStatus ? classes + `bg-b-primary dark:bg-db-primary border-2 border-t-primary dark:border-dt-primary` : classes + `bg-t-primary dark:bg-dt-primary`

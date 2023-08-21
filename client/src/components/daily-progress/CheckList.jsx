@@ -3,13 +3,13 @@ import ListItem from './ListItem'
 import AddHabitModal from '../modals/AddHabitModal'
 
 
-export default function CheckList({ habits, name, toggleCompletion }) {
+export default function CheckList({ habits, setHabits, name, toggleCompletion }) {
   const [modal, setModal] = useState(false)
 
   function renderListItems() {
     return Object.keys(habits).map(i => {
       return (
-        <ListItem key={i} id={i} {...habits[i]} toggleCompletion={toggleCompletion}/>
+        <ListItem key={i} i={i} {...habits[i]} toggleCompletion={toggleCompletion}/>
       )
     })
   }
@@ -27,7 +27,7 @@ export default function CheckList({ habits, name, toggleCompletion }) {
         >
           <p className="m-auto py-1 text-t-primary dark:text-dt-primary">+</p>
         </button>
-        <AddHabitModal open={modal} setOpen={setModal}/>
+        <AddHabitModal open={modal} setOpen={setModal} setHabits={setHabits}/>
     </div>
   )
 }
