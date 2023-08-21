@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { auth } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import SetHabits from '../components/set-up/SetHabits'
 import SetSpecifics from '../components/set-up/SetSpecifics';
-import { auth } from "../lib/firebase";
 import { useMultistepForm } from "../hooks/useMultistepForm";
 import { finishSetup, getUserData } from "../interfaces/userInterface";
 import CircularProgress from '@mui/material/CircularProgress';

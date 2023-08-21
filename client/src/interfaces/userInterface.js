@@ -54,17 +54,17 @@ export const getUserCurrentHabits = async (uid) => {
   return habits
 }
 
-export const addHabit = async (uid, habit) => {
-  if(uid === "" || habit === null){
-    console.error("uid or habit is not set")
+export const addHabit = async (uid, title, goalUnit, goalNumber, color) => {
+  if(uid === ""){
+    console.error("uid is not set")
     return 
   }
 
   await addDoc(collection(db, "Habit"), {
-    color: habit.color,
-    title: habit.title,
-    goalNumber: habit.goalNumber,
-    goalUnit: habit.goalUnit,
+    color: color,
+    title: title,
+    goalNumber: goalNumber,
+    goalUnit: goalUnit,
     active : true,
     dateCreated : new Date(),
     userId: uid
@@ -78,7 +78,7 @@ export const finishSetup = async (uid, habits) => {
   }
 
   habits.forEach(async habit => {
-    await addHabit(uid, habit)
+    await addHabit(uid, ...habit)
   })
 
   try {

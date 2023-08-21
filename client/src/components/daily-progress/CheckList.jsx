@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ListItem from './ListItem'
+import AddHabitModal from '../modals/AddHabitModal'
+
 
 export default function CheckList({ habits, name, toggleCompletion }) {
+  const [modal, setModal] = useState(false)
 
   function renderListItems() {
     return Object.keys(habits).map(i => {
@@ -18,11 +21,13 @@ export default function CheckList({ habits, name, toggleCompletion }) {
         <ListItem title="Read" color='#6BCB77'/>
         <ListItem title="Stretch" color='#71A9FE'/> */}
         {renderListItems()}
-        <button>
-          <div className="flex justify-between w-full bg-b-secondary dark:bg-db-secondary drop-shadow px-2 rounded-md my-2">
-              <p className="m-auto py-1 text-t-primary dark:text-dt-primary">+</p>
-          </div>
+        <button 
+          className="flex justify-between w-full bg-b-secondary dark:bg-db-secondary drop-shadow px-2 rounded-md my-2"
+          onClick={() => setModal(prev => !prev)}
+        >
+          <p className="m-auto py-1 text-t-primary dark:text-dt-primary">+</p>
         </button>
+        <AddHabitModal open={modal} setOpen={setModal}/>
     </div>
   )
 }
