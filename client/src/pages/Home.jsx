@@ -5,7 +5,7 @@ import ProgressCircle from '../components/daily-progress/ProgressCircle';
 
 export default function Home({habits, setHabits, name, toggleCompletion}) {
   return (
-    <div className="flex flex-col m-auto w-[80%] items-center mt-[100px] mb-20">
+    <div className="flex flex-col m-auto w-[80%] items-center mt-[20px] mb-20">
       <h1>Dashboard</h1>
       <div className="flex flex-row w-full">
         <CheckList habits={habits} setHabits={setHabits} name={name} toggleCompletion={toggleCompletion}/>

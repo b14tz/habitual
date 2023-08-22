@@ -17,7 +17,6 @@ export default function AddHabitModal({ open, setOpen, setHabits }) {
 
     async function handleSubmit(e) {
         e.preventDefault()
-        console.log(title, goalUnit, goalNumber, color)
         await addHabit(user.uid, title, goalUnit, goalNumber, color)
         setHabits(prev => {
             const updatedHabits = [...prev]

@@ -52,7 +52,7 @@ export default function Account({ name, setName }) {
     }
 
     return (
-        <div className="flex flex-col m-auto w-[80%] h-screen items-center mt-[100px]">
+        <div className="flex flex-col m-auto w-[80%] h-screen items-center mt-[20px]">
             <h1>Account</h1>
             <div className="flex flex-row w-full min-h-[50px]">
                 <div className="mr-3 px-6 py-4 w-[50%] min-w-[300px] rounded drop-shadow bg-b-secondary dark:bg-db-secondary">
