@@ -35,6 +35,21 @@ export const getUserData = async (uid) => {
   }
 }
 
+export const getUserHabits = async (uid) => {
+  if(uid === "") {
+    console.error("uid is not set")
+    return
+  }
+  const habitRef = collection(db, "Habit")
+  const q = query(habitRef, where('userId', '==', uid))
+  const querySnapshot = await getDocs(q)
+  const habits = []
+  querySnapshot.forEach(doc => {
+    habits.push(doc.data())
+  })
+  return habits
+}
+
 export const getUserCurrentHabits = async (uid) => {
   if(uid === "") {
     console.error("uid is not set")

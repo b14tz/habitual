@@ -1,13 +1,36 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import HabitGrid from '../components/chart/HabitGrid'
 import { logout } from '../lib/firebase'
 import ColorPicker from '../components/ColorPicker'
+import { auth } from '../lib/firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { getUserHabits } from '../interfaces/userInterface'
 
 export default function Account() {
+    const [allHabits, setAllHabits] =useState([])
+    const [currentHabit, setCurrentHabit] = useState()
     const [mainChartColor, setMainChartColor] = useState('bg-red-1')
+    const [changeNamePopup, setChangeNamePopup] = useState(false)
+    const [deleteAccountPopup, setDeleteAccountPopup] = useState(false)
+    const [user] = useAuthState(auth)
 
+    useEffect(() => {
+        async function getAllHabits(){
+            const habits = await getUserHabits(user.uid)
+            setAllHabits(habits)
+        }
+        getAllHabits()
+    }, [user])
     function handleColorChange(index, event){
         setMainChartColor(event.target.value)
+    }
+
+    function renderHabitOptions(){
+        return allHabits.map(( habit, index) => {
+            return (
+                <option key={index}>{habit.title}</option>
+            )
+        })
     }
 
     return (
@@ -18,15 +41,7 @@ export default function Account() {
                     <div className="mb-4 flex flex-row items-center">
                         <h3>Habit History</h3>
                         <select className='px-2 py-1 ml-8 rounded-lg bg-b-tertiary dark:bg-db-tertiary'>
-                            <option>
-                                Workout
-                            </option>
-                            <option>
-                                Read
-                            </option>
-                            <option>
-                                Stretch
-                            </option>
+                            {renderHabitOptions()}
                         </select>
                     </div>
                     <p>Start Date: </p>

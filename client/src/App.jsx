@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { auth } from './lib/firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import Nav from './components/Nav'
 import { getUserData, getUserCurrentHabits, editHabit } from './interfaces/userInterface'
 import Home from './pages/Home'
@@ -9,7 +10,6 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import AuthWrapper from './components/auth/AuthWrapper'
 import Setup from './pages/Setup'
-import { useAuthState } from 'react-firebase-hooks/auth'
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(true)
