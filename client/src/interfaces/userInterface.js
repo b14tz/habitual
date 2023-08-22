@@ -118,7 +118,7 @@ export const addHabit = async (uid, title, goalUnit, goalNumber, color) => {
   })
 }
 
-export const finishSetup = async (uid, habits) => {
+export const finishSetup = async (uid, habits, finishCallback) => {
   if (!uid || !habits) {
     console.error('Error: uid or habits are not set')
     return;
@@ -133,17 +133,14 @@ export const finishSetup = async (uid, habits) => {
         console.error(`Error adding habit (${title}):`, error);
       }
     }
-
     const userDoc = doc(db, "User", uid);
     await updateDoc(userDoc, { isSetup: true });
+    finishCallback()
     console.log("isSetup updated successfully");
   } catch (e) {
     console.error("An error occurred during setup: ", e);
   }
 };
-
-
-
 
 export const editHabit = async (habitId, habit) => {
   if(!habitId || !habit){

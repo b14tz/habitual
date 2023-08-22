@@ -95,7 +95,7 @@ export default function App() {
           <Route
             path="/setup"
             element={
-              <Setup />
+              <Setup habits={habits} setHabits={setHabits}/>
             }
           />
         </Routes>

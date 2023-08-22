@@ -15,10 +15,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 //  -- goalUnit
 //  -- color
 
-export default function Setup() {
+export default function Setup({ habits, setHabits}) {
     const [data, setData] = useState([])
     const [user, loading] = useAuthState(auth);
-    const [habits, setHabits] = useState([])
+    // const [habits, setHabits] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
 
@@ -89,11 +89,11 @@ export default function Setup() {
                 })
             }
     
-            // If there are no errors, you can proceed with submission or any other action
-            // For now, I'll just log a success message
-            await finishSetup(user.uid, habits)
-            
-            navigate("/")
+            const finishCallback = () => {
+                navigate("/");
+              };
+              
+            await finishSetup(user.uid, habits, finishCallback);
         }
     }
     
