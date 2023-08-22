@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 
-
-export default function ListItem({ i, title, color, status, toggleCompletion }) {
+export default function ListItem({ i, id, title, color, goalNumber, goalUnit, status, toggleCompletion, setHabits, handleEditPopup, handleDeletePopup }) {
   const [completionStatus, setCompletionStatus] = useState(status);
   const [popup, setPopup] = useState(false)
 
@@ -33,21 +32,23 @@ export default function ListItem({ i, title, color, status, toggleCompletion }) 
             <p className='ml-2 mr-4 text-t-primary dark:text-dt-primary'>{title}</p> 
           </div>
 
-          <button onClick={() => setPopup(true)}>
+          <button onClick={() => setPopup(prev => !prev)}>
             <EllipsisHorizontalIcon className="h-6 w-6 text-t-primary dark:text-dt-primary" />
           </button>
-          {/* {
+          {
             popup?
-            <div className="absolute left-[101%] px-2 bg-b-secondary drop-shadow dark:bg-db-secondary rounded-md">
-              <p className="text-t-primary dark:text-dt-primary">Edit</p>
-              <p className="text-t-primary dark:text-dt-primary">Delete</p>
+            <div className="absolute left-[101%] p-2 bg-b-secondary drop-shadow dark:bg-db-secondary rounded-md z-[200]">
+              <button onClick={() => handleEditPopup(i, id, title, color, goalNumber, goalUnit)}>
+                <p className="text-t-primary dark:text-dt-primary">Edit</p>
+              </button>
+              <button onClick={() => handleDeletePopup(i, id)}>
+                <p className="text-t-primary dark:text-dt-primary">Delete</p>
+              </button>
             </div>
             :
             null
-          } */}
+          }
         </div>
-
-
     </>
   )
 }

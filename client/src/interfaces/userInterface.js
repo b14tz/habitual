@@ -1,5 +1,5 @@
 import { db } from "../lib/firebase";
-import { doc, setDoc, getDoc, collection, query, where, getDocs, addDoc, updateDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, collection, query, where, getDocs, addDoc, updateDoc, deleteDoc } from "firebase/firestore";
 
 export const createUser = async (uid, name, email) => {
   if(uid === "" || name === "" || email === "") {
@@ -98,4 +98,18 @@ export const editHabit = async (habitId, habit) => {
     console.error("Error updating habit: ", e)
   }
 
+}
+
+export const deleteHabit = async(habitId) => {
+  if(!habitId){
+    console.error("habit id is not set")
+    return
+  }
+  try {
+    const habitDoc = doc(db, "Habit", habitId)
+    await deleteDoc(habitDoc)
+  }
+  catch (e) {
+    console.error("Error deleting habit: ", e)
+  }
 }
