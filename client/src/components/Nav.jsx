@@ -1,6 +1,6 @@
 import { React } from 'react'
-import { SunIcon, MoonIcon, Cog6ToothIcon as SettingsIconSolid } from "@heroicons/react/24/solid";
-import { Cog6ToothIcon as SettingsIconOutline } from "@heroicons/react/24/outline";
+import { Cog6ToothIcon as SettingsIconSolid } from "@heroicons/react/24/solid";
+import { SunIcon, MoonIcon, Cog6ToothIcon as SettingsIconOutline } from "@heroicons/react/24/outline";
 import { HomeIcon as HomeIconSolid} from "@heroicons/react/20/solid";
 import { HomeIcon as HomeIconOutline } from "@heroicons/react/24/outline";
 import { useNavigate } from 'react-router-dom';
