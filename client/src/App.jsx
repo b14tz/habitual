@@ -76,7 +76,7 @@ export default function App() {
             path="/account"
             element={
               <AuthWrapper>
-                <Account/>
+                <Account name={name} setName={setName}/>
               </AuthWrapper>
             }
           />

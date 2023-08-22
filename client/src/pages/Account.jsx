@@ -5,8 +5,11 @@ import ColorPicker from '../components/ColorPicker'
 import { auth } from '../lib/firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { getUserHabits } from '../interfaces/userInterface'
+import { formatDate } from '../lib/date'
+import DeleteAccountModal from '../components/modals/DeleteAccountModal'
+import ChangeNameModal from '../components/modals/ChangeNameModal'
 
-export default function Account() {
+export default function Account({ name, setName }) {
     const [allHabits, setAllHabits] =useState([])
     const [currentHabit, setCurrentHabit] = useState()
     const [mainChartColor, setMainChartColor] = useState('bg-red-1')
@@ -18,6 +21,7 @@ export default function Account() {
         async function getAllHabits(){
             const habits = await getUserHabits(user.uid)
             setAllHabits(habits)
+            setCurrentHabit(habits[0])
         }
         getAllHabits()
     }, [user])
@@ -28,9 +32,23 @@ export default function Account() {
     function renderHabitOptions(){
         return allHabits.map(( habit, index) => {
             return (
-                <option key={index}>{habit.title}</option>
+                <option key={index} value={index}>{habit.title}</option>
             )
         })
+    }
+
+    function handleSelectChange(e) {
+        const index = e.target.value
+        console.log(allHabits[index])
+        setCurrentHabit(allHabits[index])
+    }
+
+    function renderEndDate() {
+        if(currentHabit?.retiredDate){
+            let retiredDate = currentHabit.retiredDate
+            return formatDate(retiredDate)
+        }
+        return 'Not Applicable'
     }
 
     return (
@@ -40,14 +58,14 @@ export default function Account() {
                 <div className="mr-3 px-6 py-4 w-[50%] min-w-[300px] rounded drop-shadow bg-b-secondary dark:bg-db-secondary">
                     <div className="mb-4 flex flex-row items-center">
                         <h3>Habit History</h3>
-                        <select className='px-2 py-1 ml-8 rounded-lg bg-b-tertiary dark:bg-db-tertiary'>
+                        <select onChange={handleSelectChange} className='px-2 py-1 ml-8 rounded-lg bg-b-tertiary dark:bg-db-tertiary'>
                             {renderHabitOptions()}
                         </select>
                     </div>
-                    <p>Start Date: </p>
-                    <p>Made Progress: </p>
-                    <p>Reached Goal: </p>
-                    <p>End Date: </p>
+                    <p>Start Date: {formatDate(currentHabit?.dateCreated)}</p>
+                    <p>Made Progress: 1/1 Days (100%)</p>
+                    <p>Reached Goal: 1/1 Days (100%)</p>
+                    <p>End Date: {renderEndDate()}</p>
                 </div>
                 <div className="ml-3 pb-4 w-[50%] min-w-[300px] rounded drop-shadow bg-b-secondary dark:bg-db-secondary">
                     <div className='flex flex-col pt-4 px-6'>
@@ -56,8 +74,18 @@ export default function Account() {
                             <p>Main Chart Color:</p>
                             <ColorPicker color={mainChartColor} handleColorChange={handleColorChange}/>
                         </div>
-                        <p>Change Display Name</p>
-                        <p>Delete Account History</p>
+                        <button
+                            className="w-fit"
+                            onClick={() => setChangeNamePopup(true)}
+                        >
+                            <p>Change Display Name</p>
+                        </button>
+                        <button
+                            className="w-fit"
+                            onClick={() => setDeleteAccountPopup(true)}
+                        >
+                            <p>Delete Account</p>
+                        </button>
                         <button 
                             className="w-fit"
                             onClick={() => {logout()}}
@@ -69,9 +97,11 @@ export default function Account() {
             </div>
 
             <div className="px-6 py-4 mt-6 w-full rounded drop-shadow bg-b-secondary dark:bg-db-secondary">
-                <h3 className="ml-1 mb-2">Workout Chart</h3>
+                <h3 className="ml-1 mb-2">{currentHabit?.title} Chart</h3>
                 <HabitGrid/>
             </div>
+            <DeleteAccountModal open={deleteAccountPopup} setOpen={setDeleteAccountPopup}/>
+            <ChangeNameModal open={changeNamePopup} setOpen={setChangeNamePopup} name={name} setName={setName}/>
         </div>
     )
 }

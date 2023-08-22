@@ -35,6 +35,40 @@ export const getUserData = async (uid) => {
   }
 }
 
+export const editUserData = async (uid, user) => {
+  if(!uid || !user) {
+    console.error("uid or user data is not set")
+    return
+  }
+  try {
+    const userDoc = doc(db, "User", uid)
+    await updateDoc(userDoc, { ...user })
+  }
+  catch (e) {
+    console.error("Error updating user: ", e)
+  }
+}
+
+export const deleteUserData = async (uid) => {
+  try {
+    const habitRef = collection(db, "Habit");
+    const q = query(habitRef, where('userId', '==', uid));
+    const querySnapshot = await getDocs(q);
+
+    const deletePromises = querySnapshot.docs.map(async (doc) => {
+      await deleteDoc(doc.ref);
+    });
+
+    await Promise.all(deletePromises);
+
+    const userDoc = doc(db, "User", uid);
+    await deleteDoc(userDoc);
+  } catch (error) {
+    console.error("Error deleting user data:", error);
+    throw error; // Rethrow the error for higher-level error handling if needed
+  }
+};
+
 export const getUserHabits = async (uid) => {
   if(uid === "") {
     console.error("uid is not set")
@@ -85,21 +119,31 @@ export const addHabit = async (uid, title, goalUnit, goalNumber, color) => {
 }
 
 export const finishSetup = async (uid, habits) => {
-  if(!uid || !habits){
-    console.error("uid or habit is not set")
-    return
+  if (!uid || !habits) {
+    console.error('Error: uid or habits are not set')
+    return;
   }
-  habits.forEach(async habit => {
-    await addHabit(uid, ...habit)
-  })
   try {
+    for (const habit of habits) {
+      const { title, goalUnit, goalNumber, color } = habit;
+      try {
+        await addHabit(uid, title, goalUnit, goalNumber, color);
+        console.log(`Habit added: ${title}`);
+      } catch (error) {
+        console.error(`Error adding habit (${title}):`, error);
+      }
+    }
+
     const userDoc = doc(db, "User", uid);
     await updateDoc(userDoc, { isSetup: true });
     console.log("isSetup updated successfully");
   } catch (e) {
-    console.error("Error updating isSetup: ", e);
+    console.error("An error occurred during setup: ", e);
   }
-}
+};
+
+
+
 
 export const editHabit = async (habitId, habit) => {
   if(!habitId || !habit){

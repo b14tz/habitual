@@ -85,13 +85,14 @@ export default function Setup() {
             if(flag){
                 setSpecificError({
                     message:"",
-                    index:null
+                    index: null
                 })
             }
     
             // If there are no errors, you can proceed with submission or any other action
             // For now, I'll just log a success message
             await finishSetup(user.uid, habits)
+            
             navigate("/")
         }
     }
