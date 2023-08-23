@@ -73,8 +73,4 @@ VITE_FIREBASE_MEASUREMENT_ID = {Firebase Measurement ID}
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Resources
-
-- [Database Schema](https://dbdiagram.io/d/6489cc7e722eb77494f57f59)
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
