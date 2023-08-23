@@ -2,7 +2,7 @@
 
 <!-- PROJECT LOGO -->
 
-# Amplo - A Habit Tracking Visual Tool
+# Amplo : Another Habit Tracking Tool
 
 <!-- TABLE OF CONTENTS -->
 <details>
