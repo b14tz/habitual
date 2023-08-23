@@ -71,6 +71,5 @@ VITE_FIREBASE_MEASUREMENT_ID = {Firebase Measurement ID}
 
 1. Run the command `npm run dev` at the client directory
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
