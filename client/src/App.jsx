@@ -68,7 +68,7 @@ export default function App() {
             path="/" 
             element={
               <AuthWrapper>
-                <Home habits={habits} setHabits={setHabits} name={name} toggleCompletion={toggleCompletion}/>
+                <Home darkMode={darkMode} habits={habits} setHabits={setHabits} name={name} toggleCompletion={toggleCompletion}/>
               </AuthWrapper>
             }
           />

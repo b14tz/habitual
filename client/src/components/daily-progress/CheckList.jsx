@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import ListItem from './ListItem'
+import { PlusIcon } from "@heroicons/react/24/outline";
 import AddHabitModal from '../modals/AddHabitModal'
 import EditHabitModal from '../modals/EditHabitModal'
 import DeleteHabitModal from '../modals/DeleteHabitModal'
@@ -41,13 +42,13 @@ export default function CheckList({ habits, setHabits, name, toggleCompletion })
 
   return (
     <div className="relative flex flex-col mr-3 w-full z-[20]">
-        <h3 className='ml-2 whitespace-nowrap text-t-primary dark:text-dt-primary'>{name}'s Tasks For Today</h3>
+        <h3 className='whitespace-nowrap text-t-primary dark:text-dt-primary'>{name}'s Tasks For Today</h3>
         {renderListItems()}
         <button 
           className="flex justify-between w-full bg-b-secondary dark:bg-db-secondary drop-shadow px-2 rounded-md my-2"
           onClick={() => setAddModal(prev => !prev)}
         >
-          <p className="m-auto py-1 text-t-primary dark:text-dt-primary">+</p>
+          <PlusIcon className="h-9 w-9 m-auto py-2 text-t-primary dark:text-dt-primary" />
         </button>
         <AddHabitModal open={addModal} setOpen={setAddModal} setHabits={setHabits}/>
         <EditHabitModal open={editModal} setOpen={setEditModal} setHabits={setHabits} {...editValues} i={currentIndex} id={id}/>

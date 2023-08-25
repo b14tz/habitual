@@ -84,7 +84,7 @@ export default function EditHabitModal({ open, setOpen, setHabits, title, color,
                                     <p>Cancel</p>
                                 </button>
                                 <button className="ml-4 bg-purple-1 text-white drop-shadow-md py-2 px-4 rounded-md">
-                                    <p>Edit</p>
+                                    <p>Save</p>
                                 </button>
                             </div>
                         </form>

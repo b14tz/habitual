@@ -1,36 +1,83 @@
 export function generateGridData() {
-    let now = new Date()
-    let yearAgo = new Date();
-    yearAgo.setFullYear(yearAgo.getFullYear() - 1)
+    let endDate = new Date()
+    let startDate = new Date();
+    startDate.setFullYear(startDate.getFullYear() - 1)
+    startDate.setDate(startDate.getDate() + 1)
     
-    now.getMonth() // gets month in number form. e.g. January is 0
-    now.getDate() // gets day of the month in number form. e.g. The first is 1
-    now.getDay() // gets day of the week in number form. e.g. Sunday is 0
+    endDate.getMonth() // gets month in number form. e.g. January is 0
+    endDate.getDate() // gets day of the month in number form. e.g. The first is 1
+    endDate.getDay() // gets day of the week in number form. e.g. Sunday is 0
 
-    let currentDate = yearAgo
-    let nextDate = new Date(yearAgo)
+    function isSameDate(date1, date2) {
+        return (
+            date1.getFullYear() === date2.getFullYear() &&
+            date1.getMonth() === date2.getMonth() &&
+            date1.getDate() === date2.getDate()
+        );
+    }
+
+    let currentDate = new Date(startDate)
 
     const monthKey = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     const dayKey = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
-    let data = []
-    while(currentDate <= now) {
-        nextDate.setDate(nextDate.getDate() + 1)
+    let data = [] // returnable array for calendar data
+    let ph = false // placeholder for gaps in calendar
+
+    while(currentDate <= endDate) {
+        if(isSameDate(currentDate, startDate)) {
+            let spaces = currentDate.getDay()
+            if(spaces > 0){
+                for(let i=0; i<spaces; i++){
+                    data.push({
+                        day: null,
+                        dayName: null,
+                        date: null,
+                        month: null,
+                        monthName: null,
+                        year: null,
+                        progress: null,
+                        ph: true
+                    })
+                }
+            }
+        }
+        else if (!isSameDate(currentDate, endDate) && currentDate.getDate() == 1) {
+            let spaces = 14
+            for(let i=0; i<spaces; i++){
+                data.push({
+                    day: null,
+                    dayName: null,
+                    date: null,
+                    month: null,
+                    monthName: null,
+                    year: null,
+                    progress: null,
+                    ph: true
+                })
+            }
+        }
+
+
+        let progress = Math.random() // retrieve progress for each day here
+        let color = 'red-1' // retrieve currently set color here
+        let bg = 'bg-'.concat(color)
+ 
+        data.push({
+            day: currentDate.getDay(),
+            dayName: dayKey[currentDate.getDay()],
+            date: currentDate.getDate(),
+            month: currentDate.getMonth(),
+            monthName: monthKey[currentDate.getMonth()],
+            year: currentDate.getFullYear(),
+            progress: progress,
+            bg: bg,
+            ph: false
+        })
 
         currentDate.setDate(currentDate.getDate() + 1)
-
-        // this keeps the last day in the list from being the next future day in realt time
-        if(currentDate <= now){
-            data.push({
-                day: currentDate.getDay(),
-                dayName: dayKey[currentDate.getDay()],
-                date: currentDate.getDate(),
-                month: currentDate.getMonth(),
-                monthName: monthKey[currentDate.getMonth()],
-                year: currentDate.getFullYear(),
-                progress: Math.random()
-            })
-        }
     }
+
+
     return data
 }

@@ -22,7 +22,7 @@ export default function ListItem({ i, id, title, color, goalNumber, goalUnit, st
   return (
     <>
 
-        <div className={`${color} flex flex-row relative justify-between w-full drop-shadow px-2 rounded-md my-2`}>
+        <div className={`bg-b-secondary dark:bg-db-secondary flex flex-row relative justify-between w-full drop-shadow px-2 py-1 rounded-md my-2`}>
           <div className="flex flex-row items-center py-1">
             <button
               id="button" 
