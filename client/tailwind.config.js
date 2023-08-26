@@ -25,7 +25,11 @@ export default {
         'db-secondary': '#27272C', // for: modals, tooltips, popups, widgets
         'db-tertiary': '#40404A', // for: input fields, hrs
         // other colors
+        'platinum': '#EAE1DF',
         'red-1': '#E8505B',
+        'red-75': '#E78188',
+        'red-5': '#EC9DA3',
+        'red-25': '#E6BCBF',
         'orange-1': '#e87950',
         'yellow-1': '#F9D56E',
         'green-1': '#6BCB77',

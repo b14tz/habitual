@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { auth } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import SetHabits from '../components/set-up/SetHabits'
 import SetSpecifics from '../components/set-up/SetSpecifics';
-import {
-  auth,
-  registerWithEmailAndPassword, // registerWithEmailAndPassword(name, email, password)
-  signInWithGoogle,
-} from "../lib/firebase";
 import { useMultistepForm } from "../hooks/useMultistepForm";
 import { finishSetup, getUserData } from "../interfaces/userInterface";
 import CircularProgress from '@mui/material/CircularProgress';
@@ -19,10 +15,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 //  -- goalUnit
 //  -- color
 
-export default function Setup() {
+export default function Setup({ habits, setHabits}) {
     const [data, setData] = useState([])
     const [user, loading] = useAuthState(auth);
-    const [habits, setHabits] = useState([])
+    // const [habits, setHabits] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
 
@@ -35,7 +31,7 @@ export default function Setup() {
     const { step, currentStepIndex, next, back, isLastStep, isFirstStep } = 
     useMultistepForm([
         <SetHabits {...data} habits={habits} setHabits={setHabits} habitError={habitError} setHabitError={setHabitError}/>, 
-        <SetSpecifics {...data} habits={habits} setHabits={setHabits} specificError={specificError} setSpecificError={setSpecificError}/>
+        <SetSpecifics {...data} habits={habits} setHabits={setHabits} specificError={specificError}/>
     ])
 
     // if a user is setup and they end up on this route, redirect to "/"
@@ -89,14 +85,15 @@ export default function Setup() {
             if(flag){
                 setSpecificError({
                     message:"",
-                    index:null
+                    index: null
                 })
             }
     
-            // If there are no errors, you can proceed with submission or any other action
-            // For now, I'll just log a success message
-            await finishSetup(user.uid, habits)
-            navigate("/")
+            const finishCallback = () => {
+                navigate("/");
+              };
+              
+            await finishSetup(user.uid, habits, finishCallback);
         }
     }
     

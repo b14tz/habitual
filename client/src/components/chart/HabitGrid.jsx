@@ -1,27 +1,34 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import HabitGridCell from './HabitGridCell'
+import { generateGridData } from '../../lib/grid'
+
 
 export default function HabitGrid() {
+  const scrollableRef = useRef(null);
+
+  function scrollToRight() {
+    if (scrollableRef.current) {
+      const scrollableContainer = scrollableRef.current;
+      scrollableContainer.scrollLeft = scrollableContainer.scrollWidth - scrollableContainer.clientWidth;
+    }
+  }
+
+  // Call scrollToRight function whenever you want to scroll to the right.
+  scrollToRight();
   
   function renderGrid() {
-    let loopItems = [ 0.2, 0.4, 0.5, 0.8, 1.0, 0.6, 1.0, 0.2, 0.4, 0.5, 0.8, 0.8, 1.0, 1.0, 0.2, 0.4, 0.5, 0.8, 1.0, 0.1, 1.0, 0.2, 0.4, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 0.4, 
-                      0.2, 0.4, 0.5, 0.8, 0.4, 0.5, 1.0, 0.2, 0.4, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 0.4, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 0.9, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 0.4, 
-                      1.0, 0.2, 0.4, 0.2, 0.4, 0.5, 0.8, 1.0, 0.6, 1.0, 0.2, 0.4, 0.5, 0.8, 0.8, 1.0, 1.0, 0.2, 0.4, 0.5, 0.8, 1.0, 0.1, 1.0, 0.2, 0.4, 0.5, 0.8, 1.0, 1.0, 
-                      1.0, 0.2, 0.4, 0.2, 0.4, 0.5, 0.8, 0.4, 0.5, 1.0, 0.2, 0.4, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 0.4, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 0.9, 0.5, 0.8, 1.0, 1.0, 
-                      1.0, 0.2, 0.4, 1.0, 0.2, 0.4, 0.2, 0.4, 0.5, 0.8, 1.0, 0.6, 1.0, 0.2, 0.4, 0.5, 0.8, 0.8, 1.0, 1.0, 0.2, 0.4, 0.5, 0.8, 1.0, 0.1, 1.0, 0.2, 0.4, 0.5, 
-                      0.8, 1.0, 1.0, 1.0, 0.2, 0.4, 0.2, 0.4, 0.5, 0.8, 0.4, 0.5, 1.0, 0.2, 0.4, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 0.4, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 0.9, 0.5,
-                      0.8, 1.0, 1.0, 1.0, 0.2, 0.4, 1.0, 0.2, 0.4, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 0.4, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 0.9, 0.5, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 
-                      0.4, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 0.9, 0.5, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 0.4, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 0.9, 0.5, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 
-                      0.4, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 0.9, 0.5, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 0.4, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 0.9, 0.5, 0.5, 0.8, 1.0, 1.0, 1.0, 0.2, 
-                      0.2, 0.9, 0.5,]
-    return loopItems.map((item, index) => (
-      <HabitGridCell key={index} progress={item}/>
+    let data = generateGridData()
+    return data.map((item, index) => (
+      <HabitGridCell key={index} {...item}/>
     ))
   }
 
   return (
     <>
-      <div className="flex flex-row flex-wrap">
+      <div 
+      ref={scrollableRef}
+      className="flex flex-col flex-wrap h-[200px] overflow-x-scroll relative"
+      >
         {renderGrid()}
       </div>
     </>

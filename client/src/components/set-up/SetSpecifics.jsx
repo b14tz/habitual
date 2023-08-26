@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ColorPicker from '../ColorPicker'
 
-export default function SetSpecifics({ habits, setHabits, specificError, setSpecificError }) {
+export default function SetSpecifics({ habits, setHabits, specificError }) {
 
     const handleColorChange = (index, event) => {
         const newColor = event.target.value
@@ -21,8 +21,8 @@ export default function SetSpecifics({ habits, setHabits, specificError, setSpec
                         <div className="flex flex-row items-center">
                             <input
                                 autoFocus={index == 0 ? true : false}
-                                className='p-2 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary w-[4ch] mr-2'
-                                type="text"
+                                className='p-2 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary w-[6ch] mr-2'
+                                type="number"
                                 placeholder='45'
                                 value={habits[index].goalNumber}
                                 onChange={(event) => {

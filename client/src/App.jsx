@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { auth } from './lib/firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import Nav from './components/Nav'
-import { getUserData, getUserCurrentHabits } from './interfaces/userInterface'
+import { getUserData, getUserCurrentHabits, editHabit } from './interfaces/userInterface'
 import Home from './pages/Home'
 import Account from './pages/Account'
 import Register from './pages/Register'
@@ -10,29 +11,12 @@ import Login from './pages/Login'
 import AuthWrapper from './components/auth/AuthWrapper'
 import Setup from './pages/Setup'
 
-let data = [
-  {
-      title:"leetcode",
-      status:true,
-      color:"blue-1"
-  },
-  {
-      title:"workout",
-      status:false,
-      color:"green-1"
-  },
-  {
-      title:"read",
-      status:false,
-      color:"yellow-1"
-  }
-]
-
 export default function App() {
   const [darkMode, setDarkMode] = useState(true)
   const [isLoggedIn, setIsLoggedIn] = useState(true)
   const [name, setName] = useState("")
   const [habits, setHabits] = useState([])
+  const [user] = useAuthState(auth)
   
   useEffect(() => {
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -42,31 +26,29 @@ export default function App() {
       document.documentElement.classList.remove('dark')
     }
 
-    if(auth.currentUser){
+    if(user){
       setIsLoggedIn(true)
-      // getUserData(auth.currentUser.uid).then(data => {
-      //   setName(data.name.charAt(0).toUpperCase() + data.name.slice(1))
-      // })
-
-      // getUserCurrentHabits(auth.currentUser.uid).then(data => {
-      //   setHabits(data)
-      // })
+      async function getHabitData() {
+        let data = await getUserData(auth.currentUser.uid)
+        setName(data.name.charAt(0).toUpperCase() + data.name.slice(1))
+        data = await getUserCurrentHabits(auth.currentUser.uid)
+        setHabits(data)
+      }
+      getHabitData()
     }
-
-  }, [darkMode])
+  }, [darkMode, user])
 
   function toggleDarkMode() {
     setDarkMode(!darkMode)
     localStorage.theme = !darkMode ? 'dark' : ''
   }
 
-  function toggleCompletion(id) {
-    setHabits(prevHabits => {
-      const updatedHabits = [...prevHabits]; // Create a copy of the habits array
-      updatedHabits[id] = { ...updatedHabits[id] }; // Create a copy of the specific habit object
-      updatedHabits[id].status = !updatedHabits[id].status; // Update the status of the task
-      return updatedHabits; // Return the updated habits array
-    });
+  async function toggleCompletion(i) {
+    const updatedHabits = [...habits] // Create a copy of the habits array
+    updatedHabits[i] = { ...updatedHabits[i] }; // Create a copy of the specific habit object
+    updatedHabits[i].status = !updatedHabits[i].status; // Update the status of the task
+    await editHabit(updatedHabits[i].id, updatedHabits[i])
+    setHabits(updatedHabits)
   }
 
   return (
@@ -86,7 +68,7 @@ export default function App() {
             path="/" 
             element={
               <AuthWrapper>
-                <Home habits={habits} setHabits={setHabits}/>
+                <Home darkMode={darkMode} habits={habits} setHabits={setHabits} name={name} toggleCompletion={toggleCompletion}/>
               </AuthWrapper>
             }
           />
@@ -94,7 +76,7 @@ export default function App() {
             path="/account"
             element={
               <AuthWrapper>
-                <Account/>
+                <Account name={name} setName={setName}/>
               </AuthWrapper>
             }
           />
@@ -113,7 +95,7 @@ export default function App() {
           <Route
             path="/setup"
             element={
-              <Setup />
+              <Setup habits={habits} setHabits={setHabits}/>
             }
           />
         </Routes>

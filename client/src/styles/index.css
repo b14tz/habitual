@@ -40,8 +40,35 @@ h3,h4,h5,h6 {
     font-size: 1.5rem;
 }
  
-p, input, ::placeholder, .input-text {
+p, input, select, ::placeholder, .input-text {
     font-family: 'Geologica', sans-serif;
     font-weight: 400;
     font-size: 1rem;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--bg-white);
+}
+.dark ::-webkit-scrollbar-track {
+    background: var(--bg-black);
+}
+  
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--bg-black);
+    border-radius: 5px;
+}
+.dark ::-webkit-scrollbar-thumb {
+    background: var(--bg-white);
+    border-radius: 5px;
+}
+
+.dark {
+    color-scheme: dark;
 }
