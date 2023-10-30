@@ -1,12 +1,12 @@
 export function generateGridData() {
-    let endDate = new Date()
+    let endDate = new Date();
     let startDate = new Date();
-    startDate.setFullYear(startDate.getFullYear() - 1)
-    startDate.setDate(startDate.getDate() + 1)
-    
-    endDate.getMonth() // gets month in number form. e.g. January is 0
-    endDate.getDate() // gets day of the month in number form. e.g. The first is 1
-    endDate.getDay() // gets day of the week in number form. e.g. Sunday is 0
+    startDate.setFullYear(startDate.getFullYear() - 1);
+    startDate.setDate(startDate.getDate() + 1);
+
+    endDate.getMonth(); // gets month in number form. e.g. January is 0
+    endDate.getDate(); // gets day of the month in number form. e.g. The first is 1
+    endDate.getDay(); // gets day of the week in number form. e.g. Sunday is 0
 
     function isSameDate(date1, date2) {
         return (
@@ -16,19 +16,40 @@ export function generateGridData() {
         );
     }
 
-    let currentDate = new Date(startDate)
+    let currentDate = new Date(startDate);
 
-    const monthKey = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    const dayKey = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    const monthKey = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+    const dayKey = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+    ];
 
-    let data = [] // returnable array for calendar data
-    let ph = false // placeholder for gaps in calendar
+    let data = []; // returnable array for calendar data
+    let ph = false; // placeholder for gaps in calendar
 
-    while(currentDate <= endDate) {
-        if(isSameDate(currentDate, startDate)) {
-            let spaces = currentDate.getDay()
-            if(spaces > 0){
-                for(let i=0; i<spaces; i++){
+    while (currentDate <= endDate) {
+        if (isSameDate(currentDate, startDate)) {
+            let spaces = currentDate.getDay();
+            if (spaces > 0) {
+                for (let i = 0; i < spaces; i++) {
                     data.push({
                         day: null,
                         dayName: null,
@@ -37,14 +58,16 @@ export function generateGridData() {
                         monthName: null,
                         year: null,
                         progress: null,
-                        ph: true
-                    })
+                        ph: true,
+                    });
                 }
             }
-        }
-        else if (!isSameDate(currentDate, endDate) && currentDate.getDate() == 1) {
-            let spaces = 14
-            for(let i=0; i<spaces; i++){
+        } else if (
+            !isSameDate(currentDate, endDate) &&
+            currentDate.getDate() == 1
+        ) {
+            let spaces = 14;
+            for (let i = 0; i < spaces; i++) {
                 data.push({
                     day: null,
                     dayName: null,
@@ -53,16 +76,15 @@ export function generateGridData() {
                     monthName: null,
                     year: null,
                     progress: null,
-                    ph: true
-                })
+                    ph: true,
+                });
             }
         }
 
+        let progress = Math.random(); // retrieve progress for each day here
+        // let color = 'red-1' // retrieve currently set color here
+        // let bg = 'bg-'.concat(color)
 
-        let progress = Math.random() // retrieve progress for each day here
-        let color = 'red-1' // retrieve currently set color here
-        let bg = 'bg-'.concat(color)
- 
         data.push({
             day: currentDate.getDay(),
             dayName: dayKey[currentDate.getDay()],
@@ -71,13 +93,12 @@ export function generateGridData() {
             monthName: monthKey[currentDate.getMonth()],
             year: currentDate.getFullYear(),
             progress: progress,
-            bg: bg,
-            ph: false
-        })
+            // bg: bg,
+            ph: false,
+        });
 
-        currentDate.setDate(currentDate.getDate() + 1)
+        currentDate.setDate(currentDate.getDate() + 1);
     }
 
-
-    return data
+    return data;
 }
