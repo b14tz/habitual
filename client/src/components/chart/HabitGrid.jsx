@@ -28,7 +28,7 @@ export default function HabitGrid() {
         <>
             <div
                 ref={scrollableRef}
-                className="flex flex-col flex-wrap h-[200px] overflow-x-scroll relative"
+                className="flex flex-col flex-wrap h-[300px] overflow-x-scroll relative pt-[100px] mt-[-100px]"
             >
                 {renderGrid()}
             </div>
