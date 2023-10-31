@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
     auth,
     registerWithEmailAndPassword, // registerWithEmailAndPassword(name, email, password)
     signInWithGoogle,
-  } from "../lib/firebase";
-import googleLogo from '../assets/google.png'
+} from "../lib/firebase";
+import googleLogo from "../assets/google.png";
 
-export default function Register() {
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+export default function RegisterPage() {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [user, loading] = useAuthState(auth);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     function onSubmit(e) {
-        e.preventDefault()
-        registerWithEmailAndPassword(name, email, password)
+        e.preventDefault();
+        registerWithEmailAndPassword(name, email, password);
     }
 
     useEffect(() => {
@@ -58,22 +58,27 @@ export default function Register() {
                 </form>
 
                 <div className="flex items-center mb-2">
-                    <hr className="flex-grow border-t-tertiary"/>
+                    <hr className="flex-grow border-t-tertiary" />
                     <span className="px-4 text-t-tertiary">
                         <p>or</p>
                     </span>
-                    <hr className="flex-grow border-t-tertiary"/>
+                    <hr className="flex-grow border-t-tertiary" />
                 </div>
                 <button
                     type="button"
                     className="bg-b-tertiary text-black mb-2 drop-shadow-md py-2 rounded-md flex flex-row justify-center items-center"
                     onClick={signInWithGoogle}
                 >
-                    <img src={googleLogo} className="w-7 mr-2"/>
+                    <img src={googleLogo} className="w-7 mr-2" />
                     <p>Register with Google</p>
                 </button>
                 <div className="mt-4">
-                    <p>Already have an account? <Link to="/login" className="text-purple-1">Login here</Link></p>
+                    <p>
+                        Already have an account?{" "}
+                        <Link to="/login" className="text-purple-1">
+                            Login here
+                        </Link>
+                    </p>
                 </div>
             </div>
         </div>
