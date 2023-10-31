@@ -21,6 +21,7 @@ export default function App() {
     const [name, setName] = useState("");
     const [habits, setHabits] = useState([]);
     const [user] = useAuthState(auth);
+    const [mainChartColor, setMainChartColor] = useState("red");
 
     useEffect(() => {
         if (
@@ -84,6 +85,7 @@ export default function App() {
                                     setHabits={setHabits}
                                     name={name}
                                     toggleCompletion={toggleCompletion}
+                                    chartColor={mainChartColor}
                                 />
                             </AuthWrapper>
                         }
@@ -92,7 +94,12 @@ export default function App() {
                         path="/account"
                         element={
                             <AuthWrapper>
-                                <AccountPage name={name} setName={setName} />
+                                <AccountPage
+                                    name={name}
+                                    setName={setName}
+                                    mainChartColor={mainChartColor}
+                                    setMainChartColor={setMainChartColor}
+                                />
                             </AuthWrapper>
                         }
                     />

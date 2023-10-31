@@ -8,11 +8,16 @@ import { getUserHabits } from "../interfaces/userInterface";
 import { formatDate } from "../lib/date";
 import DeleteAccountModal from "../components/modals/DeleteAccountModal";
 import ChangeNameModal from "../components/modals/ChangeNameModal";
+import { getTailwindColor } from "../lib/color";
 
-export default function AccountPage({ name, setName }) {
+export default function AccountPage({
+    name,
+    setName,
+    mainChartColor,
+    setMainChartColor,
+}) {
     const [allHabits, setAllHabits] = useState([]);
     const [currentHabit, setCurrentHabit] = useState();
-    const [mainChartColor, setMainChartColor] = useState("bg-red-1");
     const [changeNamePopup, setChangeNamePopup] = useState(false);
     const [deleteAccountPopup, setDeleteAccountPopup] = useState(false);
     const [user] = useAuthState(auth);
@@ -25,7 +30,7 @@ export default function AccountPage({ name, setName }) {
         }
         getAllHabits();
     }, [user]);
-    function handleColorChange(index, event) {
+    function handleColorChange(_, event) {
         setMainChartColor(event.target.value);
     }
 
@@ -79,7 +84,7 @@ export default function AccountPage({ name, setName }) {
                         <div className="flex flex-row items-center relative">
                             <p>Main Chart Color:</p>
                             <ColorPicker
-                                color={mainChartColor}
+                                color={getTailwindColor(mainChartColor)}
                                 handleColorChange={handleColorChange}
                             />
                         </div>
@@ -109,7 +114,7 @@ export default function AccountPage({ name, setName }) {
 
             <div className="px-6 py-4 mt-6 w-full rounded drop-shadow bg-b-secondary dark:bg-db-secondary">
                 <h3 className="ml-1 mb-2">{currentHabit?.title} Chart</h3>
-                <HabitGrid />
+                <HabitGrid chartColor={"blue"} />
             </div>
             <DeleteAccountModal
                 open={deleteAccountPopup}

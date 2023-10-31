@@ -30,19 +30,19 @@ export default function ColorPicker({ index, color, handleColorChange }) {
                     <div className="flex flex-row">
                         <button
                             type="button"
-                            value="bg-red-1"
+                            value="red"
                             className="bg-red-1 m-1 rounded-full h-[20px] w-[20px]"
                             onClick={(event) => handleColorChange(index, event)}
                         ></button>
                         <button
                             type="button"
-                            value="bg-orange-1"
+                            value="orange"
                             className="bg-orange-1 m-1 rounded-full h-[20px] w-[20px]"
                             onClick={(event) => handleColorChange(index, event)}
                         ></button>
                         <button
                             type="button"
-                            value="bg-yellow-1"
+                            value="yellow"
                             className="bg-yellow-1 m-1 rounded-full h-[20px] w-[20px]"
                             onClick={(event) => handleColorChange(index, event)}
                         ></button>
@@ -50,19 +50,19 @@ export default function ColorPicker({ index, color, handleColorChange }) {
                     <div className="flex flex-row">
                         <button
                             type="button"
-                            value="bg-green-1"
+                            value="green"
                             className="bg-green-1 m-1 rounded-full h-[20px] w-[20px]"
                             onClick={(event) => handleColorChange(index, event)}
                         ></button>
                         <button
                             type="button"
-                            value="bg-blue-1"
+                            value="blue"
                             className="bg-blue-1 m-1 rounded-full h-[20px] w-[20px]"
                             onClick={(event) => handleColorChange(index, event)}
                         ></button>
                         <button
                             type="button"
-                            value="bg-purple-1"
+                            value="purple"
                             className="bg-purple-1 m-1 rounded-full h-[20px] w-[20px]"
                             onClick={(event) => handleColorChange(index, event)}
                         ></button>
@@ -70,19 +70,19 @@ export default function ColorPicker({ index, color, handleColorChange }) {
                     <div className="flex flex-row">
                         <button
                             type="button"
-                            value="bg-pink-1"
+                            value="pink"
                             className="bg-pink-1 m-1 rounded-full h-[20px] w-[20px]"
                             onClick={(event) => handleColorChange(index, event)}
                         ></button>
                         <button
                             type="button"
-                            value="bg-brown-1"
+                            value="brown"
                             className="bg-brown-1 m-1 rounded-full h-[20px] w-[20px]"
                             onClick={(event) => handleColorChange(index, event)}
                         ></button>
                         <button
                             type="button"
-                            value="bg-grey-1"
+                            value="grey"
                             className="bg-grey-1 m-1 rounded-full h-[20px] w-[20px]"
                             onClick={(event) => handleColorChange(index, event)}
                         ></button>
