@@ -1,8 +1,9 @@
 import React, { useRef } from "react";
 import HabitGridCell from "./HabitGridCell";
 import { generateGridData } from "../../lib/grid";
+import { red } from "../../lib/color";
 
-export default function HabitGrid() {
+export default function HabitGrid(color) {
     const scrollableRef = useRef(null);
 
     function scrollToRight() {
@@ -18,7 +19,7 @@ export default function HabitGrid() {
     function renderGrid() {
         let data = generateGridData();
         //get color of grid here
-        let color = [145, 56, 49];
+        let color = red;
         return data.map((item, index) => (
             <HabitGridCell key={index} {...item} color={color} />
         ));
