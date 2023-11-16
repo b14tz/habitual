@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
 
-export default function HabitGridCell({ color, date, day, dayName, month, monthName, year, progress, bg, ph }) {
+export default function HabitGridCell({ rgb, date, progress, ph }: GridCell) {
     const [tooltipVisible, setTooltipVisible] = useState(false);
 
-    const cellStyle = {
-        backgroundColor: `rgba(${111}, ${111}, ${111}, ${progress})`,
+    const cellStyle: CSSProperties = {
+        backgroundColor: `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${progress})`,
         visibility: ph ? "hidden" : "visible",
     };
 
-    const tooltipStyle = {
+    const tooltipStyle: CSSProperties = {
         visibility: tooltipVisible ? "visible" : "hidden",
         bottom: "150%", // Position the tooltip above the parent
         left: "50%", // Adjust as needed
@@ -28,7 +28,7 @@ export default function HabitGridCell({ color, date, day, dayName, month, monthN
             <div
                 onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
-                className={`${bg} relative w-4 h-4 m-1 rounded`}
+                className={`relative w-4 h-4 m-1 rounded`}
                 style={cellStyle}
             >
                 {/* tooltip for info on the specific day */}
@@ -37,9 +37,7 @@ export default function HabitGridCell({ color, date, day, dayName, month, monthN
                     style={tooltipStyle}
                 >
                     <div>
-                        <p className="text-xs">
-                            {dayName} {monthName}-{date}-{year}
-                        </p>
+                        <p className="text-xs">{date}</p>
                     </div>
                 </div>
             </div>

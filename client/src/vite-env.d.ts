@@ -17,15 +17,9 @@ interface Habit {
 }
 
 interface GridCell {
-    color: string;
-    date: Date;
-    day: number;
-    dayName;
-    month;
-    monthName;
-    year;
-    progress;
-    bg;
+    rgb: number[];
+    date: string;
+    progress: number;
     ph: boolean;
 }
 

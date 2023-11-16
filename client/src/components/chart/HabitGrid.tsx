@@ -4,7 +4,7 @@ import { generateGridData } from "../../lib/grid";
 import { getRgbColor } from "../../lib/color";
 
 export default function HabitGrid({ chartColor }: { chartColor: string }) {
-    const scrollableRef = useRef(null);
+    const scrollableRef = useRef<HTMLDivElement | null>(null);
 
     function scrollToRight() {
         if (scrollableRef.current) {
@@ -16,9 +16,8 @@ export default function HabitGrid({ chartColor }: { chartColor: string }) {
 
     function renderGrid() {
         let data = generateGridData();
-        //get color of grid here
-        let color = getRgbColor(chartColor.chartColor);
-        return data.map((item, index) => <HabitGridCell key={index} {...item} color={color} />);
+        let rgb = getRgbColor(chartColor);
+        return data.map((item, index) => <HabitGridCell key={index} {...item} rgb={rgb} />);
     }
 
     return (
