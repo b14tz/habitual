@@ -28,22 +28,16 @@ export default function SetupPage({ habits, setHabits }) {
         index: null,
     });
 
-    const { step, currentStepIndex, next, back, isLastStep, isFirstStep } =
-        useMultistepForm([
-            <SetHabits
-                {...data}
-                habits={habits}
-                setHabits={setHabits}
-                habitError={habitError}
-                setHabitError={setHabitError}
-            />,
-            <SetSpecifics
-                {...data}
-                habits={habits}
-                setHabits={setHabits}
-                specificError={specificError}
-            />,
-        ]);
+    const { step, currentStepIndex, next, back, isLastStep, isFirstStep } = useMultistepForm([
+        <SetHabits
+            {...data}
+            habits={habits}
+            setHabits={setHabits}
+            habitError={habitError}
+            setHabitError={setHabitError}
+        />,
+        <SetSpecifics {...data} habits={habits} setHabits={setHabits} specificError={specificError} />,
+    ]);
 
     // if a user is setup and they end up on this route, redirect to "/"
     useEffect(() => {
@@ -86,8 +80,7 @@ export default function SetupPage({ habits, setHabits }) {
             for (const index in habits) {
                 if (!habits[index].goalUnit || !habits[index].goalNumber) {
                     let temp = {};
-                    temp.message =
-                        "You must set a goal number and unit for each habit";
+                    temp.message = "You must set a goal number and unit for each habit";
                     temp.index = index;
                     setSpecificError(temp);
                     flag = false;
@@ -121,23 +114,12 @@ export default function SetupPage({ habits, setHabits }) {
                     {step}
                     <div className="flex flex-row items-center justify-end">
                         {!isFirstStep && (
-                            <button
-                                className="mr-4"
-                                type="button"
-                                onClick={back}
-                            >
+                            <button className="mr-4" type="button" onClick={back}>
                                 <p>Back</p>
                             </button>
                         )}
-                        <button
-                            type="submit"
-                            className="bg-purple-1 text-white drop-shadow-md py-2 px-4 rounded-md"
-                        >
-                            <p>
-                                {isLastStep
-                                    ? "Complete Setup"
-                                    : "Set Specifics"}
-                            </p>
+                        <button type="submit" className="bg-purple-1 text-white drop-shadow-md py-2 px-4 rounded-md">
+                            <p>{isLastStep ? "Complete Setup" : "Set Specifics"}</p>
                         </button>
                     </div>
                 </form>

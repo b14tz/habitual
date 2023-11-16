@@ -9,9 +9,7 @@ export default function HabitGrid(chartColor) {
     function scrollToRight() {
         if (scrollableRef.current) {
             const scrollableContainer = scrollableRef.current;
-            scrollableContainer.scrollLeft =
-                scrollableContainer.scrollWidth -
-                scrollableContainer.clientWidth;
+            scrollableContainer.scrollLeft = scrollableContainer.scrollWidth - scrollableContainer.clientWidth;
         }
     }
     scrollToRight();
@@ -20,9 +18,7 @@ export default function HabitGrid(chartColor) {
         let data = generateGridData();
         //get color of grid here
         let color = getRgbColor(chartColor.chartColor);
-        return data.map((item, index) => (
-            <HabitGridCell key={index} {...item} color={color} />
-        ));
+        return data.map((item, index) => <HabitGridCell key={index} {...item} color={color} />);
     }
 
     return (

@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-    auth,
-    logInWithEmailAndPassword,
-    signInWithGoogle,
-} from "../lib/firebase";
+import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import googleLogo from "../assets/google.png";
 
@@ -15,7 +11,7 @@ export default function LoginPage() {
     const navigate = useNavigate();
     useEffect(() => {
         if (loading) {
-            // maybe trigger a loading screen
+            // trigger a loading screen
             return;
         }
         if (user) navigate("/");
@@ -63,7 +59,7 @@ export default function LoginPage() {
                     <p className="text-t-tertiary text-sm">Forgot Password</p>
                 </Link>
                 <p>
-                    Don't have an account?{" "}
+                    Don't have an account?
                     <Link to="/register" className="text-purple-1">
                         Register now
                     </Link>

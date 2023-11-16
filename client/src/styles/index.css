@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
-    --bg-white: #F7F8F9;
+    --bg-white: #f7f8f9;
     --bg-black: #131314;
 }
 
@@ -17,31 +16,39 @@ html.dark {
 }
 
 h1 {
-    font-family: 'Geologica', sans-serif;
+    font-family: "Geologica", sans-serif;
     font-weight: 600;
     font-size: 3.375rem;
 }
 
 h2 {
-    font-family: 'Geologica', sans-serif;
+    font-family: "Geologica", sans-serif;
     font-weight: 600;
     font-size: 2.25rem;
 }
 
-h3,h4,h5,h6 {
-    font-family: 'Geologica', sans-serif;
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Geologica", sans-serif;
     font-weight: 600;
     font-size: 1.5rem;
 }
 
-::placeholder, .input-text {
-    font-family: 'Geologica', sans-serif;
+::placeholder,
+.input-text {
+    font-family: "Geologica", sans-serif;
     font-weight: 600;
     font-size: 1.5rem;
 }
- 
-p, input, select, ::placeholder, .input-text {
-    font-family: 'Geologica', sans-serif;
+
+p,
+input,
+select,
+::placeholder,
+.input-text {
+    font-family: "Geologica", sans-serif;
     font-weight: 400;
     font-size: 1rem;
 }
@@ -50,7 +57,7 @@ p, input, select, ::placeholder, .input-text {
 ::-webkit-scrollbar {
     width: 10px;
 }
-  
+
 /* Track */
 ::-webkit-scrollbar-track {
     background: var(--bg-white);
@@ -58,7 +65,7 @@ p, input, select, ::placeholder, .input-text {
 .dark ::-webkit-scrollbar-track {
     background: var(--bg-black);
 }
-  
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: var(--bg-black);

@@ -4,18 +4,13 @@ import { logout } from "../lib/firebase";
 import ColorPicker from "../components/ColorPicker";
 import { auth } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { getUserHabits } from "../interfaces/userInterface";
+import { getUserHabits } from "../interfaces/habitInterface";
 import { formatDate } from "../lib/date";
 import DeleteAccountModal from "../components/modals/DeleteAccountModal";
 import ChangeNameModal from "../components/modals/ChangeNameModal";
 import { getTailwindColor } from "../lib/color";
 
-export default function AccountPage({
-    name,
-    setName,
-    mainChartColor,
-    setMainChartColor,
-}) {
+export default function AccountPage({ name, setName, mainChartColor, setMainChartColor }) {
     const [allHabits, setAllHabits] = useState([]);
     const [currentHabit, setCurrentHabit] = useState();
     const [changeNamePopup, setChangeNamePopup] = useState(false);
@@ -88,16 +83,10 @@ export default function AccountPage({
                                 handleColorChange={handleColorChange}
                             />
                         </div>
-                        <button
-                            className="w-fit"
-                            onClick={() => setChangeNamePopup(true)}
-                        >
+                        <button className="w-fit" onClick={() => setChangeNamePopup(true)}>
                             <p>Change Display Name</p>
                         </button>
-                        <button
-                            className="w-fit"
-                            onClick={() => setDeleteAccountPopup(true)}
-                        >
+                        <button className="w-fit" onClick={() => setDeleteAccountPopup(true)}>
                             <p>Delete Account</p>
                         </button>
                         <button
@@ -116,16 +105,8 @@ export default function AccountPage({
                 <h3 className="ml-1 mb-2">{currentHabit?.title} Chart</h3>
                 <HabitGrid chartColor={"blue"} />
             </div>
-            <DeleteAccountModal
-                open={deleteAccountPopup}
-                setOpen={setDeleteAccountPopup}
-            />
-            <ChangeNameModal
-                open={changeNamePopup}
-                setOpen={setChangeNamePopup}
-                name={name}
-                setName={setName}
-            />
+            <DeleteAccountModal open={deleteAccountPopup} setOpen={setDeleteAccountPopup} />
+            <ChangeNameModal open={changeNamePopup} setOpen={setChangeNamePopup} name={name} setName={setName} />
         </div>
     );
 }

@@ -18,29 +18,7 @@ export function generateGridData() {
 
     let currentDate = new Date(startDate);
 
-    const monthKey = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ];
-    const dayKey = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-    ];
+    const dayKey = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     let data = []; // returnable array for calendar data
     let ph = false; // placeholder for gaps in calendar
@@ -62,10 +40,7 @@ export function generateGridData() {
                     });
                 }
             }
-        } else if (
-            !isSameDate(currentDate, endDate) &&
-            currentDate.getDate() == 1
-        ) {
+        } else if (!isSameDate(currentDate, endDate) && currentDate.getDate() == 1) {
             let spaces = 14;
             for (let i = 0; i < spaces; i++) {
                 data.push({
@@ -90,7 +65,7 @@ export function generateGridData() {
             dayName: dayKey[currentDate.getDay()],
             date: currentDate.getDate(),
             month: currentDate.getMonth(),
-            monthName: monthKey[currentDate.getMonth()],
+            monthName: currentDate.getMonth(),
             year: currentDate.getFullYear(),
             progress: progress,
             // bg: bg,

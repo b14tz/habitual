@@ -1,15 +1,15 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect } from "react";
 // import '../utils/background'
-import '../styles/background.css'
+import "../styles/background.css";
 import anime from "animejs/lib/anime.es.js";
 
 export default function Background() {
     const rnd = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
     const colors = ["#BF547B", "#AC79F2", "#9196F2", "#B6C5F2", "#F2D0BD"];
     const rndBorderRadius = () =>
-    [...Array(4).keys()].map((x) => rnd(30, 85) + "%").join(" ") +
-    " / " +
-    [...Array(4).keys()].map((x) => rnd(30, 85) + "%").join(" ");
+        [...Array(4).keys()].map((x) => rnd(30, 85) + "%").join(" ") +
+        " / " +
+        [...Array(4).keys()].map((x) => rnd(30, 85) + "%").join(" ");
 
     useEffect(() => {
         const createBlob = ({ id, x, y, color }) => {
@@ -40,7 +40,7 @@ export default function Background() {
                 // loop: 1,
                 duration: 2000,
                 easing: "linear",
-                complete: (anim) => animateBlob(id)
+                complete: (anim) => animateBlob(id),
                 // complete: anim => { anim.restart(); },
             }).play();
         };
@@ -57,8 +57,8 @@ export default function Background() {
         };
 
         genBlobs();
-        console.log("hi")
-    },[])
+        console.log("hi");
+    }, []);
 
     return (
         <div className="container">
@@ -66,5 +66,5 @@ export default function Background() {
                 <div className="blob"></div>
             </div>
         </div>
-    )
+    );
 }

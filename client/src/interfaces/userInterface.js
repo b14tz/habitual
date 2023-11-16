@@ -1,16 +1,6 @@
 import { db } from "../lib/firebase";
-import {
-    doc,
-    setDoc,
-    getDoc,
-    collection,
-    query,
-    where,
-    getDocs,
-    addDoc,
-    updateDoc,
-    deleteDoc,
-} from "firebase/firestore";
+import { doc, setDoc, getDoc, collection, query, where, getDocs, updateDoc, deleteDoc } from "firebase/firestore";
+import { addHabit } from "./habitInterface";
 
 export const createUser = async (uid, name, email) => {
     if (uid === "" || name === "" || email === "") {
@@ -79,59 +69,6 @@ export const deleteUserData = async (uid) => {
     }
 };
 
-export const getUserHabits = async (uid) => {
-    if (uid === "") {
-        console.error("uid is not set");
-        return;
-    }
-    const habitRef = collection(db, "Habit");
-    const q = query(habitRef, where("userId", "==", uid));
-    const querySnapshot = await getDocs(q);
-    const habits = [];
-    querySnapshot.forEach((doc) => {
-        habits.push(doc.data());
-    });
-    return habits;
-};
-
-export const getUserCurrentHabits = async (uid) => {
-    if (uid === "") {
-        console.error("uid is not set");
-        return;
-    }
-    const habitRef = collection(db, "Habit");
-    const q = query(
-        habitRef,
-        where("userId", "==", uid),
-        where("active", "==", true)
-    );
-    const querySnapshot = await getDocs(q);
-    const habits = [];
-    querySnapshot.forEach((doc) => {
-        habits.push(doc.data());
-    });
-    return habits;
-};
-
-export const addHabit = async (uid, title, goalUnit, goalNumber, color) => {
-    if (uid === "") {
-        console.error("uid is not set");
-        return;
-    }
-    const docRef = await addDoc(collection(db, "Habit"), {
-        color: color,
-        title: title,
-        goalNumber: goalNumber,
-        goalUnit: goalUnit,
-        active: true,
-        dateCreated: new Date(),
-        userId: uid,
-    });
-    await updateDoc(docRef, {
-        id: docRef.id,
-    });
-};
-
 export const finishSetup = async (uid, habits, finishCallback) => {
     if (!uid || !habits) {
         console.error("Error: uid or habits are not set");
@@ -153,31 +90,5 @@ export const finishSetup = async (uid, habits, finishCallback) => {
         console.log("isSetup updated successfully");
     } catch (e) {
         console.error("An error occurred during setup: ", e);
-    }
-};
-
-export const editHabit = async (habitId, habit) => {
-    if (!habitId || !habit) {
-        console.error("habit id or habit is not set");
-        return;
-    }
-    try {
-        const habitDoc = doc(db, "Habit", habitId);
-        await updateDoc(habitDoc, { ...habit });
-    } catch (e) {
-        console.error("Error updating habit: ", e);
-    }
-};
-
-export const deleteHabit = async (habitId) => {
-    if (!habitId) {
-        console.error("habit id is not set");
-        return;
-    }
-    try {
-        const habitDoc = doc(db, "Habit", habitId);
-        await deleteDoc(habitDoc);
-    } catch (e) {
-        console.error("Error deleting habit: ", e);
     }
 };

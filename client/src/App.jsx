@@ -3,11 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import { auth } from "./lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Nav from "./components/Nav";
-import {
-    getUserData,
-    getUserCurrentHabits,
-    editHabit,
-} from "./interfaces/userInterface";
+import { getUserData } from "./interfaces/userInterface";
+import { getUserCurrentHabits, editHabit } from "./interfaces/habitInterface";
 import HomePage from "./pages/HomePage";
 import AccountPage from "./pages/AccountPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -26,8 +23,7 @@ export default function App() {
     useEffect(() => {
         if (
             localStorage.theme === "dark" ||
-            (!("theme" in localStorage) &&
-                window.matchMedia("(prefers-color-scheme: dark)").matches)
+            (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
         ) {
             document.documentElement.classList.add("dark");
         } else {
@@ -62,9 +58,7 @@ export default function App() {
 
     return (
         <>
-            <div
-                className={`h-full w-full text-t-primary bg-b-primary dark:text-dt-primary dark:bg-db-primary`}
-            >
+            <div className={`h-full w-full text-t-primary bg-b-primary dark:text-dt-primary dark:bg-db-primary`}>
                 <Nav
                     darkMode={darkMode}
                     toggleDarkMode={toggleDarkMode}
@@ -105,12 +99,7 @@ export default function App() {
                     />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
-                    <Route
-                        path="/setup"
-                        element={
-                            <SetupPage habits={habits} setHabits={setHabits} />
-                        }
-                    />
+                    <Route path="/setup" element={<SetupPage habits={habits} setHabits={setHabits} />} />
                 </Routes>
             </div>
         </>
