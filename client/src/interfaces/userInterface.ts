@@ -1,8 +1,9 @@
 import { db } from "../lib/firebase";
 import { doc, setDoc, getDoc, collection, query, where, getDocs, updateDoc, deleteDoc } from "firebase/firestore";
 import { addHabit } from "./habitInterface";
+import { handleError } from "../lib/error";
 
-export const createUser = async (uid, name, email) => {
+export const createUser = async (uid: string, name: string, email: string) => {
     if (uid === "" || name === "" || email === "") {
         console.error("uid, name, or email is not set");
         return;
@@ -14,13 +15,12 @@ export const createUser = async (uid, name, email) => {
             date: new Date(),
             color: "red",
         });
-    } catch (e) {
-        console.log(e);
-        setError("Failed to register");
+    } catch (err) {
+        handleError(err);
     }
 };
 
-export const getUserData = async (uid) => {
+export const getUserData = async (uid: string) => {
     if (uid === "") {
         console.error("uid is not set");
         return;
@@ -36,7 +36,7 @@ export const getUserData = async (uid) => {
     }
 };
 
-export const editUserData = async (uid, user) => {
+export const editUserData = async (uid: string, user: Partial<User>) => {
     if (!uid || !user) {
         console.error("uid or user data is not set");
         return;
@@ -44,12 +44,13 @@ export const editUserData = async (uid, user) => {
     try {
         const userDoc = doc(db, "User", uid);
         await updateDoc(userDoc, { ...user });
-    } catch (e) {
-        console.error("Error updating user: ", e);
+    } catch (err) {
+        console.error("Error updating user:");
+        handleError(err);
     }
 };
 
-export const deleteUserData = async (uid) => {
+export const deleteUserData = async (uid: string) => {
     try {
         const habitRef = collection(db, "Habit");
         const q = query(habitRef, where("userId", "==", uid));
@@ -63,13 +64,13 @@ export const deleteUserData = async (uid) => {
 
         const userDoc = doc(db, "User", uid);
         await deleteDoc(userDoc);
-    } catch (error) {
-        console.error("Error deleting user data:", error);
-        throw error; // Rethrow the error for higher-level error handling if needed
+    } catch (err) {
+        console.error("Error deleting user data:");
+        handleError(err);
     }
 };
 
-export const finishSetup = async (uid, habits, finishCallback) => {
+export const finishSetup = async (uid: string, habits: Habit[], finishCallback: () => void) => {
     if (!uid || !habits) {
         console.error("Error: uid or habits are not set");
         return;
@@ -88,7 +89,8 @@ export const finishSetup = async (uid, habits, finishCallback) => {
         await updateDoc(userDoc, { isSetup: true });
         finishCallback();
         console.log("isSetup updated successfully");
-    } catch (e) {
-        console.error("An error occurred during setup: ", e);
+    } catch (err) {
+        console.error("An error occurred during setup:");
+        handleError(err);
     }
 };

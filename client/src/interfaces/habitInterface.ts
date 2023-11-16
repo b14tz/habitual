@@ -1,7 +1,8 @@
+import { handleError } from "../lib/error";
 import { db } from "../lib/firebase";
 import { doc, collection, query, where, getDocs, addDoc, updateDoc, deleteDoc } from "firebase/firestore";
 
-export const getUserHabits = async (uid) => {
+export const getUserHabits = async (uid: string) => {
     if (uid === "") {
         console.error("uid is not set");
         return;
@@ -9,14 +10,14 @@ export const getUserHabits = async (uid) => {
     const habitRef = collection(db, "Habit");
     const q = query(habitRef, where("userId", "==", uid));
     const querySnapshot = await getDocs(q);
-    const habits = [];
+    const habits: any[] = [];
     querySnapshot.forEach((doc) => {
         habits.push(doc.data());
     });
     return habits;
 };
 
-export const getUserCurrentHabits = async (uid) => {
+export const getUserCurrentHabits = async (uid: string) => {
     if (uid === "") {
         console.error("uid is not set");
         return;
@@ -24,14 +25,14 @@ export const getUserCurrentHabits = async (uid) => {
     const habitRef = collection(db, "Habit");
     const q = query(habitRef, where("userId", "==", uid), where("active", "==", true));
     const querySnapshot = await getDocs(q);
-    const habits = [];
+    const habits: any[] = [];
     querySnapshot.forEach((doc) => {
         habits.push(doc.data());
     });
     return habits;
 };
 
-export const addHabit = async (uid, title, goalUnit, goalNumber, color) => {
+export const addHabit = async (uid: string, title: string, goalUnit: string, goalNumber: number, color: string) => {
     if (uid === "") {
         console.error("uid is not set");
         return;
@@ -50,7 +51,7 @@ export const addHabit = async (uid, title, goalUnit, goalNumber, color) => {
     });
 };
 
-export const editHabit = async (habitId, habit) => {
+export const editHabit = async (habitId: string, habit: Partial<Habit>) => {
     if (!habitId || !habit) {
         console.error("habit id or habit is not set");
         return;
@@ -63,7 +64,7 @@ export const editHabit = async (habitId, habit) => {
     }
 };
 
-export const deleteHabit = async (habitId) => {
+export const deleteHabit = async (habitId: string) => {
     if (!habitId) {
         console.error("habit id is not set");
         return;
@@ -71,7 +72,8 @@ export const deleteHabit = async (habitId) => {
     try {
         const habitDoc = doc(db, "Habit", habitId);
         await deleteDoc(habitDoc);
-    } catch (e) {
-        console.error("Error deleting habit: ", e);
+    } catch (err) {
+        console.error("Error deleting habit:");
+        handleError(err);
     }
 };

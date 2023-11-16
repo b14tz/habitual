@@ -8,7 +8,8 @@ import {
     sendPasswordResetEmail,
     signOut,
 } from "firebase/auth";
-import { getFirestore, query, getDocs, collection, where, addDoc, doc, setDoc } from "firebase/firestore";
+import { getFirestore, query, getDocs, collection, where, doc, setDoc } from "firebase/firestore";
+import { handleError } from "./error";
 
 // Web Firebase Configuration
 const firebaseConfig = {
@@ -48,21 +49,19 @@ export const signInWithGoogle = async () => {
             });
         }
     } catch (err) {
-        console.error(err);
-        alert(err.message);
+        handleError(err);
     }
 };
 
-export const logInWithEmailAndPassword = async (email, password) => {
+export const logInWithEmailAndPassword = async (email: string, password: string) => {
     try {
         await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
-        console.error(err);
-        alert(err.message);
+        handleError(err);
     }
 };
 
-export const registerWithEmailAndPassword = async (name, email, password) => {
+export const registerWithEmailAndPassword = async (name: string, email: string, password: string) => {
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
@@ -74,18 +73,16 @@ export const registerWithEmailAndPassword = async (name, email, password) => {
             uid: user.uid,
         });
     } catch (err) {
-        console.error(err);
-        alert(err.message);
+        handleError(err);
     }
 };
 
-export const sendPasswordReset = async (email) => {
+export const sendPasswordReset = async (email: string) => {
     try {
         await sendPasswordResetEmail(auth, email);
         alert("Password reset link sent!");
     } catch (err) {
-        console.error(err);
-        alert(err.message);
+        handleError(err);
     }
 };
 
