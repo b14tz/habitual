@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import HabitGridCell from "./HabitGridCell";
 import { generateGridData } from "../../lib/grid";
 import { getRgbColor } from "../../lib/color";
 
-export default function HabitGrid(chartColor) {
+export default function HabitGrid({ chartColor }: { chartColor: string }) {
     const scrollableRef = useRef(null);
 
     function scrollToRight() {

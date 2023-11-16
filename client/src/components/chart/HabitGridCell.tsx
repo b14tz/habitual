@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function HabitGridCell({ color, date, day, dayName, month, monthName, year, progress, bg, ph }) {
     const [tooltipVisible, setTooltipVisible] = useState(false);
 
     const cellStyle = {
-        backgroundColor: `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${progress})`,
+        backgroundColor: `rgba(${111}, ${111}, ${111}, ${progress})`,
         visibility: ph ? "hidden" : "visible",
     };
 

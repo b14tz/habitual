@@ -1,4 +1,4 @@
-const colorsToRgb = {
+const colorsToRgb: { [key: string]: number[] } = {
     red: [232, 80, 91],
     orange: [232, 121, 80],
     yellow: [249, 213, 110],
@@ -10,7 +10,7 @@ const colorsToRgb = {
     grey: [138, 138, 138],
 };
 
-const colorsToTailwind = {
+const colorsToTailwind: { [key: string]: string } = {
     red: "bg-red-1",
     orange: "bg-orange-1",
     yellow: "bg-yellow-1",
@@ -22,10 +22,10 @@ const colorsToTailwind = {
     grey: "bg-grey-1",
 };
 
-export const getRgbColor = (color) => {
+export const getRgbColor = (color: string) => {
     return colorsToRgb[color];
 };
 
-export const getTailwindColor = (color) => {
+export const getTailwindColor = (color: string): string => {
     return colorsToTailwind[color];
 };

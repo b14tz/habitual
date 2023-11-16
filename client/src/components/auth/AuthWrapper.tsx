@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { auth } from "../../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getUserData } from "../../interfaces/userInterface";
 
-export default function AuthAndSetupWrapper({ children }) {
+export default function AuthAndSetupWrapper({ children }: { children: JSX.Element }) {
     const [user, loading] = useAuthState(auth);
     const [isSetup, setIsSetup] = useState(null);
 
