@@ -46,7 +46,7 @@ export default function ListItem({
                                 "rounded-full h-4 w-4 mr-2" +
                                 (completionStatus
                                     ? " bg-t-primary dark:bg-dt-primary "
-                                    : "bg-t-secondary border-2 border-t-primary dark:border-dt-primary")
+                                    : " border-2 border-t-primary dark:border-dt-primary")
                             }
                             onClick={toggleCompleteTask}
                         />
