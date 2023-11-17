@@ -1,13 +1,21 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, MouseEvent } from "react";
 
-export default function ColorPicker({ index, color, handleColorChange }) {
+export default function ColorPicker({
+    index,
+    color,
+    handleColorChange,
+}: {
+    index: number;
+    color: string;
+    handleColorChange: (index: number, event: MouseEvent<HTMLButtonElement>) => void;
+}) {
     const [open, setOpen] = useState(false);
 
     // the reference and useEffect are used to handle the closing of the color picker
-    let popupRef = useRef();
+    let popupRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
-        let handler = (e) => {
-            if (popupRef.current && !popupRef.current.contains(e.target)) {
+        let handler = (e: Event) => {
+            if (popupRef.current && !popupRef.current.contains(e.target as Node)) {
                 setOpen(false);
             }
         };
@@ -21,7 +29,6 @@ export default function ColorPicker({ index, color, handleColorChange }) {
         <div ref={popupRef}>
             <button
                 type="button"
-                label="color-picker-btn"
                 className={`${color} ml-4 rounded-full border-b-tertiary dark:border-db-tertiary border-[4px] h-[30px] w-[30px] relative`}
                 onClick={() => setOpen(!open)}
             />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { MouseEvent, useState } from "react";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 
 export default function ListItem({
@@ -10,18 +10,35 @@ export default function ListItem({
     goalUnit,
     status,
     toggleCompletion,
-    setHabits,
     handleEditPopup,
     handleDeletePopup,
+}: {
+    i: number;
+    id: number;
+    title: string;
+    color: string;
+    goalNumber: number;
+    goalUnit: string;
+    status: boolean;
+    toggleCompletion: (i: number) => void;
+    handleEditPopup: (
+        i: number,
+        id: number,
+        title: string,
+        color: string,
+        goalNumber: number,
+        goalUnit: string
+    ) => void;
+    handleDeletePopup: (i: number, id: number) => void;
 }) {
     const [completionStatus, setCompletionStatus] = useState(status);
     const [popup, setPopup] = useState(false);
 
-    const toggleCompleteTask = (event) => {
+    const toggleCompleteTask = (event: MouseEvent<HTMLButtonElement>) => {
         toggleCompletion(i);
         setCompletionStatus(!completionStatus);
         let classes = `rounded-full h-4 w-4 mr-2 `;
-        event.target.className = completionStatus
+        event.currentTarget.className = completionStatus
             ? classes + `bg-b-primary dark:bg-db-primary border-2 border-t-primary dark:border-dt-primary`
             : classes + `bg-t-primary dark:bg-dt-primary`;
     };
@@ -29,7 +46,7 @@ export default function ListItem({
     // const handleClickOutside = () => {
     //   console.log("is the menu open? ", popup)
 
-    //   // if the button or the popup wasn't hit, close it
+    // if the button or the popup wasn't hit, close it
     //   setPopup(false)
     // }
 

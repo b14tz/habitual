@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 
-export default function ProgressCircle({ habits, darkMode }) {
+export default function ProgressCircle({ habits, darkMode }: { habits: Habit[]; darkMode: boolean }) {
     const [text, setText] = useState("");
     const [value, setValue] = useState(0);
 

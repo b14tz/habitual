@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ListItem from "./ListItem";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import AddHabitModal from "../modals/AddHabitModal";
@@ -10,7 +10,7 @@ export default function CheckList({ habits, setHabits, name, toggleCompletion })
     const [editModal, setEditModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [id, setId] = useState(null);
+    const [id, setId] = useState<number | null>(null);
     const [editValues, setEditValues] = useState({});
 
     function handleEditPopup(index, id, title, color, goalNumber, goalUnit) {
@@ -26,7 +26,7 @@ export default function CheckList({ habits, setHabits, name, toggleCompletion })
         setEditModal(true);
     }
 
-    function handleDeletePopup(index, id) {
+    function handleDeletePopup(index: number, id: number) {
         setId(id);
         setCurrentIndex(index);
         setDeleteModal(true);
@@ -39,7 +39,6 @@ export default function CheckList({ habits, setHabits, name, toggleCompletion })
                     key={i}
                     i={i}
                     {...habits[i]}
-                    setHabits={setHabits}
                     toggleCompletion={toggleCompletion}
                     handleEditPopup={handleEditPopup}
                     handleDeletePopup={handleDeletePopup}

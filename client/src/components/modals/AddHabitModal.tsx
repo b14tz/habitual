@@ -1,21 +1,29 @@
-import React, { useState } from "react";
+import { FormEvent, useState } from "react";
 import ColorPicker from "../ColorPicker";
 import { addHabit } from "../../interfaces/habitInterface";
 import { auth } from "../../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-export default function AddHabitModal({ open, setOpen, setHabits }) {
+export default function AddHabitModal({
+    open,
+    setOpen,
+    setHabits,
+}: {
+    open: boolean;
+    setOpen: () => void;
+    setHabits: () => void;
+}) {
     const [title, setTitle] = useState("");
-    const [goalNumber, setGoalNumber] = useState("");
+    const [goalNumber, setGoalNumber] = useState(0);
     const [goalUnit, setGoalUnit] = useState("");
     const [color, setColor] = useState("bg-red-1");
     const [user] = useAuthState(auth);
 
-    function handleColorChange(index, event) {
+    function handleColorChange(index, event: MouseEvent) {
         setColor(event.target.value);
     }
 
-    async function handleSubmit(e) {
+    async function handleSubmit(e: FormEvent) {
         e.preventDefault();
         await addHabit(user.uid, title, goalUnit, goalNumber, color);
         setHabits((prev) => {

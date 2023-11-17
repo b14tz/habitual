@@ -1,4 +1,3 @@
-import { React } from "react";
 import { Cog6ToothIcon as SettingsIconSolid } from "@heroicons/react/24/solid";
 import { SunIcon, MoonIcon, Cog6ToothIcon as SettingsIconOutline } from "@heroicons/react/24/outline";
 import { HomeIcon as HomeIconSolid } from "@heroicons/react/20/solid";
@@ -7,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-export default function Nav({ darkMode, toggleDarkMode }) {
+export default function Nav({ darkMode, toggleDarkMode }: { darkMode: boolean; toggleDarkMode: () => void }) {
     const navigate = useNavigate();
     const [user] = useAuthState(auth);
 
