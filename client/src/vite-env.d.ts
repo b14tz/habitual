@@ -14,6 +14,8 @@ interface Habit {
     goalNumber: number;
     goalUnit: string;
     user: User;
+    id: string;
+    userId: string;
 }
 
 interface GridCell {

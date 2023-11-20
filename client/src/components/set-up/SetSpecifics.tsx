@@ -1,9 +1,18 @@
-import React from "react";
+import { MouseEvent } from "react";
 import ColorPicker from "../ColorPicker";
+import { getTailwindColor } from "../../lib/color";
 
-export default function SetSpecifics({ habits, setHabits, specificError }) {
-    const handleColorChange = (index, event) => {
-        const newColor = event.target.value;
+export default function SetSpecifics({
+    habits,
+    setHabits,
+    specificError,
+}: {
+    habits: Habit[];
+    setHabits: () => void;
+    specificError: string;
+}) {
+    const handleColorChange = (index: number, event: MouseEvent<HTMLButtonElement>) => {
+        const newColor = event.currentTarget.value;
         const updatedHabits = [...habits];
         updatedHabits[index] = { ...updatedHabits[index], color: newColor };
         setHabits(updatedHabits);
@@ -47,7 +56,7 @@ export default function SetSpecifics({ habits, setHabits, specificError }) {
                             </div>
                             <ColorPicker
                                 index={index}
-                                color={habits[index].color}
+                                color={getTailwindColor(habits[index].color)}
                                 handleColorChange={handleColorChange}
                             />
                         </div>

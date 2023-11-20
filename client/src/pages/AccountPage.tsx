@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, MouseEvent } from "react";
 import HabitGrid from "../components/chart/HabitGrid";
 import { logout } from "../lib/firebase";
 import ColorPicker from "../components/ColorPicker";
@@ -10,8 +10,18 @@ import DeleteAccountModal from "../components/modals/DeleteAccountModal";
 import ChangeNameModal from "../components/modals/ChangeNameModal";
 import { getTailwindColor } from "../lib/color";
 
-export default function AccountPage({ name, setName, mainChartColor, setMainChartColor }) {
-    const [allHabits, setAllHabits] = useState([]);
+export default function AccountPage({
+    name,
+    setName,
+    mainChartColor,
+    setMainChartColor,
+}: {
+    name: string;
+    setName: () => void;
+    mainChartColor: string;
+    setMainChartColor: () => void;
+}) {
+    const [allHabits, setAllHabits] = useState<Habit[]>([]);
     const [currentHabit, setCurrentHabit] = useState();
     const [changeNamePopup, setChangeNamePopup] = useState(false);
     const [deleteAccountPopup, setDeleteAccountPopup] = useState(false);
@@ -25,6 +35,7 @@ export default function AccountPage({ name, setName, mainChartColor, setMainChar
         }
         getAllHabits();
     }, [user]);
+
     function handleColorChange(_, event) {
         setMainChartColor(event.target.value);
     }
@@ -39,8 +50,8 @@ export default function AccountPage({ name, setName, mainChartColor, setMainChar
         });
     }
 
-    function handleSelectChange(e) {
-        const index = e.target.value;
+    function handleSelectChange(e: MouseEvent<HTMLSelectElement>) {
+        const index = e.currentTarget.value;
         console.log(allHabits[index]);
         setCurrentHabit(allHabits[index]);
     }

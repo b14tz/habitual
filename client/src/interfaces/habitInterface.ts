@@ -10,9 +10,21 @@ export const getUserHabits = async (uid: string) => {
     const habitRef = collection(db, "Habit");
     const q = query(habitRef, where("userId", "==", uid));
     const querySnapshot = await getDocs(q);
-    const habits: any[] = [];
+    const habits: Habit[] = [];
     querySnapshot.forEach((doc) => {
-        habits.push(doc.data());
+        const data = doc.data();
+        console.log(data);
+        habits.push({
+            title: data.title,
+            active: data.active,
+            color: data.color,
+            dateCreated: data.dateCreated,
+            goalNumber: data.goalNumber,
+            goalUnit: data.goalUnit,
+            user: data.user,
+            id: data.id,
+            userId: data.userId,
+        });
     });
     return habits;
 };

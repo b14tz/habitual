@@ -3,6 +3,7 @@ import ColorPicker from "../ColorPicker";
 import { addHabit } from "../../interfaces/habitInterface";
 import { auth } from "../../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { getTailwindColor } from "../../lib/color";
 
 export default function AddHabitModal({
     open,
@@ -73,7 +74,7 @@ export default function AddHabitModal({
                                     placeholder="minutes"
                                 />
 
-                                <ColorPicker color={color} handleColorChange={handleColorChange} />
+                                <ColorPicker color={getTailwindColor(color)} handleColorChange={handleColorChange} />
                             </div>
                             <div className="flex flex-row justify-end">
                                 <button onClick={() => setOpen((prev) => !prev)} type="button">

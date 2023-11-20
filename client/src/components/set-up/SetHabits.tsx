@@ -1,7 +1,17 @@
 import React, { useState } from "react";
 import { BackspaceIcon } from "@heroicons/react/24/solid";
 
-export default function SetHabits({ habits, setHabits, habitError, setHabitError }) {
+export default function SetHabits({
+    habits,
+    setHabits,
+    habitError,
+    setHabitError,
+}: {
+    habits: Habit[];
+    setHabits: () => void;
+    habitError: string;
+    setHabitError: (val: string) => void;
+}) {
     const [newItem, setNewItem] = useState({
         title: "",
         status: false,
@@ -10,7 +20,7 @@ export default function SetHabits({ habits, setHabits, habitError, setHabitError
         goalNumber: "",
     });
 
-    const handleKeyPress = (event) => {
+    const handleKeyPress = (event: Event) => {
         if (event.key === "Enter") {
             handleAddNewItem(event);
         }
