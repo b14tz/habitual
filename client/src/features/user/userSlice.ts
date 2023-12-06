@@ -1,12 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AppDispatch } from "../../app/store";
-import { logInWithEmailAndPassword, signInWithGoogle } from "../../lib/firebase";
-
-interface UserState {
-    loading: boolean;
-    user: User | undefined;
-    error: string | undefined;
-}
+import { logInWithEmailAndPassword, registerWithEmailAndPassword, signInWithGoogle } from "../../lib/firebase";
 
 const initialState: UserState = {
     loading: false,
@@ -25,35 +19,47 @@ export const login = createAsyncThunk<
     }
 >("user/login", async (data, thunkAPI) => {
     try {
-        let res = undefined
+        let res = undefined;
         if (data.googleAuth) {
-            res = await logInWithEmailAndPassword(data.email, data.password)
-        } else { 
-            res = await signInWithGoogle()
+            console.log("google auth");
+            res = await signInWithGoogle();
+        } else {
+            console.log("login with e and p");
+            res = await logInWithEmailAndPassword(data.email, data.password);
         }
-        
-        return res;
+
+        return res as User;
     } catch (err) {
+        const error = String(err);
         console.error(`Failed to log user in: ${err}`);
-        return thunkAPI.rejectWithValue(String(err));
+        return thunkAPI.rejectWithValue(error);
     }
 });
 
 export const signup = createAsyncThunk<
-User,
-SignupForm, 
-{
-    dispatch: AppDispatch;
-    rejectValue: string;
-}>("/user/signup", async (data, thunkAPI) => {
-    try {
-        const res = await 
-        return res;
-    } catch (err) {
-        console.error(`Failed to sign up user: ${err}`);
-        return thunkAPI.rejectWithValue(String(err));
+    User,
+    SignupForm,
+    {
+        dispatch: AppDispatch;
+        rejectValue: string;
     }
-})
+>("/user/signup", async (data, thunkAPI) => {
+    try {
+        let res = undefined;
+        if (data.googleAuth) {
+            console.log("google auth");
+            res = await signInWithGoogle();
+        } else {
+            console.log("register with e and p");
+            res = await registerWithEmailAndPassword(data.displayName, data.email, data.password);
+        }
+        return res as User;
+    } catch (err) {
+        const error = String(err);
+        console.error(`Failed to sign up user: ${err}`);
+        return thunkAPI.rejectWithValue(error);
+    }
+});
 
 export const userSlice = createSlice({
     name: "user",

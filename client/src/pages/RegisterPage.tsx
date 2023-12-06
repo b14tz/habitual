@@ -25,8 +25,6 @@ export default function RegisterPage() {
     } = useForm<SignupForm>();
 
     const onSubmit = (data: SignupForm) => {
-        console.log(data);
-        console.log(errors);
         registerWithEmailAndPassword(data.displayName, data.email, data.password);
     };
 

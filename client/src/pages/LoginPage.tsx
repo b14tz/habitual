@@ -11,7 +11,6 @@ export default function LoginPage() {
 
     useEffect(() => {
         if (loading) {
-            // trigger a loading screen
             return;
         }
         if (user) navigate("/");
@@ -23,10 +22,8 @@ export default function LoginPage() {
         formState: { errors },
     } = useForm<LoginForm>();
     const onSubmit = (data: LoginForm) => {
-        console.log(data);
         logInWithEmailAndPassword(data.email, data.password);
     };
-    console.log(errors);
 
     return (
         <div className="flex justify-center items-center w-full h-screen">

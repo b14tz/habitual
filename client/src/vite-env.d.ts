@@ -7,6 +7,12 @@ interface User {
     color: string;
 }
 
+interface UserState {
+    loading: boolean;
+    user: User | underfined;
+    error: string | undefined;
+}
+
 interface Habit {
     title: string;
     active: boolean;

@@ -48,6 +48,12 @@ export const signInWithGoogle = async () => {
                 uid: user.uid,
             });
         }
+        return {
+            name: user.displayName,
+            isSetup: false,
+            habits: [],
+            color: "red",
+        };
     } catch (err) {
         handleError(err);
     }
@@ -56,6 +62,12 @@ export const signInWithGoogle = async () => {
 export const logInWithEmailAndPassword = async (email: string, password: string) => {
     try {
         await signInWithEmailAndPassword(auth, email, password);
+        return {
+            name: "test",
+            isSetup: false,
+            habits: [],
+            color: "red",
+        };
     } catch (err) {
         handleError(err);
     }
@@ -72,6 +84,12 @@ export const registerWithEmailAndPassword = async (name: string, email: string, 
             isSetup: false,
             uid: user.uid,
         });
+        return {
+            name: user.displayName,
+            isSetup: false,
+            habits: [],
+            color: "red",
+        };
     } catch (err) {
         handleError(err);
     }
