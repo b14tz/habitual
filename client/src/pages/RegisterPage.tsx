@@ -32,36 +32,49 @@ export default function RegisterPage() {
 
     return (
         <div className="flex justify-center items-center w-full h-screen">
-            <div className="flex flex-col bg-b-secondary dark:bg-db-secondary p-10 rounded-lg drop-shadow-md">
-                <h1 className="text-purple-1 m-auto mb-6">Amplo</h1>
+            <div className="flex flex-col bg-b-secondary dark:bg-db-secondary p-8 rounded-lg drop-shadow-md space-y-4">
+                <h1 className="text-purple-1 m-auto">Amplo</h1>
 
-                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-                    <input
-                        type="text"
-                        placeholder="Display Name"
-                        {...register("displayName", { required: true, min: 2 })}
-                        className="p-2 mb-4 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary"
-                    />
-                    <input
-                        type="text"
-                        placeholder="Email Address"
-                        {...register("email", { required: true })}
-                        className="p-2 mb-4 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary"
-                    />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        {...register("password", { required: true, min: 8 })}
-                        className="p-2 mb-4 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary"
-                    />
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
+                    <div className="space-y-1">
+                        <input
+                            type="text"
+                            placeholder="Display Name"
+                            {...register("displayName", { required: "Display Name is required", minLength: 2 })}
+                            className="p-2 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary w-full"
+                        />
+                        {errors.displayName && (
+                            <p className="text-red-1 text-xs">{errors.displayName.message as string}</p>
+                        )}
+                    </div>
+
+                    <div className="space-y-1">
+                        <input
+                            type="text"
+                            placeholder="Email Address"
+                            {...register("email", { required: "Email Address is required" })}
+                            className="p-2 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary w-full"
+                        />
+                        {errors.email && <p className="text-red-1 text-xs">{errors.email.message as string}</p>}
+                    </div>
+
+                    <div className="space-y-1">
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            {...register("password", { required: "Password is required", minLength: 8 })}
+                            className="p-2 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary w-full"
+                        />
+                        {errors.password && <p className="text-red-1 text-xs">{errors.password.message as string}</p>}
+                    </div>
                     <input
                         type="submit"
                         value="Register"
-                        className="bg-purple-1 text-white mb-2 drop-shadow-md py-2 rounded-md"
+                        className="bg-purple-1 text-white drop-shadow-md py-2 rounded-md w-full"
                     />
                 </form>
 
-                <div className="flex items-center mb-2">
+                <div className="flex items-center">
                     <hr className="flex-grow border-t-tertiary" />
                     <span className="px-4 text-t-tertiary">
                         <p>or</p>
@@ -70,13 +83,13 @@ export default function RegisterPage() {
                 </div>
                 <button
                     type="button"
-                    className="bg-b-tertiary text-black mb-2 drop-shadow-md py-2 rounded-md flex flex-row justify-center items-center"
+                    className="bg-b-tertiary text-black drop-shadow-md py-2 rounded-md flex flex-row justify-center items-center"
                     onClick={signInWithGoogle}
                 >
                     <img src={googleLogo} className="w-7 mr-2" />
                     <p>Register with Google</p>
                 </button>
-                <div className="mt-4 flex flex-row space-x-2">
+                <div className="flex flex-row space-x-2">
                     <p> Already have an account?</p>
                     <p>
                         <Link to="/login" className="text-purple-1">
