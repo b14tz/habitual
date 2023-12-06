@@ -22,6 +22,13 @@ export default function SetupPage({ habits, setHabits }) {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
+    const [form, setForm] = useState({
+        displayName: "",
+        email: "",
+        password: "",
+        googleAuth: false,
+    });
+
     const [habitError, setHabitError] = useState("");
     const [specificError, setSpecificError] = useState({
         message: "",

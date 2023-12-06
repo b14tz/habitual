@@ -1,14 +1,6 @@
 import { useRef, useState, useEffect, MouseEvent } from "react";
 
-export default function ColorPicker({
-    index,
-    color,
-    handleColorChange,
-}: {
-    index: number;
-    color: string;
-    handleColorChange: (index: number, event: MouseEvent<HTMLButtonElement>) => void;
-}) {
+export default function ColorPicker({ color, setColor }: { color: string; setColor: (newColor: string) => void }) {
     const [open, setOpen] = useState(false);
 
     // the reference and useEffect are used to handle the closing of the color picker
@@ -25,6 +17,11 @@ export default function ColorPicker({
         };
     });
 
+    const handleColorChange = (event: MouseEvent<HTMLButtonElement>) => {
+        console.log(event.currentTarget.value);
+        setColor(event.currentTarget.value);
+    };
+
     return (
         <div ref={popupRef}>
             <button
@@ -39,19 +36,19 @@ export default function ColorPicker({
                             type="button"
                             value="red"
                             className="bg-red-1 m-1 rounded-full h-[20px] w-[20px]"
-                            onClick={(event) => handleColorChange(index, event)}
+                            onClick={handleColorChange}
                         ></button>
                         <button
                             type="button"
                             value="orange"
                             className="bg-orange-1 m-1 rounded-full h-[20px] w-[20px]"
-                            onClick={(event) => handleColorChange(index, event)}
+                            onClick={handleColorChange}
                         ></button>
                         <button
                             type="button"
                             value="yellow"
                             className="bg-yellow-1 m-1 rounded-full h-[20px] w-[20px]"
-                            onClick={(event) => handleColorChange(index, event)}
+                            onClick={handleColorChange}
                         ></button>
                     </div>
                     <div className="flex flex-row">
@@ -59,19 +56,19 @@ export default function ColorPicker({
                             type="button"
                             value="green"
                             className="bg-green-1 m-1 rounded-full h-[20px] w-[20px]"
-                            onClick={(event) => handleColorChange(index, event)}
+                            onClick={handleColorChange}
                         ></button>
                         <button
                             type="button"
                             value="blue"
                             className="bg-blue-1 m-1 rounded-full h-[20px] w-[20px]"
-                            onClick={(event) => handleColorChange(index, event)}
+                            onClick={handleColorChange}
                         ></button>
                         <button
                             type="button"
                             value="purple"
                             className="bg-purple-1 m-1 rounded-full h-[20px] w-[20px]"
-                            onClick={(event) => handleColorChange(index, event)}
+                            onClick={handleColorChange}
                         ></button>
                     </div>
                     <div className="flex flex-row">
@@ -79,19 +76,19 @@ export default function ColorPicker({
                             type="button"
                             value="pink"
                             className="bg-pink-1 m-1 rounded-full h-[20px] w-[20px]"
-                            onClick={(event) => handleColorChange(index, event)}
+                            onClick={handleColorChange}
                         ></button>
                         <button
                             type="button"
                             value="brown"
                             className="bg-brown-1 m-1 rounded-full h-[20px] w-[20px]"
-                            onClick={(event) => handleColorChange(index, event)}
+                            onClick={handleColorChange}
                         ></button>
                         <button
                             type="button"
                             value="grey"
                             className="bg-grey-1 m-1 rounded-full h-[20px] w-[20px]"
-                            onClick={(event) => handleColorChange(index, event)}
+                            onClick={handleColorChange}
                         ></button>
                     </div>
                 </div>

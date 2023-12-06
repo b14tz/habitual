@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
@@ -7,54 +7,58 @@ import {
     signInWithGoogle,
 } from "../lib/firebase";
 import googleLogo from "../assets/google.png";
+import { useForm } from "react-hook-form";
 
 export default function RegisterPage() {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
-
-    function onSubmit(e) {
-        e.preventDefault();
-        registerWithEmailAndPassword(name, email, password);
-    }
 
     useEffect(() => {
         if (loading) return;
         if (user) navigate("/");
     }, [user, loading]);
 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<SignupForm>();
+
+    const onSubmit = (data: SignupForm) => {
+        console.log(data);
+        console.log(errors);
+        registerWithEmailAndPassword(data.displayName, data.email, data.password);
+    };
+
     return (
         <div className="flex justify-center items-center w-full h-screen">
             <div className="flex flex-col bg-b-secondary dark:bg-db-secondary p-10 rounded-lg drop-shadow-md">
-                <form className="flex flex-col" onSubmit={onSubmit}>
-                    <h1 className="text-purple-1 m-auto mb-6">Amplo</h1>
+                <h1 className="text-purple-1 m-auto mb-6">Amplo</h1>
+
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
                     <input
-                        autoFocus
                         type="text"
-                        className="p-2 mb-4 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
                         placeholder="Display Name"
+                        {...register("displayName", { required: true, min: 2 })}
+                        className="p-2 mb-4 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary"
                     />
                     <input
                         type="text"
-                        className="p-2 mb-4 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
                         placeholder="Email Address"
+                        {...register("email", { required: true })}
+                        className="p-2 mb-4 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary"
                     />
                     <input
                         type="password"
-                        className="p-2 mb-4 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
                         placeholder="Password"
+                        {...register("password", { required: true, min: 8 })}
+                        className="p-2 mb-4 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary"
                     />
-                    <button className="bg-purple-1 text-white mb-2 drop-shadow-md py-2 rounded-md">
-                        <p>Register</p>
-                    </button>
+                    <input
+                        type="submit"
+                        value="Register"
+                        className="bg-purple-1 text-white mb-2 drop-shadow-md py-2 rounded-md"
+                    />
                 </form>
 
                 <div className="flex items-center mb-2">
@@ -72,9 +76,9 @@ export default function RegisterPage() {
                     <img src={googleLogo} className="w-7 mr-2" />
                     <p>Register with Google</p>
                 </button>
-                <div className="mt-4">
+                <div className="mt-4 flex flex-row space-x-2">
+                    <p> Already have an account?</p>
                     <p>
-                        Already have an account?{" "}
                         <Link to="/login" className="text-purple-1">
                             Login here
                         </Link>

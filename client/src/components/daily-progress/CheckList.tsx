@@ -6,7 +6,7 @@ import EditHabitModal from "../modals/EditHabitModal";
 import DeleteHabitModal from "../modals/DeleteHabitModal";
 
 export default function CheckList({ habits, setHabits, name, toggleCompletion }) {
-    const [addModal, setAddModal] = useState(false);
+    const [addModal, setAddModal] = useState<boolean>(false);
     const [editModal, setEditModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);

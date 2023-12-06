@@ -11,7 +11,7 @@ export default function AddHabitModal({
     setHabits,
 }: {
     open: boolean;
-    setOpen: () => void;
+    setOpen: (val: boolean) => void;
     setHabits: () => void;
 }) {
     const [title, setTitle] = useState("");
@@ -19,10 +19,6 @@ export default function AddHabitModal({
     const [goalUnit, setGoalUnit] = useState("");
     const [color, setColor] = useState("bg-red-1");
     const [user] = useAuthState(auth);
-
-    function handleColorChange(index, event: MouseEvent) {
-        setColor(event.target.value);
-    }
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();
@@ -74,7 +70,7 @@ export default function AddHabitModal({
                                     placeholder="minutes"
                                 />
 
-                                <ColorPicker color={getTailwindColor(color)} handleColorChange={handleColorChange} />
+                                <ColorPicker color={getTailwindColor(color)} setColor={setColor} />
                             </div>
                             <div className="flex flex-row justify-end">
                                 <button onClick={() => setOpen((prev) => !prev)} type="button">

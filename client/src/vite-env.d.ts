@@ -4,6 +4,7 @@ interface User {
     name: string;
     isSetup: boolean;
     habits: Habits[];
+    color: string;
 }
 
 interface Habit {
@@ -28,4 +29,17 @@ interface GridCell {
 interface Timestamp {
     seconds: number;
     nanoseconds: number;
+}
+
+interface SignupForm {
+    displayName: string;
+    email: string;
+    password: string;
+    googleAuth: boolean;
+}
+
+interface LoginForm {
+    email: string;
+    password: string;
+    googleAuth: boolean;
 }
