@@ -6,11 +6,15 @@ import { useForm } from "react-hook-form";
 import { createHabit } from "../../api/habit";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../api/firebase";
+import { getCurrentDate } from "../../lib/date";
 
 export default function List({ habits, setHabits }: { habits: Habit[]; setHabits: (val: any) => void }) {
     const [open, setOpen] = useState(false);
     const [user] = useAuthState(auth);
 
+    console.log(habits);
+
+    const today = getCurrentDate();
     const {
         register,
         handleSubmit,
@@ -28,7 +32,16 @@ export default function List({ habits, setHabits }: { habits: Habit[]; setHabits
                 console.error("Error creating habit");
             }
         } else {
-            console.error("Error adding habit: User was not set");
+            setHabits((prev: Habit[]) => [
+                ...prev,
+                {
+                    id: prev.length,
+                    color: data.color,
+                    title: data.title,
+                    active: true,
+                    history: { [today]: { goalNumber: data.goalNumber, goalUnit: data.goalUnit, progress: 0 } },
+                },
+            ]);
         }
         setOpen(false);
     };

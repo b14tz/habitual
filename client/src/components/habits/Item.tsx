@@ -5,12 +5,15 @@ import { useForm } from "react-hook-form";
 import { Popover, PopoverContent, PopoverTrigger } from "../Popover";
 import { deleteHabit, updateHabit, updateHistory } from "../../api/habit";
 import { getCurrentDate } from "../../lib/date";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../api/firebase";
 
 const today = getCurrentDate();
 
 export default function Item({ habit, setHabits }: { habit: Habit; setHabits: (val: any) => void }) {
     const [editOpen, setEditOpen] = useState(false);
     const [removeOpen, setRemoveOpen] = useState(false);
+    const [user] = useAuthState(auth);
 
     const {
         register,
@@ -26,7 +29,9 @@ export default function Item({ habit, setHabits }: { habit: Habit; setHabits: (v
     });
 
     const handleSetProgress = async (progress: number) => {
-        await updateHistory(habit.id, today, { progress });
+        if (user) {
+            await updateHistory(habit.id, today, { progress });
+        }
         setHabits((prevHabits: Habit[]) => {
             return prevHabits.map((prevHabit) => {
                 if (prevHabit.id === habit.id) {
@@ -47,8 +52,10 @@ export default function Item({ habit, setHabits }: { habit: Habit; setHabits: (v
     };
 
     const handleEditHabit = async (data: HabitForm) => {
-        await updateHabit(habit.id, { title: data.title, color: data.color });
-        await updateHistory(habit.id, today, { goalNumber: data.goalNumber, goalUnit: data.goalUnit });
+        if (user) {
+            await updateHabit(habit.id, { title: data.title, color: data.color });
+            await updateHistory(habit.id, today, { goalNumber: data.goalNumber, goalUnit: data.goalUnit });
+        }
         setHabits((prevHabits: Habit[]) =>
             prevHabits.map((prevHabit) =>
                 prevHabit.id === habit.id
@@ -72,7 +79,9 @@ export default function Item({ habit, setHabits }: { habit: Habit; setHabits: (v
     };
 
     const handleRetireHabit = async () => {
-        await updateHabit(habit.id, { active: false });
+        if (user) {
+            await updateHabit(habit.id, { active: false });
+        }
         setHabits((prevHabits: Habit[]) =>
             prevHabits.map((prevHabit) =>
                 prevHabit.id === habit.id
@@ -87,7 +96,9 @@ export default function Item({ habit, setHabits }: { habit: Habit; setHabits: (v
     };
 
     const handleDeleteHabit = async () => {
-        await deleteHabit(habit.id);
+        if (user) {
+            await deleteHabit(habit.id);
+        }
         setHabits((prevHabits: Habit[]) => prevHabits.filter((prevHabit) => prevHabit.id !== habit.id));
         setRemoveOpen(false);
     };
