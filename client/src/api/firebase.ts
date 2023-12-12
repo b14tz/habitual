@@ -7,9 +7,11 @@ import {
     createUserWithEmailAndPassword,
     sendPasswordResetEmail,
     signOut,
+    updateProfile,
+    reauthenticateWithPopup,
+    User,
 } from "firebase/auth";
 import { getFirestore, query, getDocs, collection, where, doc, setDoc } from "firebase/firestore";
-import { handleError } from "./error";
 
 // Web Firebase Configuration
 const firebaseConfig = {
@@ -33,7 +35,7 @@ export const db = getFirestore(app);
 
 // Google Authentication Logic
 const googleProvider = new GoogleAuthProvider();
-export const signInWithGoogle = async () => {
+export const googleAuthorize = async () => {
     try {
         const res = await signInWithPopup(auth, googleProvider);
         const user = res.user;
@@ -46,30 +48,29 @@ export const signInWithGoogle = async () => {
                 email: user.email,
                 isSetup: false,
                 uid: user.uid,
+                color: "red",
             });
         }
-        return {
-            name: user.displayName,
-            isSetup: false,
-            habits: [],
-            color: "red",
-        };
     } catch (err) {
-        handleError(err);
+        console.error(err);
     }
 };
 
+export async function reauthWithGoogle(user: User) {
+    return await reauthenticateWithPopup(user, googleProvider);
+}
+
 export const logInWithEmailAndPassword = async (email: string, password: string) => {
     try {
-        await signInWithEmailAndPassword(auth, email, password);
+        const data = await signInWithEmailAndPassword(auth, email, password);
         return {
-            name: "test",
+            name: data.user.displayName,
             isSetup: false,
             habits: [],
             color: "red",
         };
     } catch (err) {
-        handleError(err);
+        console.error(err);
     }
 };
 
@@ -77,6 +78,7 @@ export const registerWithEmailAndPassword = async (name: string, email: string, 
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
+        await updateProfile(user, { displayName: name });
         await setDoc(doc(db, "User", user.uid), {
             name: name,
             authProvider: "local",
@@ -84,6 +86,7 @@ export const registerWithEmailAndPassword = async (name: string, email: string, 
             isSetup: false,
             uid: user.uid,
         });
+
         return {
             name: user.displayName,
             isSetup: false,
@@ -91,7 +94,7 @@ export const registerWithEmailAndPassword = async (name: string, email: string, 
             color: "red",
         };
     } catch (err) {
-        handleError(err);
+        console.error(err);
     }
 };
 
@@ -100,7 +103,7 @@ export const sendPasswordReset = async (email: string) => {
         await sendPasswordResetEmail(auth, email);
         alert("Password reset link sent!");
     } catch (err) {
-        handleError(err);
+        console.error(err);
     }
 };
 

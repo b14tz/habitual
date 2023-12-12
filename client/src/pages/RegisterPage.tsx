@@ -1,13 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import {
-    auth,
-    registerWithEmailAndPassword, // registerWithEmailAndPassword(name, email, password)
-    signInWithGoogle,
-} from "../lib/firebase";
-import googleLogo from "../assets/google.png";
 import { useForm } from "react-hook-form";
+
+import { auth, googleAuthorize, registerWithEmailAndPassword } from "../api/firebase";
+import googleLogo from "../assets/google.png";
 
 export default function RegisterPage() {
     const [user, loading] = useAuthState(auth);
@@ -22,28 +19,28 @@ export default function RegisterPage() {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<SignupForm>();
+    } = useForm<RegisterForm>();
 
-    const onSubmit = (data: SignupForm) => {
-        registerWithEmailAndPassword(data.displayName, data.email, data.password);
+    const onSubmit = async (data: RegisterForm) => {
+        await registerWithEmailAndPassword(data.name, data.email, data.password);
     };
 
     return (
         <div className="flex justify-center items-center w-full h-screen">
             <div className="flex flex-col bg-b-secondary dark:bg-db-secondary p-8 rounded-lg drop-shadow-md space-y-4">
-                <h1 className="text-purple-1 m-auto">Amplo</h1>
+                <button onClick={() => navigate("/")}>
+                    <h1 className="text-purple-1 m-auto">Amplo</h1>
+                </button>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
                     <div className="space-y-1">
                         <input
                             type="text"
                             placeholder="Display Name"
-                            {...register("displayName", { required: "Display Name is required", minLength: 2 })}
+                            {...register("name", { required: "Display Name is required", minLength: 2 })}
                             className="p-2 rounded-md shadow-inner bg-b-tertiary dark:bg-db-tertiary w-full"
                         />
-                        {errors.displayName && (
-                            <p className="text-red-1 text-xs">{errors.displayName.message as string}</p>
-                        )}
+                        {errors.name && <p className="text-red-1 text-xs">{errors.name.message as string}</p>}
                     </div>
 
                     <div className="space-y-1">
@@ -82,7 +79,7 @@ export default function RegisterPage() {
                 <button
                     type="button"
                     className="bg-b-tertiary text-black drop-shadow-md py-2 rounded-md flex flex-row justify-center items-center"
-                    onClick={signInWithGoogle}
+                    onClick={() => googleAuthorize()}
                 >
                     <img src={googleLogo} className="w-7 mr-2" />
                     <p>Register with Google</p>

@@ -44,9 +44,9 @@ export function generateGridData() {
         let progress = Math.random(); // retrieve progress for each day here
 
         // example: Mon 9-21-2023
-        let date = `${
-            dayKey[currentDate.getDay()]
-        } ${currentDate.getMonth()}-${currentDate.getDate()}-${currentDate.getFullYear()}`;
+        let date = `${dayKey[currentDate.getDay()]} ${
+            currentDate.getMonth() + 1
+        }-${currentDate.getDate()}-${currentDate.getFullYear()}`;
 
         data.push({
             date: date,

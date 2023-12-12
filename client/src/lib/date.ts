@@ -1,14 +1,11 @@
 export function getCurrentDate() {
     const currentDate = new Date();
-    const options: Intl.DateTimeFormatOptions = { month: "long", day: "numeric", year: "numeric" };
-    return currentDate.toLocaleDateString("en-US", options);
-}
 
-export function formatDate(timestamp: Timestamp) {
-    if (timestamp) {
-        const milliseconds = timestamp.seconds * 1000 + timestamp.nanoseconds / 1e6;
-        const date = new Date(milliseconds);
-        const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
-        return date.toLocaleDateString("en-US", options);
-    }
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // Adding 1 because months are zero-based
+    const day = String(currentDate.getDate()).padStart(2, "0");
+
+    const dateString = `${month}-${day}-${year}`;
+
+    return dateString;
 }

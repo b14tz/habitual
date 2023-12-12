@@ -1,18 +1,17 @@
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../lib/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
-import googleLogo from "../assets/google.png";
 import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+import { auth, googleAuthorize, logInWithEmailAndPassword } from "../api/firebase";
+import googleLogo from "~/assets/google.png";
 
 export default function LoginPage() {
     const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (loading) {
-            return;
-        }
+        if (loading) return;
         if (user) navigate("/");
     }, [user, loading]);
 
@@ -21,14 +20,16 @@ export default function LoginPage() {
         handleSubmit,
         formState: { errors },
     } = useForm<LoginForm>();
-    const onSubmit = (data: LoginForm) => {
-        logInWithEmailAndPassword(data.email, data.password);
-    };
 
+    const onSubmit = async (data: LoginForm) => {
+        await logInWithEmailAndPassword(data.email, data.password);
+    };
     return (
         <div className="flex justify-center items-center w-full h-screen">
             <div className="flex flex-col bg-b-secondary dark:bg-db-secondary p-8 rounded-lg drop-shadow-md space-y-4">
-                <h1 className="text-purple-1 m-auto">Amplo</h1>
+                <button onClick={() => navigate("/")}>
+                    <h1 className="text-purple-1 m-auto">Amplo</h1>
+                </button>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
                     <div className="space-y-1">
@@ -67,7 +68,7 @@ export default function LoginPage() {
                 </div>
                 <button
                     className="bg-b-tertiary text-black drop-shadow-md py-2 rounded-md flex flex-row justify-center items-center"
-                    onClick={signInWithGoogle}
+                    onClick={() => googleAuthorize()}
                 >
                     <img src={googleLogo} className="w-7 mr-2" />
                     <p>Login with Google</p>

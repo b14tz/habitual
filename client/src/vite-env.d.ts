@@ -1,51 +1,60 @@
 /// <reference types="vite/client" />
 
-interface User {
-    name: string;
-    isSetup: boolean;
-    habits: Habits[];
-    color: string;
-}
-
-interface UserState {
-    loading: boolean;
-    user: User | underfined;
-    error: string | undefined;
-}
-
-interface Habit {
-    title: string;
-    active: boolean;
-    color: string;
-    dateCreated: Date;
-    goalNumber: number;
-    goalUnit: string;
-    user: User;
-    id: string;
-    userId: string;
-}
-
-interface GridCell {
-    rgb: number[];
-    date: string;
-    progress: number;
-    ph: boolean;
-}
-
-interface Timestamp {
-    seconds: number;
-    nanoseconds: number;
-}
-
-interface SignupForm {
-    displayName: string;
+interface RegisterForm {
     email: string;
+    name: string;
     password: string;
-    googleAuth: boolean;
 }
 
 interface LoginForm {
     email: string;
     password: string;
-    googleAuth: boolean;
+}
+
+interface HabitForm {
+    color: string;
+    goalNumber: number;
+    goalUnit: string;
+    title: string;
+}
+
+interface UserProfile {
+    id: string;
+    authProvider: string;
+    email: string;
+    isSetup: boolean;
+    name: string;
+    color: string;
+}
+
+interface Habit {
+    id: string;
+    active: boolean;
+    color: string;
+    dateCreated: Date;
+    dateRetired: Date | undefined;
+    history: Record<string, HabitHistory>;
+    title: string;
+}
+
+interface HabitHistory {
+    progress: number;
+    goalNumber: number;
+    goalUnit: string;
+}
+
+interface Grid {
+    habits: Habit[];
+}
+
+interface Cell {
+    rgbValues: number[];
+    date: string;
+    progress: number;
+    ph: boolean;
+}
+
+interface GridData {
+    value: number;
+    habits: string[];
 }

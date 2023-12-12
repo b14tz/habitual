@@ -5,6 +5,8 @@
 :root {
     --bg-white: #f7f8f9;
     --bg-black: #131314;
+    --bg-grey: #ffffff;
+    --bg-purple: #4942e4;
 }
 
 html {
@@ -53,27 +55,17 @@ select,
     font-size: 1rem;
 }
 
-/* width */
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    background: var(--bg-white);
-}
-.dark ::-webkit-scrollbar-track {
-    background: var(--bg-black);
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: var(--bg-black);
-    border-radius: 5px;
-}
-.dark ::-webkit-scrollbar-thumb {
-    background: var(--bg-white);
-    border-radius: 5px;
+.tooltip {
+    background-color: #fff;
+    padding: 5px;
+    position: relative;
+    border-radius: 10px;
+    width: fit-content;
+    filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));
+    font-family: "Geologica", sans-serif;
+    display: flex;
+    flex-direction: column;
+    font-size: small;
 }
 
 .dark {

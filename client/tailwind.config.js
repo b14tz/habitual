@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-    content: ["./src/**/*.{js,jsx,ts,tsx}"],
+    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
         extend: {
             colors: {
@@ -36,6 +36,11 @@ export default {
                 "pink-1": "#e850d9",
                 "brown-1": "#662f20",
                 "grey-1": "#8a8a8a",
+
+                "grid-0": "#B9B6E1",
+                "grid-1": "#A3A0D8",
+                "grid-2": "#872DE4",
+                "grid-3": "#4942E4",
             },
         },
     },
