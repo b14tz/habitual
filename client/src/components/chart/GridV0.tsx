@@ -87,7 +87,7 @@ export default class GridV0 extends React.Component<Props, State> {
             const popup = document.createElement("div");
             popup.classList.add("tooltip");
             popup.style.left = `${rect.left + 10}px`;
-            popup.style.top = `${rect.top - 370}px`;
+            popup.style.top = `${rect.top + 10}px`;
 
             // Create and append date element
             const dateElement = document.createElement("div");
