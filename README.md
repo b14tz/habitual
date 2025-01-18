@@ -2,7 +2,7 @@
 
 <!-- PROJECT LOGO -->
 
-# Amplo : Another Habit Tracking Tool
+# Habitual : Another Habit Tracking Tool
 
 <!-- TABLE OF CONTENTS -->
 <details>
